@@ -31,33 +31,33 @@ class Home extends FrontendController{
 
 	public function index(){
 
-      $province = converProvinceArray($this->provinceRepository->allProvince());
-      $slide = $this->slideRepository->findByField('main-slide', 'keyword', $this->language);
-      $asideBanner = $this->slideRepository->findByField('aside', 'keyword', $this->language);
-      $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
-      $productCatalogueList = recursive($productCatalogueList);
-      $product['count'] = $this->productRepository->count(['deleted_at' => 0]);
-      $widget = [
-         'bestSeller' =>  $this->widget->getWidgetKeyword('best-seller', $this->language),
-         'trending' =>  $this->widget->getWidgetKeyword('trending', $this->language),
-         'newProduct' =>  $this->widget->getWidgetKeyword('new-product', $this->language),
-         'feedback' =>  $this->widget->getWidgetKeyword('feedback', $this->language),
-         'categories' =>  $this->widget->getWidgetKeyword('categories', $this->language),
-      ];
+      // $province = converProvinceArray($this->provinceRepository->allProvince());
+      // $slide = $this->slideRepository->findByField('main-slide', 'keyword', $this->language);
+      // $asideBanner = $this->slideRepository->findByField('aside', 'keyword', $this->language);
+      // $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
+      // $productCatalogueList = recursive($productCatalogueList);
+      // $product['count'] = $this->productRepository->count(['deleted_at' => 0]);
+      // $widget = [
+      //    'bestSeller' =>  $this->widget->getWidgetKeyword('best-seller', $this->language),
+      //    'trending' =>  $this->widget->getWidgetKeyword('trending', $this->language),
+      //    'newProduct' =>  $this->widget->getWidgetKeyword('new-product', $this->language),
+      //    'feedback' =>  $this->widget->getWidgetKeyword('feedback', $this->language),
+      //    'categories' =>  $this->widget->getWidgetKeyword('categories', $this->language),
+      // ];
 
 
-      $general = convertGeneral($this->systemRepository->all('keyword, content'));
+      // $general = convertGeneral($this->systemRepository->all('keyword, content'));
 
-      $cart = $this->cartBie->formatCart($this->cart);
-      $seo = [
-         'meta_title' => (isset($general['seo_meta_title']) ? $general['seo_meta_title'] : ''),
-         'meta_description' => (isset($general['seo_meta_description']) ? $general['seo_meta_description'] : ''),
-         'meta_image' => $general['homepage_logo'],
-         'oh_type' => 'website',
-         'canonical' => BASE_URL,
-         'module' => 'homepage'
-      ];
-      $js = ['cart','core'];
+      // $cart = $this->cartBie->formatCart($this->cart);
+      // $seo = [
+      //    'meta_title' => (isset($general['seo_meta_title']) ? $general['seo_meta_title'] : ''),
+      //    'meta_description' => (isset($general['seo_meta_description']) ? $general['seo_meta_description'] : ''),
+      //    'meta_image' => $general['homepage_logo'],
+      //    'oh_type' => 'website',
+      //    'canonical' => BASE_URL,
+      //    'module' => 'homepage'
+      // ];
+      // $js = ['cart','core'];
 		$template = route('frontend.homepage.home.index');
       return view(route('frontend.homepage.layout.home'),
          compact(

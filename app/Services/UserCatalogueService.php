@@ -71,7 +71,7 @@ class UserCatalogueService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['title', 'permission'], Auth::id());
+         $payload = requestAcceptUpdate(['title', 'permission'], Auth::id());
          $payload['permission'] = (isset($payload['permission'])) ? json_encode($payload['permission']) : [];
          $flag = $this->userCatalogueRepository->update($payload, $id);
          $this->db->transCommit();

@@ -59,7 +59,7 @@ class SemesterService
    public function create(){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['title','day_start','day_end'], Auth::id());
+         $payload = requestAccept(['title','day_start','day_end','publish'], Auth::id());
          $id = $this->semesterRepository->create($payload);
 
          $this->db->transCommit();

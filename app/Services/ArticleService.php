@@ -104,12 +104,12 @@ class ArticleService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['article_catalogue_id', 'catalogue','image','album','publish'], Auth::id());
+         $payload = requestAcceptUpdate(['article_catalogue_id', 'catalogue','image','album','publish'], Auth::id());
          $payload['catalogue'] = (isset($payload['catalogue'])) ? json_encode($payload['catalogue']) : null;
          $flag = $this->articleRepository->update($payload, $id);
          if($flag > 0){
             //Translate
-            $payloadTranslate = requestAccept(
+            $payloadTranslate = requestAcceptUpdate(
                ['title', 'canonical','description','content','meta_title','meta_description','language_id']
             );
             $payloadTranslate['article_id'] = $id;

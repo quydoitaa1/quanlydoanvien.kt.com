@@ -38,7 +38,7 @@
                        <div class="title"><a class="maintitle" href="<?php echo site_url('backend/organization/branch/update/'.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
                        <div class="catalogue" style="font-size:10px">
                            <span style="color:#f00000;">Nơi quản lý: </span>
-                           <a class="" style="color:#333;" href="<?php echo site_url('backend/organization/faculty/update/'.$val['faculty_id']); ?>" title=""><?php echo ($val['cat_title']) ?? '' ?></a>
+                           <a class="" style="color:#333;" href="<?php echo site_url('backend/organization/branch/index/?faculty_id='.$val['faculty_id']); ?>" title=""><?php echo ($val['cat_title']) ?? '' ?></a>
                            <?php if(isset($cat_list) && is_array($cat_list) && count($cat_list)){ foreach($cat_list as $keyCat => $valCat){ ?>
                                <a class="" style="color:#333;" href="<?php echo site_url('backend/organization/branch/index?catalogueid='.$valCat['id']); ?>" title=""><?php echo $valCat['title'] ?></a><?php echo ($keyCat + 1 < count($cat_list)) ? ',' : '' ?>
                            <?php }} ?>

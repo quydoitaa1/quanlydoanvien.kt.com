@@ -74,7 +74,7 @@ class UserService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['email', 'fullname', 'user_catalogue_id', 'gender', 'image', 'birthday', 'address', 'phone', 'cityid', 'districtid', 'wardid'], Auth::id());
+         $payload = requestAcceptUpdate(['email', 'fullname', 'user_catalogue_id', 'gender', 'image', 'birthday', 'address', 'phone', 'cityid', 'districtid', 'wardid'], Auth::id());
          $flag = $this->userRepository->update($payload, $id);
          $this->db->transCommit();
          $this->db->transComplete();

@@ -29,15 +29,12 @@ $routes->setAutoRoute(true);
 
 
 $routes->get('/','Frontend\Homepage\Home::index');
-$routes->get('trang-chu'.HTSUFFIX,'Frontend\Homepage\Home::index');
-$routes->match(['get','post'],'gio-hang'.HTSUFFIX, 'Frontend\Cart\Cart::index');
-$routes->get('dat-hang-thanh-cong'.HTSUFFIX,'Frontend\Cart\Cart::orderSuccess');
+$routes->get('index'.HTSUFFIX,'Frontend\Homepage\Home::index');
 
 $routes->get('lien-he'.HTSUFFIX,'Frontend\Contact\Contact::index');
+$routes->get('chi-tiet-chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Event::index');
+$routes->get('chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Catalogue::index');
 
-
-$routes->post('thanh-toan'.HTSUFFIX,'Frontend\Cart\Cart::index', ['as' => 'payment']);
-$routes->get('thong-tin-don-hang'.HTSUFFIX, 'Frontend\Product\Cart::method');
 
 
 $routes->get('/admin', 'Backend/Authentication/Auth::login',['filter' => 'login' ]);
@@ -51,8 +48,8 @@ $routes->match(['get','post'],'backend/dashboard/dashboard/index', 'Backend/Dash
 
 
 $name = [
-    'user','user catalogue','article','article catalogue','attribute', 'attribute catalogue','location', 'location catalogue',
-    'panel', 'product', 'product catalogue', 'tour', 'tour catalogue','media', 'media catalogue', 'language',
+    'user','user catalogue','article','article catalogue',
+    'product', 'product catalogue', 'media', 'media catalogue', 'language',
     'organization','branch','faculty','event','semester'
 ];
 

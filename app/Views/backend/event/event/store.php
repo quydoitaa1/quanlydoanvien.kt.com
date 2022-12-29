@@ -27,21 +27,19 @@
                      </div>
                   </div>
                </div>
-				   <?php echo view(route('backend.organization.branch.include.general')) ?>
+				   <?php echo view(route('backend.event.event.include.general')) ?>
 				</div>
 				<div class="ibox mb20 album">
-	            <?php //echo view(route('backend.organization.branch.include.gallery')) ?>
+	            <?php echo view(route('backend.event.event.include.gallery')) ?>
 				</div>
-
 				<div class="ibox ibox-seo mb20">
-				    <?php //echo view(route('backend.organization.branch.include.seo')) ?>
-
+				    <?php echo view(route('backend.event.event.include.seo')) ?>
 				</div>
 				<button type="submit" name="save" value="save" class="btn btn-primary block m-b pull-right">Lưu lại</button>
 
 			</div>
 			<div class="col-lg-3">
-	          <?php echo view(route('backend.organization.branch.include.aside')) ?>
+	          <?php echo view(route('backend.event.event.include.aside')) ?>
 			</div>
 		</div>
 	</div>

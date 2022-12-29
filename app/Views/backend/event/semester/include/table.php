@@ -29,7 +29,7 @@
            <td>
                 <div class="uk-flex uk-flex-middle">
                    <div class="main-info">
-                       <div class="title"><a class="maintitle" href="<?php echo site_url('backend/article/article/update/'.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
+                       <div class="title"><a class="maintitle" href="<?php echo site_url('backend/event/event/index/?semester_id='.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
                        
                    </div>
                </div>

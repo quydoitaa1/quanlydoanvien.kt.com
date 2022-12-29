@@ -32,7 +32,7 @@
                        <span class="image-post img-scaledown"><img src="<?php echo $image; ?>" alt="<?php echo $val['title']; ?>" /></span>
                    </div>
                    <div class="main-info">
-                       <div class="title"><a class="maintitle" href="<?php echo site_url('backend/article/article/update/'.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
+                       <div class="title"><a class="maintitle" href="<?php echo site_url('backend/organization/branch/index/?faculty_id='.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
                        
                    </div>
                </div>

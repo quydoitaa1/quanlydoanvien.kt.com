@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Repositories;
-use App\Repositories\Interfaces\ArticleRepositoryInterface;
+use App\Repositories\Interfaces\EventRepositoryInterface;
 
-class ArticleRepository extends BaseRepository implements ArticleRepositoryInterface
+class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
    protected $table;
    protected $model;
@@ -17,23 +17,22 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
       return $this->model->_get_where([
          'select' => '
             tb1.id,
-            tb1.article_catalogue_id,
-            tb1.catalogue,
+            tb1.semester_id,
             tb1.album,
             tb1.image,
             tb1.publish,
             tb1.created_at,
-            tb2.title,
-            tb2.canonical,
-            tb2.description,
-            tb2.content,
-            tb2.meta_title,
-            tb2.meta_description,
+            tb1.title,
+            tb1.day_start,
+            tb1.day_end,
+            tb1.score,
+            tb1.canonical,
+            tb1.description,
+            tb1.content,
+            tb1.scales,
+            tb1.canonical
          ',
          'table' => $this->table.' as tb1',
-         'join' => [
-            ['article_translate as tb2','tb1.id = tb2.article_id','inner']
-         ],
          'where' => [
             $field => $value,
             'tb1.deleted_at' => 0
@@ -41,7 +40,7 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
       ]);
    }
 
-   public function countIndex($articleCatalogue){
+   public function countIndex($eventCatalogue){
       return $this->model->_get_where([
          'select' => '
             tb1.id
@@ -52,15 +51,15 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
             'tb1.deleted_at' => 0,
          ],
          'query' => '
-            tb3.article_catalogue_id IN (
+            tb3.event_catalogue_id IN (
                SELECT pc.id
-               FROM article_catalogues as pc
-               WHERE pc.lft >= '.$articleCatalogue['lft'].' AND pc.rgt <= '.$articleCatalogue['rgt'].'
+               FROM event_catalogues as pc
+               WHERE pc.lft >= '.$eventCatalogue['lft'].' AND pc.rgt <= '.$eventCatalogue['rgt'].'
             )
          ',
 			'join' => [
 				[
-					'article_catalogue_article as tb3', 'tb1.id = tb3.article_id', 'inner'
+					'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
 				],
 			],
 			'group_by' => 'tb1.id',
@@ -68,11 +67,11 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
       ]);
    }
 
-   public function paginateIndex(array $articleCatalogue, array $config, int $page){
+   public function paginateIndex(array $eventCatalogue, array $config, int $page){
       return  $this->model->_get_where([
          'select' => '
             tb1.id,
-            tb1.article_catalogue_id,
+            tb1.event_catalogue_id,
             tb1.catalogue,
             tb1.image,
             tb1.viewed,
@@ -90,18 +89,18 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
             'tb1.deleted_at' => 0,
          ],
          'query' => '
-            tb3.article_catalogue_id IN (
+            tb3.event_catalogue_id IN (
                SELECT pc.id
-               FROM article_catalogues as pc
-               WHERE pc.lft >= '.$articleCatalogue['lft'].' AND pc.rgt <= '.$articleCatalogue['rgt'].'
+               FROM event_catalogues as pc
+               WHERE pc.lft >= '.$eventCatalogue['lft'].' AND pc.rgt <= '.$eventCatalogue['rgt'].'
             )
          ',
 			'join' => [
             [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
+               'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
             ],
 				[
-					'article_catalogue_article as tb3', 'tb1.id = tb3.article_id', 'inner'
+					'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
 				],
 			],
          'limit' => $config['per_page'],
@@ -119,12 +118,12 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
 			'where' => $condition,
 			'query' => $query,
 			'join' => [
-            [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
-            ],
-				[
-					'article_catalogue_article as tb3', 'tb1.id = tb3.article_id', 'inner'
-				],
+            // [
+            //    'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
+            // ],
+				// [
+				// 	'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
+				// ],
 			],
 			'group_by' => 'tb1.id',
 			'count' => TRUE,
@@ -135,21 +134,17 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
       return  $this->model->_get_where([
          'select' => '
             tb1.id,
-            tb1.article_catalogue_id,
-            tb1.catalogue,
+            tb1.semester_id,
+            tb1.title,
+            tb1.score,
+            tb1.day_start,
+            tb1.day_end,
             tb1.image,
-            tb1.viewed,
-            tb1.order,
             tb1.created_at,
-            tb1.album,
             tb1.publish,
-            tb2.title,
-            tb2.canonical,
-            (
-               SELECT title
-               FROM article_catalogue_translate
-               WHERE tb4.id = article_catalogue_translate.article_catalogue_id
-            ) as cat_title,
+            tb1.canonical,
+            tb2.title as cat_title,
+            (SELECT fullname FROM users WHERE users.id = tb1.userid_created) as creator,
          ',
          'table' => $this->table.' as tb1',
          'keyword' => $keyword,
@@ -157,13 +152,7 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
 			'query' => $query,
 			'join' => [
             [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
-            ],
-				[
-					'article_catalogue_article as tb3', 'tb1.id = tb3.article_id', 'inner'
-				],
-            [
-               'article_catalogues as tb4', 'tb1.article_catalogue_id = tb4.id', 'inner'
+               'semesters as tb2', 'tb1.semester_id = tb2.id', 'inner'
             ],
 			],
          'limit' => $config['per_page'],
@@ -192,7 +181,7 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
          ],
 			'join' => [
             [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
+               'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
             ],
 			],
          'limit' => 15,
@@ -221,17 +210,17 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
          'where_in_field' => 'tb1.id',
 			'join' => [
             [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
+               'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
             ],
 				[
-					'article_catalogue_article as tb3', 'tb1.id = tb3.article_id', 'inner'
+					'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
 				],
 			],
          'group_by' => 'tb1.id',
       ], TRUE);
    }
 
-   public function articleRelate($article_catalogue_id = 0, $limit){
+   public function eventRelate($event_catalogue_id = 0, $limit){
       return $this->model->_get_where([
          'select' => '
             tb1.id,
@@ -243,11 +232,11 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
          'table' => $this->table.' as tb1',
          'join' => [
             [
-               'article_translate as tb2', 'tb1.id = tb2.article_id', 'inner'
+               'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
             ],
 			],
          'where' => [
-            'tb1.article_catalogue_id' => $article_catalogue_id
+            'tb1.event_catalogue_id' => $event_catalogue_id
          ],
          'limit' => $limit,
          'order_by' => 'RAND()'

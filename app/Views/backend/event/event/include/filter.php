@@ -12,7 +12,7 @@
         <div class="toolbox">
            <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="form-row cat-wrap">
-                    <?php echo form_dropdown('faculty_id', $dropdown, set_value('faculty_id', (request()->getGet('faculty_id')) ? request()->getGet('faculty_id') : ''), 'class="form-control m-b select2 mr10" style="width:220px;"');?>
+                    <?php echo form_dropdown('semester_id', $dropdown, set_value('semester_id', (request()->getGet('semester_id')) ? request()->getGet('semester_id') : ''), 'class="form-control m-b select2 mr10" style="width:220px;"');?>
                 </div>
                 <div class="uk-search uk-flex uk-flex-middle mr10 ml10">
                     <div class="input-group">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="uk-button">
-                    <a href="<?php echo base_url(route('backend.organization.branch.create')) ?>" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i>Thêm Mới</a>
+                    <a href="<?php echo base_url(route('backend.event.event.create')) ?>" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i>Thêm Mới</a>
                 </div>
            </div>
         </div>

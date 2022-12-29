@@ -3,11 +3,11 @@
     $language = $baseController->currentLanguage();
 ?>
 <script type="text/javascript">
-	var id = '<?php echo $branch['id'] ?>';
+	var id = '<?php echo $event['id'] ?>';
 </script>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
-		<h2><?php echo translate('cms_lang.post.post_delete', $language) ?>: <?php echo $branch['title'] ?></h2>
+		<h2><?php echo translate('cms_lang.post.post_delete', $language) ?>: <?php echo $event['title'] ?></h2>
 		<ol class="breadcrumb">
 			<li>
 				<a href="<?php echo site_url('admin'); ?>"><?php echo translate('cms_lang.post.post_home', $language) ?></a>
@@ -36,8 +36,8 @@
 									<label class="control-label text-left">
 										<span><?php echo translate('cms_lang.post.post_create_title', $language) ?> <b class="text-danger">(*)</b></span>
 									</label>
-									<?php echo form_input('title', set_value('title', $branch['title']), 'class="form-control" disabled placeholder="" autocomplete="off"');?>
-									<?php echo form_hidden('id', set_value('id', $branch['id']), 'class="form-control" disabled placeholder="" autocomplete="off"');?>
+									<?php echo form_input('title', set_value('title', $event['title']), 'class="form-control" disabled placeholder="" autocomplete="off"');?>
+									<?php echo form_hidden('id', set_value('id', $event['id']), 'class="form-control" disabled placeholder="" autocomplete="off"');?>
 								</div>
 							</div>
 						</div>

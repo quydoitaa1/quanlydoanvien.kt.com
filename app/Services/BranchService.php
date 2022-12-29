@@ -23,9 +23,9 @@ class BranchService
       $this->db = \Config\Database::connect();
       $this->request = \Config\Services::request();
       $this->pagination = service('Pagination');
-      // $this->nestedsetbie = service('Nestedsetbie',
-      //    ['table' => 'faculties', 'language' => $this->language, 'foreignkey' => 'faculty_id']
-      // );
+      $this->nestedsetbie = service('Nestedsetbie',
+         ['table' => 'faculties', 'language' => $this->language, 'foreignkey' => 'faculty_id']
+      );
       $this->branchRepository = service('BranchRepository', $this->module);
       $this->facultyRepository = service('FacultyRepository', 'faculties');
       $this->routerRepository = service('routerRepository', 'routers');
@@ -48,7 +48,6 @@ class BranchService
          $catalogue = $this->facultyRepository->findByField($facultyID, 'tb1.id');
          $catalogue = ($catalogue) ?? [];
          $query = $this->query($catalogue);
-
       }
       $config['total_rows'] = $this->branchRepository->count($condition, $keyword, $query);
 		if($config['total_rows'] > 0){
