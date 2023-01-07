@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Libraries\Authentication as Auth;
 
 
+
 class UserService
 {
 
@@ -16,11 +17,13 @@ class UserService
 
    public function __construct($param){
       $this->module = $param['module'];
+
       $this->language = $param['language'];
       $this->db = \Config\Database::connect();
       $this->request = \Config\Services::request();
       $this->pagination = service('Pagination');
       $this->userRepository = service('UserRepository', $this->module);
+      $this->userCatalogueRepository = service('UserCatalogueRepository', 'user_catalogues');
    }
 
 
@@ -31,8 +34,13 @@ class UserService
       $keyword = $this->keyword();
       $condition = $this->condition();
 
+      $catalogue = [];
+      $gender = '';
+      $union_position = '';
+      $query = [];
+      $query = $this->queryPermission();
 
-      $config['total_rows'] = $this->userRepository->count($condition, $keyword);
+      $config['total_rows'] = $this->userRepository->count($condition, $keyword, $query);
 		if($config['total_rows'] > 0){
 			$config = pagination_config_bt(['url' => route('backend.user.user.index'),'perpage' => $perpage], $config);
 			$this->pagination->initialize($config);
@@ -41,23 +49,61 @@ class UserService
 			$page = ($page <= 0)?1:$page;
 			$page = ($page > $totalPage)?$totalPage:$page;
 			$page = $page - 1;
-			$user = $this->userRepository->paginate($condition, $keyword, $config, $page);
+			$user = $this->userRepository->paginate($condition, $keyword, $query, $config, $page);
 		}
       return [
          'pagination' => ($pagination) ?? '',
          'list' => ($user) ?? [],
       ];
    }
-
+   
    public function create(){
       $this->db->transBegin();
+      $field = [
+         'id_student',
+         'user_catalogue_id',
+         'email',
+         'class_id',
+         'faculty_id',
+         'fullname',
+         'birthday',
+         'gender',
+         'ethnic',
+         'religion',
+         'id_card',
+         'date_id_card',
+         'issued_id_card',
+         'profession',
+         'level_education',
+         'level_specialize',
+         'level_politics',
+         'level_computer',
+         'level_language',
+         'day_in_union',
+         'number_resolution',
+         'number_union',
+         'book_union',
+         'day_in_communist_party',
+         'phone',
+         'image',
+         'union_position',
+         'association_position',
+         'residence_address',
+         'residence_cityid',
+         'residence_districtid',
+         'residence_wardid',
+         'countryside_address',
+         'countryside_cityid',
+         'countryside_districtid',
+         'countryside_wardid',
+      ];
       try{
-         $payload = requestAccept(['email', 'fullname', 'user_catalogue_id', 'gender', 'image', 'birthday', 'address', 'phone', 'cityid', 'districtid', 'wardid'], Auth::id());
+         $payload = requestAccept($field, Auth::id());
          $payload['publish'] = 1;
          $password = $this->renderPassword();
          $payload['salt'] = $password['salt'];
          $payload['password'] = $password['password'];
-         dd($payload);
+         // dd($payload);
          $id = $this->userRepository->create($payload);
          $this->db->transCommit();
          $this->db->transComplete();
@@ -72,9 +118,47 @@ class UserService
    }
 
    public function update($id){
+      $field = [
+         'id_student',
+         'user_catalogue_id',
+         'email',
+         'class_id',
+         'faculty_id',
+         'fullname',
+         'birthday',
+         'gender',
+         'ethnic',
+         'religion',
+         'id_card',
+         'date_id_card',
+         'issued_id_card',
+         'profession',
+         'level_education',
+         'level_specialize',
+         'level_politics',
+         'level_computer',
+         'level_language',
+         'day_in_union',
+         'number_resolution',
+         'number_union',
+         'book_union',
+         'day_in_communist_party',
+         'phone',
+         'image',
+         'union_position',
+         'association_position',
+         'residence_address',
+         'residence_cityid',
+         'residence_districtid',
+         'residence_wardid',
+         'countryside_address',
+         'countryside_cityid',
+         'countryside_districtid',
+         'countryside_wardid',
+      ];
       $this->db->transBegin();
       try{
-         $payload = requestAcceptUpdate(['email', 'fullname', 'user_catalogue_id', 'gender', 'image', 'birthday', 'address', 'phone', 'cityid', 'districtid', 'wardid'], Auth::id());
+         $payload = requestAcceptUpdate($field, Auth::id());
          $flag = $this->userRepository->update($payload, $id);
          $this->db->transCommit();
          $this->db->transComplete();
@@ -93,6 +177,7 @@ class UserService
       try{
          /* Xóa bản ghi - xóa user */
          $this->userRepository->softDelete($id);
+
          $this->db->transCommit();
          $this->db->transComplete();
          return true;
@@ -119,9 +204,18 @@ class UserService
    private function condition(){
       $condition = [];
       if($this->request->getGet('publish')){
-         $condition['publish'] = $this->request->getGet('publish');
+         $condition['tb1.publish'] = $this->request->getGet('publish');
       }
-      $condition['deleted_at'] = 0;
+      $condition['tb1.deleted_at'] = 0;
+      if($this->request->getGet('gender')){
+         $condition['tb1.gender'] = $this->request->getGet('gender');
+      }
+      if($this->request->getGet('union_position')){
+         $condition['tb1.union_position'] = $this->request->getGet('union_position');
+      }
+      if($this->request->getGet('user_catalogue_id')){
+         $condition['tb1.user_catalogue_id'] = $this->request->getGet('user_catalogue_id');
+      }
 
       return $condition;
    }
@@ -129,7 +223,7 @@ class UserService
    private function keyword(): string{
       $search = '';
       if(!empty($this->request->getGet('keyword'))){
-         $fieldSearch = ['fullname', 'email', 'address'];
+         $fieldSearch = ['fullname', 'email', 'id_student','phone'];
 
          $keyword = $this->request->getGet('keyword');
          if(isset($fieldSearch) && is_array($fieldSearch) && count($fieldSearch)){
@@ -137,7 +231,7 @@ class UserService
                if(empty($search)){
                   $search = '('.$val.' LIKE \'%'.$keyword.'%\')';
                }else{
-                  $search = $search.' OR '.'('.$val.' LIKE \'%'.$keyword.'%\')';
+                  $search ='('.$search.' OR '.'('.$val.' LIKE \'%'.$keyword.'%\'))';
                }
 
             }
@@ -145,5 +239,35 @@ class UserService
       }
       return $search;
    }
+   private function query(array $catalogue){
+      $extraQuery = [];
+      if(isset($catalogue) && is_array($catalogue) && count($catalogue)){
+         $extraQuery['tb1.user_catalogue_id'] = $catalogue['id'];
+      }
+      
+      // dd($extraQuery);
+      return $extraQuery;
+   }
+
+   private function queryPermission(){
+      $extraQuery = [];
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $user_cat_id = json_decode($_COOKIE['QLDVKT_backend'], true)['user_catalogue_id'];
+         $class_id = json_decode($_COOKIE['QLDVKT_backend'], true)['class_id'];
+         $faculty_id = json_decode($_COOKIE['QLDVKT_backend'], true)['faculty_id'];
+
+         if($user_cat_id == 8){
+            $extraQuery['tb1.faculty_id '] = $faculty_id;
+         }
+         if($user_cat_id == 9){
+            $extraQuery['tb1.class_id '] = $class_id;
+         }
+      }
+      // dd($extraQuery);
+      return $extraQuery;
+   }
+
+   
+
 
 }

@@ -12,7 +12,7 @@
         <div class="toolbox">
            <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="form-row cat-wrap">
-                    <?php echo form_dropdown('semester_id', $dropdown, set_value('semester_id', (request()->getGet('semester_id')) ? request()->getGet('semester_id') : ''), 'class="form-control m-b select2 mr10" style="width:220px;"');?>
+                    <?php echo form_dropdown('semester_id', $dropdown, set_value('semester_id', (request()->getGet('semester_id')) ? request()->getGet('semester_id') : ''), 'class="form-control m-b select2 mr10" style="width:260px;"');?>
                 </div>
                 <div class="uk-search uk-flex uk-flex-middle mr10 ml10">
                     <div class="input-group">

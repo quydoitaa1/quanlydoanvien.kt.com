@@ -49,7 +49,7 @@
            <td class="text-center text-primary">
                <?php echo form_input('order['.$val['id'].']', $val['order'], 'data-module="'.$module.'" data-id="'.$val['id'].'"  class="form-control sort-order" placeholder="Vị trí" style="width:50px;text-align:right;"');?>
            </td>
-           <td class="text-center text-primary"><?php echo gettime($val['created_at'],'Y-d-m') ?></td>
+           <td class="text-center text-primary"><?php echo gettime($val['created_at'],'d/m/Y') ?></td>
            <td class="text-center td-status" data-field="publish" data-module="<?php echo $module; ?>" data-where="id"><?php echo $status; ?></td>
            <td class="text-center">
                <a type="button" href="<?php echo base_url('backend/article/article/update/'.$val['id']) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>

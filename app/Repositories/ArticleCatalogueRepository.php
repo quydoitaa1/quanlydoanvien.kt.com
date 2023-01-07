@@ -41,6 +41,49 @@ class ArticleCatalogueRepository extends BaseRepository implements ArticleCatalo
          ]
       ]);
    }
+   public function getAll(){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb1.parentid,
+            tb1.lft,
+            tb1.rgt,
+            tb1.level,
+            tb1.album,
+            tb1.image,
+            tb1.publish,
+            tb2.title,
+            tb2.canonical,
+            tb2.description,
+            tb2.content,
+            tb2.meta_title,
+            tb2.meta_description,
+         ',
+         'table' => $this->table.' as tb1',
+         'join' => [
+            ['article_catalogue_translate as tb2','tb1.id = tb2.article_catalogue_id','inner']
+         ],
+         'where' => [
+            'tb1.deleted_at' => 0,
+            'tb1.publish' => 1,
+         ]
+      ],TRUE);
+   }
+   public function getId(){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id,
+         ',
+         'table' => $this->table.' as tb1',
+         'join' => [
+            ['article_catalogue_translate as tb2','tb1.id = tb2.article_catalogue_id','inner']
+         ],
+         'where' => [
+            'tb1.deleted_at' => 0,
+            'tb1.publish' => 1,
+         ]
+      ],TRUE);
+   }
 
    public function count(array $condition,  string $keyword){
       return $this->model->_get_where([

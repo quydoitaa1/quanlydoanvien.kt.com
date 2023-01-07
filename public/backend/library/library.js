@@ -5,10 +5,33 @@ $(document).ready(function(){
          minDate:new Date()
       });
    }
+   $('.footable').footable();
 
    if($('.nice-select').length){
       $('.nice-select').niceSelect();
    }
+
+   $(document).on('click','#reset_key', function(){
+
+	   let _this = $(this);
+	   let id = _this.attr('data-id');
+
+		setTimeout(function(){
+			$.post('ajax/user/resetKey', {
+				id: id,},
+				function(data){
+					// let json = JSON.parse(data);
+					console.log(data);
+					if(data.length > 0){
+                        toastr.success(data,'Thông báo từ hệ thống!');
+                     }else{
+                        toastr.error('Chưa reset được mật khẩu', 'Có lỗi xảy ra!');
+                     }
+				});
+		}, 100);
+		return false;
+	});
+
 
 
 	$(document).on('click','.clone-btn', function(){
@@ -66,14 +89,14 @@ $(document).ready(function(){
 	  	jQuery("time.timeago").timeago();
 	});
 	$( function() {
-		$( ".sortui" ).sortable();
-		$( ".sortui" ).disableSelection();
-		$( "#sortable" ).sortable();
-		$( "#sortable" ).disableSelection();
-		$( ".ui-sortable" ).sortable();
-		$( ".ui-sortable" ).disableSelection();
-		$( ".sort-modal" ).sortable();
-		$( ".sort-modal" ).disableSelection();
+		// $( ".sortui" ).sortable();
+		// $( ".sortui" ).disableSelection();
+		// $( "#sortable" ).sortable();
+		// $( "#sortable" ).disableSelection();
+		// $( ".ui-sortable" ).sortable();
+		// $( ".ui-sortable" ).disableSelection();
+		// $( ".sort-modal" ).sortable();
+		// $( ".sort-modal" ).disableSelection();
 	});
 	if($('input[name="daterange"]').length > 0){
  		$('input[name="daterange"]').daterangepicker();
@@ -186,7 +209,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$(document).on('keyup', '.title', function(){
+	$(document).on('keyup', '#title', function(){
 		let _this = $(this);
 		let metaTitle = _this.val();
 		get_catalogue(slug(metaTitle));
@@ -199,7 +222,9 @@ $(document).ready(function(){
 		}
 		$('.g-title').text(metaTitle);
 		$('.meta-title').val(metaTitle);
-
+		val = slug(metaTitle);
+		$('.canonical').val(val)
+		// $('.canonical').val(metaTitle);
 	});
 
 	$(document).on('change', '.get_catalogue', function(){
@@ -374,6 +399,54 @@ $(document).ready(function(){
 
 		return false;
 	});
+	$(document).on('click','.check-event', function(){
+		let _this = $(this);
+		let id = _this.attr('data-id');
+		let field = _this.attr('data-field');
+		let where = _this.attr('data-where');
+		var formURL = 'ajax/event/check_event';
+		setTimeout(function(){
+			$.post(formURL, {
+				id: id,where: where, field:field},
+				function(data){
+
+					if(data.length > 0){
+                        toastr.success('Duyệt minh chứng thành công','Thông báo từ hệ thống!');
+						let text = (data == 2) ? '<span class="text-success">Đã Duyệt</span>'  : ((data == 3) ? '<span class="text-danger">Bị Loại</span>':'<span class="text-warning">Chờ Duyệt</span>');
+						_this.parents('.tr-event').children('.event-status').html(text);
+					}else{
+                        toastr.error('Chưa duyệt được minh chứng này', 'Có lỗi xảy ra!');
+                     }
+				});
+		}, 300);
+
+		return false;
+	});
+	$(document).on('click','.event-ignore', function(){
+		let _this = $(this);
+		let id = _this.attr('data-id');
+		let field = _this.attr('data-field');
+		let where = _this.attr('data-where');
+		let note = _this.parent().parent().children('.form-group').children('.note-reviewer').val();
+		console.log(_this.parents('.modal-dialog').children());
+
+		var formURL = 'ajax/event/check_event';
+		setTimeout(function(){
+			$.post(formURL, {
+				id: id,where: where, field:field,note:note},
+				function(data){
+					if(data.length > 0){
+                        toastr.success('Duyệt minh chứng thành công','Thông báo từ hệ thống!');
+						let text = (data == 2) ? '<span class="text-success">Đã Duyệt</span>'  : ((data == 3) ? '<span class="text-danger">Bị Loại</span>':'<span class="text-warning">Chờ Duyệt</span>');
+						_this.parents('.tr-event').children('.event-status').html(text);
+					}else{
+                        toastr.error('Chưa duyệt được minh chứng này', 'Có lỗi xảy ra!');
+                     }
+				});
+		}, 300);
+
+		return false;
+	});
 
 
 
@@ -472,6 +545,9 @@ $(document).on('change', '#faculty', function(e, data){
 	};
 	get_branch(param);
 });
+if(typeof(faculty_id) != 'undefined' && faculty_id != ''){
+	$('#faculty').val(faculty_id).trigger('change', [{'trigger':true}]);
+}
 
 function get_branch(param){
 	if(class_id == '' || param.trigger_class == false) class_id = 0;

@@ -6,18 +6,23 @@
            <label for="check-all" class="labelCheckAll"></label>
         </th>
         <th >Tiêu đề nhóm</th>
-        <th class="text-center" style="width:103px;">Thao tác</th>
+        <th class="text-center" style="width:200px;">Hiển thị</th>
+        <th class="text-center" style="width:130px;">Thao tác</th>
     </tr>
     </thead>
     <tbody>
         <?php if(isset($userCatalogue['list']) && is_array($userCatalogue['list']) && count($userCatalogue['list'])){ ?>
         <?php foreach($userCatalogue['list'] as $key => $val){ ?>
+        <?php
+           $status = ($val['publish'] == 1) ? '<span class="text-success">Active</span>'  : '<span class="text-danger">Deactive</span>';
+       ?>
         <tr id="post-<?php echo $val['id']; ?>" data-id="<?php echo $val['id']; ?>">
            <td>
                 <input type="checkbox" name="checkbox[]" value="<?php echo $val['id']; ?>" class="checkbox-item">
                 <div for="" class="label-checkboxitem"></div>
            </td>
            <td><?php echo $val['title'] ?></td>
+           <td class="text-center td-status" data-field="publish" data-module="<?php echo $module; ?>" data-where="id"><?php echo $status; ?></td>
            <td class="text-center">
                 <a type="button" href="<?php echo base_url('backend/user/catalogue/update/'.$val['id']) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a type="button" href="<?php echo base_url('backend/user/catalogue/delete/'.$val['id']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>

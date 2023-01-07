@@ -28,10 +28,10 @@ class Branch extends BaseController{
 	}
 
 	public function index($page = 1){
-      // if(!$this->authentication->gate('backend.organization.branch.index')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.organization.branch.index')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		$branch = $this->branchService->paginate($page);
       $catalogue = $this->facultyRepository->getAllCatalogue('faculties');
       $dropdown = dropdown_no_language($catalogue);
@@ -45,10 +45,10 @@ class Branch extends BaseController{
 	}
 
 	public function create(){
-      // if(!$this->authentication->gate('backend.organization.branch.create')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.organization.branch.create')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		if($this->request->getMethod() == 'post'){
          $validate = $this->validation();
          if ($this->validate($validate['validate'], $validate['errorValidate'])){
@@ -80,10 +80,10 @@ class Branch extends BaseController{
 
 	public function update($id = 0){
       $id = (int)$id;
-      // if(!$this->authentication->gate('backend.organization.branch.update')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.organization.branch.update')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $branch = $this->branchRepository->findByField($id, 'tb1.id');
 
 		if(!isset($branch) || is_array($branch) == false || count($branch) == 0){
@@ -118,10 +118,10 @@ class Branch extends BaseController{
 
 	public function delete($id = 0){
       $id = (int)$id;
-      // if(!$this->authentication->gate('backend.organization.branch.delete')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.organization.branch.delete')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $branch = $this->branchRepository->findByField($id, 'tb1.id');
 
 		if(!isset($branch) || is_array($branch) == false || count($branch) == 0){

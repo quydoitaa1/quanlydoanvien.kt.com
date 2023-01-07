@@ -49,12 +49,16 @@
 							?>
 							<?php if(isset($xml['permissions']) && is_array($xml['permissions']) && count($xml['permissions'])){ ?>
 							<?php foreach($xml['permissions'] as $keyXml => $valPermission){
+								//  dd($valPermission);
 							?>
 							<div class="form-group">
 								<label style="margin-bottom:0;" class="col-md-2 text-left">
 									<span><?php echo $valPermission['title']; ?></span>
 								</label>
-								<?php if(isset($valPermission['item']) && is_array($valPermission['item']) && count($valPermission['item'])){ ?>
+								<?php 
+									if(isset($valPermission['item']) && is_array($valPermission['item']) && count($valPermission['item'])){
+										
+								?>
 								<div class="col-md-10">
 									<div class="userGroupContainer clearfix">
 										<?php foreach($valPermission['item'] as $keyItem => $valItem){ ?>

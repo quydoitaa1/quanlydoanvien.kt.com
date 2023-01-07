@@ -26,41 +26,38 @@ class Article extends FrontendController{
          ['language' => $this->language, 'module' => 'articles']
       );
       $this->systemRepository = service('SystemRepository', 'systems');
-      $this->productCatalogueRepository = service('ProductCatalogueRepository', 'product_catalogues');
-      $this->productRepository = service('ProductRepository', 'products');
-      $this->provinceRepository = service('ProvinceRepository', 'vn_province');
-      $this->cartBie = service('cartbie');
-      $this->widget = service('widget', ['language' => $this->language]);
+      $this->userRepository = service('UserRepository', 'users');
+      $this->facultyRepository = service('facultyRepository', 'faculties');
 
 	}
 
 	public function index($id = 0, $page = 1){
       $article = $this->articleRepository->findByField($id, 'tb1.id');
-      $articleCatalogue =  $this->articleCatalogueRepository->findByField($article['article_catalogue_id'], 'tb1.id');
-
-      // $canonical = $article['canonical'];
-      $canonical = write_url($article['canonical'], TRUE, TRUE);
+      $articleCatalogue =  $this->articleCatalogueRepository->getAll();
       $general = convertGeneral($this->systemRepository->all('keyword, content'));
-      $product['count'] = $this->productRepository->count(['deleted_at' => 0]);
+      $faculties = $this->facultyRepository->getHome();
 
-      /* article relate and promotion  */
+      // /* article relate and promotion  */
       $articleRelate = $this->articleRepository->articleRelate($article['article_catalogue_id'], 5);
+      // $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
+      // $productCatalogueList = recursive($productCatalogueList);
 
-      $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
-      $productCatalogueList = recursive($productCatalogueList);
+      // $widget = [
+      //    'post' =>  $this->widget->getWidgetKeyword('post-highlight', $this->language),
+      // ];
 
-      $widget = [
-         'post' =>  $this->widget->getWidgetKeyword('post-highlight', $this->language),
-      ];
-
-      $province = converProvinceArray($this->provinceRepository->allProvince());
-      $seo = seo($article, $canonical, 'article');
-      $cart = $this->cartBie->formatCart($this->cart);
+      // $province = converProvinceArray($this->provinceRepository->allProvince());
+      // $seo = seo($article, $canonical, 'article');
+      // $cart = $this->cartBie->formatCart($this->cart);
+      // $js = ['cart','core'];
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $id = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
+         $user = $this->userRepository->getAccount($id,'tb1.id');
+      }
       $template = route('frontend.article.article.index');
-      $js = ['cart','core'];
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'productCatalogueList','canonical', 'article', 'general','articleCatalogue','articleRelate', 'js', 'seo','cart', 'product', 'widget', 'province'
+            'template','canonical', 'article', 'general','articleCatalogue','user','articleRelate','faculties'
          )
       );
 	}

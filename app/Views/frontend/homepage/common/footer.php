@@ -84,4 +84,4 @@
         </div>
     </div>
 </footer>
-<a href="#" class="scrollToTop button-show" aria-label="Scroll to top button"></a>
+<a href="#" class="scrollToTop" aria-label="Scroll to top button"></a>

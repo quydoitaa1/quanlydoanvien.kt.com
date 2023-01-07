@@ -25,10 +25,10 @@ class Faculty extends BaseController{
 	}
 
 	public function index($page = 1){
-    //   if(!$this->authentication->gate('backend.organization.faculty.index')){
-    //      $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-    //      return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-    //   }
+      if(!$this->authentication->gate('backend.organization.faculty.index')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		$faculty = $this->facultyService->paginate($page);
         // dd($faculty);
       $module = $this->module;
@@ -41,10 +41,10 @@ class Faculty extends BaseController{
 	}
 
 	public function create(){
-    //   if(!$this->authentication->gate('backend.product.catalogue.create')){
-    //      $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-    //      return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-    //   }
+      if(!$this->authentication->gate('backend.product.catalogue.create')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 
 
 		if($this->request->getMethod() == 'post'){
@@ -73,10 +73,10 @@ class Faculty extends BaseController{
 
 	public function update($id = 0){
 		$id = (int)$id;
-      // if(!$this->authentication->gate('backend.product.catalogue.update')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.product.catalogue.update')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $faculty = $this->facultyRepository->findByField($id, 'tb1.id');
    
       // dd($faculty);

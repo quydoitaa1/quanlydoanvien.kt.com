@@ -42,5 +42,19 @@
             </div>
          </div>
       </div>
+      <div class="row mb15">
+         <div class="col-lg-12">
+            <div class="form-row form-content">
+               <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                  <label class="control-label text-left">
+                     <span>Nội dung</span>
+                  </label>
+                  <a href="" title="" data-target="content" class="uploadMultiImage">Upload Hình Ảnh</a>
+               </div>
+               <?php echo form_textarea('content', htmlspecialchars_decode(html_entity_decode(set_value('content', (isset($faculty['content'])) ? $faculty['content'] : ''))), 'class="form-control ck-editor" id="content" placeholder="" autocomplete="off"');?>
+
+            </div>
+         </div>
+      </div>
    </div>
 </div>

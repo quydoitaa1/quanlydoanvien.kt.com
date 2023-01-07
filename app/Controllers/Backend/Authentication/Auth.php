@@ -27,13 +27,16 @@ class Auth extends BaseController{
  		 	if ($this->validate($validate, $errorValidate)){
 		 		$user = $this->AutoloadModel->_get_where([
 		 			'table' => 'users',
-		 			'select' => 'id, fullname, email, (SELECT permission FROM user_catalogues WHERE user_catalogues.id = users.user_catalogue_id) as permission',
+		 			'select' => 'id, fullname, email,user_catalogue_id, class_id, faculty_id, (SELECT permission FROM user_catalogues WHERE user_catalogues.id = users.user_catalogue_id) as permission',
 		 			'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0]
 		 		]);
 		 		$cookieAuth = [
 		 			'id' => $user['id'],
 		 			'fullname' => $user['fullname'],
 		 			'email' => $user['email'],
+					'user_catalogue_id' => $user['user_catalogue_id'],
+		 			'class_id' => $user['class_id'],
+		 			'faculty_id' => $user['faculty_id'],
 		 			// 'permission' => base64_encode($user['permission']),
 		 		];
 		 		setcookie(AUTH.'backend', json_encode($cookieAuth), time() + 1*24*3600, "/");

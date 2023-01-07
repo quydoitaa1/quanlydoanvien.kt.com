@@ -152,9 +152,18 @@
 .footable.no-paging .hide-if-no-paging {
   display: none;
 }
-.footable-row-detail-inner {
+/* .footable-row-detail-inner {
   display: table;
+} */
+
+/* doanh viết--------------------------------------------------------------------------------------- */
+.footable-row-detail-inner {
+  display: flex;
 }
+.footable-row-detail-inner >*{
+  margin-right: 20px;
+}
+/* ------------------------------------------------------------------------------------------------------ */
 .footable-row-detail-row {
   display: table-row;
   line-height: 1.5em;

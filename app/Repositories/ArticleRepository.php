@@ -36,9 +36,33 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
          ],
          'where' => [
             $field => $value,
-            'tb1.deleted_at' => 0
+            'tb1.deleted_at' => 0,
+            'tb1.publish' => 1,
          ]
       ]);
+   }
+   public function getHome(){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb2.title,
+            tb1.image,
+            tb2.description,
+            tb2.content,
+            tb2.canonical,
+            tb1.publish,
+            tb1.created_at,
+         ',
+         'table' => $this->table.' as tb1',
+         'join' => [
+            ['article_translate as tb2','tb1.id = tb2.article_id','inner']
+         ],
+         'where' => [
+            'tb1.publish' => 1,
+            'tb1.deleted_at' => 0
+         ],
+         'order_by'=> 'tb1.order desc'
+      ],TRUE);
    }
 
    public function countIndex($articleCatalogue){

@@ -30,28 +30,21 @@ define('HTDBNAME', 'qldv');
 
 
 const PASSWORD = 'dvkt@123';
-const VOUCHER_TYPE = [
-   'bill' => [
-      'name' => 'bill',
-      'icon' => '<i class="fa fa-shopping-cart" aria-hidden="true"></i>',
-      'title' => 'Giảm giá đơn hàng'
-   ],
-   'money' => [
-      'name' => 'money',
-      'icon' => '<i class="fa fa-product-hunt" aria-hidden="true"></i>',
-      'title' => 'Giảm giá sản phẩm'
-   ],
-   'same' => [
-      'name' => 'same',
-      'icon' => '<i class="fa fa-money" aria-hidden="true"></i>',
-      'title' => 'Đồng Giá'
-   ],
-   'ship' => [
-      'name' => 'ship',
-      'icon' => '<i class="fa fa-truck" aria-hidden="true"></i>',
-      'title' => 'Giảm giá vận chuyển'
-   ],
 
+const YES_OR_NO = [
+   '0' => 'Không',
+   '1' => 'Có',
+];
+
+const GENDER = [
+   '0' => 'Giới Tính',
+   '1' => 'Nữ',
+   '2' => 'Nam',
+];
+const PROFESSION = [
+   '0' => '------ Chọn ------',
+   '1' => 'Sinh Viên',
+   '2' => 'Giảng Viên',
 ];
 const LEVEL_EDUCATION = [
    '0' => '------ Chọn ------',
@@ -95,7 +88,7 @@ const LEVEL_LANGUAGE = [
    '7' => 'Bậc 6',
 ];
 const UNION_POSITION = [
-   '0' => '------ Chọn ------',
+   '0' => '------ Chọn chức vụ ------',
    '1' => 'Bí thư Đoàn trường',
    '2' => 'Phó bí thư Đoàn trường',
    '3' => 'Ủy viên BTV Đoàn trường',
@@ -105,4 +98,11 @@ const UNION_POSITION = [
    '7' => 'Ủy viên BCH Liên chi Đoàn',
    '8' => 'Bí thư Chi Đoàn',
    '9' => 'Phó bí thư Chi Đoàn',
+];
+const EVENT_USER = [
+   '0' => '------ Chọn trạng thái duyệt ------',
+   '1' => 'Chờ duyệt',
+   '2' => 'Đã duyệt',
+   '3' => 'Bị loại',
+
 ];

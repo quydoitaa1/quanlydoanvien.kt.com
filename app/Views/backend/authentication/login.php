@@ -64,16 +64,13 @@
                             <small>Quên mật khẩu?</small>
                         </a>
                     </form>
-                    <p class="m-t">
-                        <small>Hệ thống quản trị nội dung Anh Minh Media 2021 Version 1.2</small>
-                    </p>
                 </div>
             </div>
         </div>
         <hr/>
         <div class="row">
             <div class="col-md-6">
-                <?php echo CMS_NAME ?> Copyright <?php echo date('Y'); ?>
+                <?php echo CMS_NAME ?><?php echo date('Y'); ?>
             </div>
             <div class="col-md-6 text-right">
                <small>© 2021-2022</small>

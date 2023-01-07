@@ -21,7 +21,8 @@ class Catalogue extends FrontendController{
       $this->systemRepository = service('SystemRepository', 'systems');
       $this->productRepository = service('ProductRepository', 'products');
       $this->cartBie = service('cartbie');
-
+      $this->userRepository = service('userRepository', 'users');
+      $this->facultyRepository = service('facultyRepository', 'faculties');
 	}
 
 	public function index($id = 0, $page = 1){
@@ -36,13 +37,20 @@ class Catalogue extends FrontendController{
       // $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
       // $productCatalogueList = recursive($productCatalogueList);
       // $seo = seo($productCatalogue, $canonical, 'page');
+
+      
+      $faculties = $this->facultyRepository->getHome();
       $template = route('frontend.event.catalogue.index');
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $id = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
+         $user = $this->userRepository->getAccount($id,'tb1.id');
+      }
       // $cart = $this->cartBie->formatCart($this->cart);
       // $js = ['cart','core'];
 
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'productCatalogueList','canonical', 'product', 'general','productCatalogue','cart', 'seo', 'js'
+            'template', 'product', 'general','user','faculties'
          )
       );
 	}

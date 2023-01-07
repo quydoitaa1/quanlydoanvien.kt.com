@@ -51,6 +51,8 @@ class EventService
          
       }
       $config['total_rows'] = $this->eventRepository->count($condition, $keyword, $query);
+
+      
 		if($config['total_rows'] > 0){
 			$config = pagination_config_bt(['url' => route('backend.event.event.index'),'perpage' => $perpage], $config);
 			$this->pagination->initialize($config);
@@ -213,6 +215,94 @@ class EventService
          'canonical' => $canonical,
       ];
    }
+   public function createEventUser(){
+      $this->db->transBegin();
+      try{
+         $payload = requestAcceptTime(['image','note','event_id'], Auth::id());
+         $payload['publish'] = 1;
+         $payload['user_id'] = Auth::id();
+         // dd($payload);
+         $id = $this->eventRepository->createEventUser($payload);
+         
+         $this->db->transCommit();
+         $this->db->transComplete();
+         return true;
 
+      }catch(\Exception $e ){
+         $this->db->transRollback();
+         $this->db->transComplete();
+         echo $e->getMessage();die();
+         return false;
+      }
+   }
+   public function updateEventUser($id){
+      $this->db->transBegin();
+      try{
+         $payload = requestAcceptTime(['image','note']);
+         $payload['publish'] = 1;
+         // dd($payload);
+         $id = $this->eventRepository->updateEventUser($payload,$id);
+         
+         $this->db->transCommit();
+         $this->db->transComplete();
+         return true;
+
+      }catch(\Exception $e ){
+         $this->db->transRollback();
+         $this->db->transComplete();
+         echo $e->getMessage();die();
+         return false;
+      }
+   }
+  
+   public function paginateEventUser($id, $page){
+      helper(['mypagination']);
+		$page = (int)$page;
+		$id = (int)$id;
+		$perpage = ($this->request->getGet('perpage')) ? $this->request->getGet('perpage') : 20;
+      $keyword = $this->keyword();
+      $condition = $this->condition();
+      
+      $catalogue = [];
+      $query = [];
+      $query = $this->queryPermission($id);
+
+      $config['total_rows'] = $this->eventRepository->countEventUser($condition, $keyword, $query);
+      // dd(123);
+		if($config['total_rows'] > 0){
+			$config = pagination_config_bt(['url' => route('backend.event.event.index'),'perpage' => $perpage], $config);
+			$this->pagination->initialize($config);
+			$pagination = $this->pagination->create_links();
+			$totalPage = ceil($config['total_rows']/$config['per_page']);
+			$page = ($page <= 0)?1:$page;
+			$page = ($page > $totalPage)?$totalPage:$page;
+			$page = $page - 1;
+			$eventCatalogue = $this->eventRepository->paginateEventUser($condition, $keyword, $query, $config, $page);
+		}
+      return [
+         'pagination' => ($pagination) ?? '',
+         'list' => ($eventCatalogue) ?? [],
+      ];
+   }
+   private function queryPermission($id){
+      $extraQuery = [];
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $user_cat_id = json_decode($_COOKIE['QLDVKT_backend'], true)['user_catalogue_id'];
+         $class_id = json_decode($_COOKIE['QLDVKT_backend'], true)['class_id'];
+         $faculty_id = json_decode($_COOKIE['QLDVKT_backend'], true)['faculty_id'];
+
+         if($user_cat_id == 8){
+            $extraQuery['tb3.faculty_id '] = $faculty_id;
+         }
+         if($user_cat_id == 9){
+            $extraQuery['tb3.class_id '] = $class_id;
+         }
+      }
+      // if($id > 0){
+         $extraQuery['tb1.event_id '] = $id;
+      // }
+      // dd($extraQuery);
+      return $extraQuery;
+   }
 
 }

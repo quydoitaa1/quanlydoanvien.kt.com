@@ -59,9 +59,7 @@
                             <small>Đăng nhập?</small>
                         </a>
                     </form>
-                    <p class="m-t">
-                        <small>Hệ thống quản trị nội dung ANH MINH MEDIA 2021 Version 1.2</small>
-                    </p>
+
                 </div>
             </div>
         </div>

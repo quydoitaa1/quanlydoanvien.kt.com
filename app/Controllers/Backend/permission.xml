@@ -1,159 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
 	<permissions>
-		<title>Nhóm - [Sản phẩm]</title>
+		<title>Thống kê</title>
 		<item>
-			<param>backend/product/catalogue/index</param>
+			<param>backend/dashboard/dashboard/index</param>
 			<description>Xem</description>
 		</item>
 		<item>
-			<param>backend/product/catalogue/create</param>
+			<param>backend/dashboard/dashboard/user</param>
+			<description>Xem[test]</description>
+		</item>
+	</permissions>
+
+	<permissions>
+		<title>QL Liên chi Đoàn</title>
+		<item>
+			<param>backend/organization/faculty/index</param>
+			<description>Xem</description>
+		</item>
+		<item>
+			<param>backend/organization/faculty/create</param>
 			<description>Thêm</description>
 		</item>
 		<item>
-			<param>backend/product/catalogue/update</param>
+			<param>backend/organization/faculty/update</param>
 			<description>Sửa</description>
 		</item>
 		<item>
-			<param>backend/product/catalogue/delete</param>
+			<param>backend/organization/faculty/delete</param>
 			<description>Xóa</description>
+		</item>
+	</permissions>
+   <permissions>
+      <title>QL Chi Đoàn</title>
+      <item>
+         <param>backend/organization/branch/index</param>
+         <description>Xem</description>
+      </item>
+      <item>
+         <param>backend/organization/branch/create</param>
+         <description>Thêm</description>
+      </item>
+      <item>
+         <param>backend/organization/branch/update</param>
+         <description>Sửa</description>
+      </item>
+      <item>
+         <param>backend/organization/branch/delete</param>
+         <description>Xóa</description>
+      </item>
+   </permissions>
+   <permissions>
+      <title>QL Nhóm thành viên [QL User]</title>
+      <item>
+         <param>backend/user/catalogue/index</param>
+         <description>Xem</description>
+      </item>
+      <item>
+         <param>backend/user/catalogue/create</param>
+         <description>Thêm</description>
+      </item>
+      <item>
+         <param>backend/user/catalogue/update</param>
+         <description>Sửa</description>
+      </item>
+      <item>
+         <param>backend/user/catalogue/delete</param>
+         <description>Xóa</description>
+      </item>
+   </permissions>
+   <permissions>
+      <title>QL Thành viên [QL User]</title>
+      <item>
+         <param>backend/user/user/index</param>
+         <description>Xem</description>
+      </item>
+      <item>
+         <param>backend/user/user/create</param>
+         <description>Thêm</description>
+      </item>
+      <item>
+         <param>backend/user/user/createexcel</param>
+         <description>Thêm bằng excel</description>
+      </item>
+      <item>
+         <param>backend/user/user/update</param>
+         <description>Sửa</description>
+      </item>
+      <item>
+         <param>backend/user/user/delete</param>
+         <description>Xóa</description>
+      </item>
+   </permissions>
+   <permissions>
+      <title>QL Học kỳ - [QL Hoạt động]</title>
+      <item>
+         <param>backend/event/semester/index</param>
+         <description>Xem</description>
+      </item>
+      <item>
+         <param>backend/event/semester/create</param>
+         <description>Thêm</description>
+      </item>
+      <item>
+         <param>backend/event/semester/update</param>
+         <description>Sửa</description>
+      </item>
+      <item>
+         <param>backend/event/semester/delete</param>
+         <description>Xóa</description>
+      </item>
+   </permissions>
+   <permissions>
+		<title>QL Chương trình,sự kiện - [QL Hoạt động]</title>
+		<item>
+			<param>backend/event/event/index</param>
+			<description>Xem</description>
+		</item>
+		<item>
+			<param>backend/event/event/create</param>
+			<description>Thêm</description>
+		</item>
+		<item>
+			<param>backend/event/event/update</param>
+			<description>Sửa</description>
+		</item>
+		<item>
+			<param>backend/event/event/delete</param>
+			<description>Xóa</description>
+		</item>
+	</permissions>
+   <permissions>
+		<title>QL Duyệt minh chứng</title>
+		<item>
+			<param>backend/checkevent/checkevent/index</param>
+			<description>Xem</description>
+		</item>
+		<item>
+			<param>backend/checkevent/checkevent/checkuser</param>
+			<description>Duyệt</description>
 		</item>
 	</permissions>
 	<permissions>
-		<title>Danh sách - [Sản phẩm]</title>
-		<item>
-			<param>backend/product/product/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/product/product/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/product/product/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/product/product/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-   <permissions>
-      <title>Nhóm - [Thuộc tính]</title>
-      <item>
-         <param>backend/attribute/catalogue/index</param>
-         <description>Xem</description>
-      </item>
-      <item>
-         <param>backend/attribute/catalogue/create</param>
-         <description>Thêm</description>
-      </item>
-      <item>
-         <param>backend/attribute/catalogue/update</param>
-         <description>Sửa</description>
-      </item>
-      <item>
-         <param>backend/attribute/catalogue/delete</param>
-         <description>Xóa</description>
-      </item>
-   </permissions>
-   <permissions>
-      <title>[Thuộc tính]</title>
-      <item>
-         <param>backend/attribute/attribute/index</param>
-         <description>Xem</description>
-      </item>
-      <item>
-         <param>backend/attribute/attribute/create</param>
-         <description>Thêm</description>
-      </item>
-      <item>
-         <param>backend/attribute/attribute/update</param>
-         <description>Sửa</description>
-      </item>
-      <item>
-         <param>backend/attribute/attribute/delete</param>
-         <description>Xóa</description>
-      </item>
-   </permissions>
-   <permissions>
-      <title>Order - [Đơn hàng]</title>
-      <item>
-         <param>backend/order/order/index</param>
-         <description>Xem</description>
-      </item>
-      <item>
-         <param>backend/order/order/create</param>
-         <description>Thêm</description>
-      </item>
-      <item>
-         <param>backend/order/order/update</param>
-         <description>Sửa</description>
-      </item>
-      <item>
-         <param>backend/order/order/delete</param>
-         <description>Xóa</description>
-      </item>
-   </permissions>
-   <permissions>
-      <title>Danh sách - [Review]</title>
-      <item>
-         <param>backend/review/review/index</param>
-         <description>Xem</description>
-      </item>
-      <item>
-         <param>backend/review/review/create</param>
-         <description>Thêm</description>
-      </item>
-      <item>
-         <param>backend/review/review/update</param>
-         <description>Sửa</description>
-      </item>
-      <item>
-         <param>backend/review/review/delete</param>
-         <description>Xóa</description>
-      </item>
-   </permissions>
-   <permissions>
-		<title>Khuyến Mãi - [Chương trình]</title>
-		<item>
-			<param>backend/marketing/promotion/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/marketing/promotion/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/marketing/promotion/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/marketing/promotion/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-   <permissions>
-		<title>Mã Khuyến Mãi - [Voucher]</title>
-		<item>
-			<param>backend/marketing/voucher/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/marketing/voucher/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/marketing/voucher/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/marketing/voucher/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Nhóm - [Bài viết]</title>
+		<title>QL Nhóm bài viết</title>
 		<item>
 			<param>backend/article/catalogue/index</param>
 			<description>Xem</description>
@@ -172,7 +161,7 @@
 		</item>
 	</permissions>
 	<permissions>
-		<title>Danh sách - [Bài viết]</title>
+		<title>QL Bài viết</title>
 		<item>
 			<param>backend/article/article/index</param>
 			<description>Xem</description>
@@ -191,122 +180,7 @@
 		</item>
 	</permissions>
 	<permissions>
-		<title>Nhóm - [Media]</title>
-		<item>
-			<param>backend/media/catalogue/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/media/catalogue/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/media/catalogue/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/media/catalogue/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Danh sách - [Media]</title>
-		<item>
-			<param>backend/media/media/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/media/media/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/media/media/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/media/media/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Nhóm - [Thành viên]</title>
-		<item>
-			<param>backend/user/catalogue/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/user/catalogue/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/user/catalogue/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/user/catalogue/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Tài khoản - [Thành viên]</title>
-		<item>
-			<param>backend/user/user/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/user/user/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/user/user/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/user/user/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Quản lý - [Liên hệ]</title>
-		<item>
-			<param>backend/contact/contact/index</param>
-			<description>Xem</description>
-		</item>
-		<item>
-			<param>backend/contact/contact/create</param>
-			<description>Thêm</description>
-		</item>
-		<item>
-			<param>backend/contact/contact/update</param>
-			<description>Sửa</description>
-		</item>
-		<item>
-			<param>backend/contact/contact/delete</param>
-			<description>Xóa</description>
-		</item>
-	</permissions>
-
-	<permissions>
-		<title>Quản lý - [Menu]</title>
-		<item>
-			<param>backend/menu/menu/index</param>
-			<description>Xem chi tiết menu</description>
-		</item>
-		<item>
-			<param>backend/menu/menu/listmenu</param>
-			<description>Xem danh sách menu</description>
-		</item>
-		<item>
-			<param>backend/menu/menu/createmenu</param>
-			<description>Tạo mới menu</description>
-		</item>
-		<item>
-			<param>backend/menu/menu/create</param>
-			<description>Chỉnh sửa menu</description>
-		</item>
-	</permissions>
-	<permissions>
-		<title>Slide</title>
+		<title>QL Slide</title>
 		<item>
 			<param>backend/slide/slide/index</param>
 			<description>Xem</description>
@@ -323,6 +197,18 @@
 			<param>backend/slide/slide/delete</param>
 			<description>Xóa</description>
 		</item>
+	</permissions>
+	<permissions>
+		<title>QL Thông tin cá nhân [Trang quản trị]</title>
+		<item>
+			<param>backend/user/profile/profile</param>
+			<description>Đổi mật khẩu</description>
+		</item>
+		<item>
+			<param>backend/user/profile/user</param>
+			<description>Đổi mật khẩu[test]</description>
+		</item>
+		
 	</permissions>
 
 	<permissions>
@@ -356,26 +242,6 @@
 			<description>Xóa</description>
 		</item>
 	</permissions>
-
-   <permissions>
-      <title>Widget</title>
-      <item>
-         <param>backend/widget/widget/index</param>
-         <description>Xem</description>
-      </item>
-      <item>
-         <param>backend/widget/widget/create</param>
-         <description>Thêm</description>
-      </item>
-      <item>
-         <param>backend/widget/widget/update</param>
-         <description>Sửa</description>
-      </item>
-      <item>
-         <param>backend/widget/widget/delete</param>
-         <description>Xóa</description>
-      </item>
-   </permissions>
 
 	<permissions>
 		<title>Upload</title>

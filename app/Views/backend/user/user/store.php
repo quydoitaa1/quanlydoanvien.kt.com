@@ -61,6 +61,9 @@
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
+										<script>
+											var faculty_id = '<?php echo (isset($_POST['faculty_id'])) ? $_POST['faculty_id'] : ((isset($user['faculty_id'])) ? $user['faculty_id'] : ''); ?>';
+										</script>
 										<div class="form-row">
 											<label class="control-label text-left">
 												<span>Khoa trực thuộc <b class="text-danger">(*)</b></span>
@@ -106,12 +109,7 @@
 												<span>Giới tính</span>
 											</label>
 											 <?php
-		                                $gender = [
-		                                   -1 => 'Giới Tính',
-		                                   0 => 'Nữ',
-		                                   1 => 'Nam',
-		                                ];
-		                               echo form_dropdown('gender', $gender, set_value('gender', (isset($user['gender'])) ? $user['gender'] : -1),'class="form-control mr20 input-sm perpage filter" style="width:100%"');
+		                               echo form_dropdown('gender', GENDER, set_value('gender', (isset($user['gender'])) ? $user['gender'] : -1),'class="form-control mr20 input-sm perpage filter" style="width:100%"');
 		                           ?>
 										</div>
 									</div>
@@ -154,7 +152,7 @@
 											<label class="control-label text-left">
 												<span>Nghề nghiệp <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('profession', $userCatalogue, set_value('profession', (isset($user['profession'])) ? $user['profession'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('profession', PROFESSION, set_value('profession', (isset($user['profession'])) ? $user['profession'] : ''), 'class="form-control m-b "');?>
 										</div>
 									</div>
 								</div>
@@ -180,9 +178,10 @@
 											<label class="control-label text-left">
 												<span>Nơi cấp <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('province', $province, set_value('province', (isset($user['province'])) ? $user['province'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('issued_id_card', $province, set_value('issued_id_card', (isset($user['issued_id_card'])) ? $user['issued_id_card'] : ''), 'class="form-control m-b "');?>
 										</div>
 									</div>
+									<?php if(isset($method) && $method == 'create'){ ?>
 									<div class="col-lg-3 mb5">
 										<div class="form-row">
 											<label class="control-label text-left">
@@ -191,6 +190,7 @@
 											<?php echo form_input('password', set_value('password', (isset($user['password'])) ? $user['password'] : PASSWORD), ' class="form-control" placeholder="" autocomplete="off"');?>
 										</div>
 									</div>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
@@ -406,7 +406,7 @@
 								<label class="control-label text-left">
 									<span>Sổ Đoàn viên</span>
 								</label>
-								<?php echo form_dropdown('user_catalogue_id', $userCatalogue, set_value('user_catalogue_id', (isset($user['user_catalogue_id'])) ? $user['user_catalogue_id'] : ''), 'class="form-control m-b "');?>
+								<?php echo form_dropdown('book_union', YES_OR_NO, set_value('book_union', (isset($user['book_union'])) ? $user['book_union'] : ''), 'class="form-control m-b "');?>
 							</div>
 						</div>
 						<div class="col-lg-2 mb5">

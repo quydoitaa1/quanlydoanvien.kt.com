@@ -22,7 +22,7 @@ class Auth implements FilterInterface
         $this->auth = json_decode($this->auth, TRUE);
 
         $user = $this->AutoloadModel->_get_where([
-            'select' =>'id, email, phone, address',
+            'select' =>'id, email, phone',
             'table' => 'users',
             'where' => ['email' => $this->auth['email']]
         ]);

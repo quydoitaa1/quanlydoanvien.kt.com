@@ -30,6 +30,9 @@ class FacultyRepository extends BaseRepository implements FacultyRepositoryInter
             tb1.image,
             tb1.publish,
             tb1.description,
+            tb1.content,
+            tb1.canonical,
+            tb1.founding
          ',
          'table' => $this->table.' as tb1',
          // 'join' => [
@@ -37,9 +40,24 @@ class FacultyRepository extends BaseRepository implements FacultyRepositoryInter
          // ],
          'where' => [
             $field => $value,
+            'tb1.publish' => 1,
             'tb1.deleted_at' => 0
          ]
       ]);
+   }
+   public function getHome(){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.title,
+            tb1.image,
+            tb1.canonical
+         ',
+         'table' => $this->table.' as tb1',
+         'where' => [
+            'tb1.publish' => 1,
+            'tb1.deleted_at' => 0
+         ]
+      ],TRUE);
    }
 
    public function count(array $condition,  string $keyword){

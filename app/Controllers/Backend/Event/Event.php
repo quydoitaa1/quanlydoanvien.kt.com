@@ -19,9 +19,6 @@ class Event extends BaseController{
       $this->eventService = service('EventService',
          ['language' => $this->language, 'module' => $this->module]
       );
-      // $this->nestedsetbie = service('Nestedsetbie',
-      //    ['table' => 'event_catalogues', 'language' => $this->language, 'foreignkey' => 'event_catalogue_id']
-      // );
       $this->authentication = service('Auth');
       $this->eventRepository = service('eventRepository', $this->module);
       $this->semesterRepository = service('semesterRepository', 'semesters');
@@ -30,10 +27,10 @@ class Event extends BaseController{
 	}
 
 	public function index($page = 1){
-      // if(!$this->authentication->gate('backend.event.event.index')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.event.index')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		$event = $this->eventService->paginate($page);
       $catalogue = $this->semesterRepository->getAllCatalogue('semesters');
       $dropdown = dropdown_no_language($catalogue);
@@ -48,10 +45,10 @@ class Event extends BaseController{
       );
 	}
 	public function create(){
-      // if(!$this->authentication->gate('backend.event.event.create')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.event.create')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		if($this->request->getMethod() == 'post'){
          $validate = $this->validation();
          if ($this->validate($validate['validate'], $validate['errorValidate'])){
@@ -83,10 +80,10 @@ class Event extends BaseController{
 
 	public function update($id = 0){
       $id = (int)$id;
-      // if(!$this->authentication->gate('backend.event.event.update')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.event.update')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $event = $this->eventRepository->findByField($id, 'tb1.id');
 
 		if(!isset($event) || is_array($event) == false || count($event) == 0){
@@ -123,10 +120,10 @@ class Event extends BaseController{
 
 	public function delete($id = 0){
       $id = (int)$id;
-      // if(!$this->authentication->gate('backend.event.event.delete')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.event.delete')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $event = $this->eventRepository->findByField($id, 'tb1.id');
 
 		if(!isset($event) || is_array($event) == false || count($event) == 0){

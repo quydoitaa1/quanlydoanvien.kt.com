@@ -1,9 +1,9 @@
     <style>
       .nice-select {
         width: 100%;
-        border: 1px solid #000;
-        height: 47px;
-        line-height: 47px;
+        border: 1px solid #818a91;
+        height: 30px;
+        line-height: 30px;
         padding: 0 15px;
       }
 
@@ -26,7 +26,7 @@
     </style>
   <script src="public/frontend/resources/plugins/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
   <script src="public/frontend/resources/uikit/js/components/slideshow.min.js"></script>
-  <script src="public/frontend/resources/library/js/toastr/toastr.min.js"></script>
+  <script src="public/backend/js/plugins/toastr/toastr.min.js"></script>
   <script src="public/frontend/resources/plugins/jquery.countdown.min.js"></script>
   <script src="public/frontend/resources/plugins/timeago.js"></script>
   <script src="public/frontend/resources/plugins/jquery_scroll_loading.js"></script>
@@ -36,14 +36,18 @@
   <script src="public/frontend/resources/uikit/js/components/sticky.min.js" type="text/javascript"></script>
   <script src="public/frontend/resources/plugins/timeago.js"></script>
   <script src="public/frontend/resources/plugins/sweetalert.min.js"></script>
-  <script src="public/frontend/resources/plugins/jquery_scroll_loading.js"></script>
-  <script src="public/frontend/resources/library/js/toastr/toastr.min.js"></script>
   <script src="public/frontend/resources/plugins.js"></script>
   <script src="public/frontend/resources/cart.js"></script>
   <script src="public/frontend/resources/uikit/js/components/lightbox.min.js"></script>
   
+  <script src="public/backend/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+  <script src="public/backend/plugin/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+  <script src="public/backend/plugin/ckfinder/ckfinder.js"></script>
+  <script src="public/backend/library/ckfinder.js"></script>
+
   <script src="public/frontend/resources/function.js"></script>
-  <script src="public/frontend/resources/_function.js"></script>
+  <script src="public/frontend/resources/custom.js"></script>
+  <!-- <script src="public/frontend/resources/_function.js"></script> -->
   <script type='text/javascript' src='public/frontend/resources/plugins/bacola/gsap.min.js' ></script>
   <script type='text/javascript' src='public/frontend/resources/plugins/bacola/bundle.js' ></script>
   <script type='text/javascript' src='public/frontend/resources/plugins/bacola/bootstrap.bundle.min.js' ></script>

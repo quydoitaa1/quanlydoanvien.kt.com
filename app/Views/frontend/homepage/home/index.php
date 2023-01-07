@@ -1,109 +1,50 @@
     <div id="homepage">
       <div class="slide-container">
-        <div class="uk-container uk-container-center">
-          <div class="uk-grid uk-grid-small">
-            <div class="uk-width-large-2-3">
-              <?php
-                $owlInit = [
-                  'nav' => true,
-                  'dots' => false,
-                  'loop' => true,
-                  'margin' => 20,
-                  'autoplay' => true,
-                  'autoplayTimeout' => 3000,
-                  'responsive' => array(
-                    0 => array(
-                      'items' => 1,
-                    ),
-                    480 => array(
-                      'items' => 1,
-                    ),
-                    768 => array(
-                      'items' => 1,
-                    ),
-                    960 => array(
-                      'items' => 1,
-                    ),
-                  ),
-                ];
-              ?>
-              <div class="owl-slide">
-                <div class="owl-carousel owl-theme"  data-owl="	<?php echo base64_encode(json_encode($owlInit));?>">
-                  <div class="item">
-                    <a href="" title="" class="image img-cover">
-                      <img src="/upload/image/banner/du-hoc-1-3-vimiss.png"  class="lazyloading " alt="/upload/image/banner/du-hoc-1-3-vimiss.png">
-                    </a>
-                  </div>
-                  <div class="item">
-                    <a href="" title="" class="image img-cover">
-                      <img src="/upload/image/banner/du-hoc-1-3-vimiss.png"  class="lazyloading " alt="/upload/image/banner/du-hoc-1-3-vimiss.png">
-                    </a>
-                  </div>
+        <?php
+          $owlInit = [
+            'nav' => true,
+            'dots' => true,
+            'loop' => true,
+            'margin' => 20,
+            'autoplay' => true,
+            'autoplayTimeout' => 3500,
+            'responsive' => array(
+              0 => array(
+                'items' => 1,
+              ),
+              480 => array(
+                'items' => 1,
+              ),
+              768 => array(
+                'items' => 1,
+              ),
+              960 => array(
+                'items' => 1,
+              ),
+            ),
+          ];
+        ?>
+        <div class="owl-slide">
+          <div class="owl-carousel owl-theme"  data-owl="	<?php echo base64_encode(json_encode($owlInit));?>">
+          <?php if(isset($slide) && is_array($slide) && count($slide)){ ?>
+          <?php foreach ($slide as $key => $val) {?>
+            <div class="item">
+              <a href="<?php echo $val['canonical'].HTSUFFIX ?>" title="<?php echo $val['title'] ?>" class="image img-cover">
+                <img src="<?php echo $val['image'] ?>"  class="lazyloading " alt="<?php echo $val['image'] ?>">
+              </a>
+              <div class="item-content">
+                <div class="sub-title"><?php echo $val['slide_title'] ?></div>
+                <div class="description"><?php echo $val['slide_description'] ?></div>
+                <div class="btn-readmore">
+                  <a href="<?php echo $val['canonical'].HTSUFFIX ?>">Xem thêm <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+            <?php }} ?>
+          </div>
+        </div>
+      </div>
 
-                </div>
-              </div>
-            </div>
-            <div class="uk-width-large-1-3">
-              <div class="banner">
-                <a href="" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png"  alt="">
-                </a>
-                <a href="" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png"  alt="">
-                </a>
-                <a href="" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png" alt="">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="partner-section">
-        <div class="uk-container uk-container-center">
-          <div class="heading-1">
-            <span>Các Liên chi Đoàn trực thuộc</span>
-          </div>
-          <div class="panel-body">
-          <?php
-              $owlInit = [
-                'nav' => false,
-                'dots' => false,
-                'loop' => true,
-                'margin' => 20,
-                'autoplay' => true,
-                'autoplayTimeout' => 2000,
-                'responsive' => array(
-                  0 => array(
-                    'items' => 2,
-                  ),
-                  480 => array(
-                    'items' => 3,
-                  ),
-                  768 => array(
-                    'items' => 4,
-                  ),
-                  960 => array(
-                    'items' => 5,
-                  ),
-                ),
-              ];
-            ?>
-            <div class="owl-slide">
-                <div class="owl-carousel owl-theme"  data-owl="	<?php echo base64_encode(json_encode($owlInit));?>">
-                <?php for($i=1 ; $i<=6 ; $i++){ ?>
-                  <div class="item">
-                      <a class="image img-scaledown" href="" title="/upload/image/doitac/<?php echo $i ?>.jpg">
-                        <img src="upload/image/doitac/<?php echo $i ?>.jpg" alt="">
-                      </a>
-                  </div>
-                <?php } ?>
-                </div>
-              </div>
-           
-          </div>
-        </div>
-      </div>
       <div class="travel-container">
         <div class="uk-container uk-container-center">
           <div class="heading-1">
@@ -115,8 +56,8 @@
                 'dots' => false,
                 'loop' => true,
                 'margin' => 20,
-                'autoplay' => true,
-                'autoplayTimeout' => 3000,
+                // 'autoplay' => true,
+                // 'autoplayTimeout' => 3000,
                 'responsive' => array(
                   0 => array(
                     'items' => 1,
@@ -134,100 +75,29 @@
               ];
             ?>
           <div class="owl-slide">
-            <div class="owl-carousel owl-theme" data-owl="	<?php echo base64_encode(json_encode($owlInit)); ?>">
+            <div class="owl-carousel owl-theme"  data-owl="	<?php echo base64_encode(json_encode($owlInit)); ?>">
+            <?php if(isset($event) && is_array($event) && count($event)){ ?>
+            <?php foreach ($event as $key => $val){ ?>
               <div class="travel-item">
-                <a href="cap-nhat-thong-tin-du-hoc-trung-quoc-moi-nhat.html" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png" alt="[Cập nhật] - Thông tin học bổng du học Trung Quốc mới nhất 2023">
+                <a href="<?php echo $val['canonical'].HTSUFFIX ?>" class="image img-cover">
+                  <img src="<?php echo $val['image'] ?>" alt="<?php echo $val['title'] ?>">
                 </a>
                 <div class="info">
                   <div class="title">
-                    <a href="cap-nhat-thong-tin-du-hoc-trung-quoc-moi-nhat.html" title="[Cập nhật] - Thông tin học bổng du học Trung Quốc mới nhất 2023">[Cập nhật] - Thông tin học bổng du học Trung Quốc mới nhất 2023</a>
+                    <a href="<?php echo $val['canonical'].HTSUFFIX ?>" title="<?php  echo $val['title'] ?>">
+                      <?php echo $val['title'] ?>
+                    </a>
                   </div>
-                  <div class="description"> Du học Trung Quốc ngành gì? Cần bao nhiêu tiền? Điều kiện là gì? Bài viết chia... </div>
+                  <div class="time"> Thời gian:  <?php echo changeDateFormat($val['day_start'],'d/m/Y') ?> - <?php echo changeDateFormat($val['day_end'],'d/m/Y') ?> </div>
+                  <div class="description"> <?php echo $val['description'] ?> </div>
                 </div>
               </div>
-              <div class="travel-item">
-                <a href="hoc-bong-ban-phan-dai-hoc-thuong-hai-va-dai-hoc-su-pham-thu-do.html" class="image img-cover">
-                  <img src="upload/image/tin-tuc/hoc-bong-ban-phan-du-hoc-trung-quoc1.png" alt="Học bổng bán phần Đại học Thượng Hải và Đại học Sư phạm Thủ đô Bắc Kinh">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="hoc-bong-ban-phan-dai-hoc-thuong-hai-va-dai-hoc-su-pham-thu-do.html" title="Học bổng bán phần Đại học Thượng Hải và Đại học Sư phạm Thủ đô Bắc Kinh">Học bổng bán phần Đại học Thượng Hải và Đại học Sư phạm Thủ đô Bắc Kinh</a>
-                  </div>
-                  <div class="description"> Cơ hội vàng khi đăng ký học bổng bán phần vào các trường đại học hàng... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="trien-lam-du-hoc-2023-gap-go-ban-tuyen-sinh-16-truong-top-dau-trung-quoc.html" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png" alt="Giới thiệu về “Du học Trung Quốc với HSK” tại Việt Nam">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="trien-lam-du-hoc-2023-gap-go-ban-tuyen-sinh-16-truong-top-dau-trung-quoc.html" title="Giới thiệu về “Du học Trung Quốc với HSK” tại Việt Nam">Giới thiệu về “Du học Trung Quốc với HSK” tại Việt Nam</a>
-                  </div>
-                  <div class="description"> Tham gia buổi giới thiệu du học Trung Quốc 2023 để gặp gỡ Ban tuyển sinh 16... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="hoi-thao-du-hoc-trung-quoc-2023-khang-dinh-vi-the-sai-canh-vuon-xa.html" class="image img-cover">
-                  <img src="upload/image/banner/banner-3.png" alt="Hội thảo du học Trung Quốc 2023: Khẳng định vị thế - Sải cánh vươn xa">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="hoi-thao-du-hoc-trung-quoc-2023-khang-dinh-vi-the-sai-canh-vuon-xa.html" title="Hội thảo du học Trung Quốc 2023: Khẳng định vị thế - Sải cánh vươn xa">Hội thảo du học Trung Quốc 2023: Khẳng định vị thế - Sải cánh vươn xa</a>
-                  </div>
-                  <div class="description"> HỘI THẢO DU HỌC TRUNG QUỐC 2023: "Khẳng định vị thế - Sải cánh vươn xa".... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="hoc-bong-1-nam-tieng-nhap-hoc-9-2023-tro-cap-2500-te-thang.html" class="image img-cover">
-                  <img src="upload/image/tin-tuc/314999423_6429737823708554_8954199284985802722_n.jpg" alt="Học bổng 1 năm tiếng nhập học 9/2023  trợ cấp 2500 tệ/ tháng">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="hoc-bong-1-nam-tieng-nhap-hoc-9-2023-tro-cap-2500-te-thang.html" title="Học bổng 1 năm tiếng nhập học 9/2023  trợ cấp 2500 tệ/ tháng">Học bổng 1 năm tiếng nhập học 9/2023 trợ cấp 2500 tệ/ tháng</a>
-                  </div>
-                  <div class="description"> Nhận ngay 1 khóa học tiếng Trung đầu ra HSK3 miễn phí khi đăng ký học bổng 1... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="tong-hop-cac-suat-hoc-bong-1-ky-offline-tai-trung-quoc.html" class="image img-cover">
-                  <img src="upload/image/tin-tuc/313387335_6403511139664556_4811239228231763108_n.png" alt="Tổng hợp các suất học bổng 1 kỳ Offline tại Trung Quốc nhập học 2/2023">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="tong-hop-cac-suat-hoc-bong-1-ky-offline-tai-trung-quoc.html" title="Tổng hợp các suất học bổng 1 kỳ Offline tại Trung Quốc nhập học 2/2023">Tổng hợp các suất học bổng 1 kỳ Offline tại Trung Quốc nhập học 2/2023</a>
-                  </div>
-                  <div class="description"> Chỉ từ 500USD cho 5 tháng học tập tại Trung Quốc. Được miễn học phí, ký túc... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han.html" class="image img-cover">
-                  <img src="upload/image/tin-tuc/hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han-1.jpg" alt="Học bổng CIS Thạc sĩ nhập học tháng 10 tại Vũ Hán">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han.html" title="Học bổng CIS Thạc sĩ nhập học tháng 10 tại Vũ Hán">Học bổng CIS Thạc sĩ nhập học tháng 10 tại Vũ Hán</a>
-                  </div>
-                  <div class="description"> Cập nhật những suất học bổng CIS Thạc sĩ cuối cùng tại Vũ Hán với chế... </div>
-                </div>
-              </div>
-              <div class="travel-item">
-                <a href="hoc-bong-1-ky-mua-xuan-2023-tai-bac-kinh-tro-cap-2500-te.html" class="image img-cover">
-                  <img src="upload/image/tin-tuc/310264845_4214135512044227_6647994808996724879_n.jpg" alt="Học bổng 1 kỳ mùa xuân 2023 tại Bắc Kinh trợ cấp 2500 tệ">
-                </a>
-                <div class="info">
-                  <div class="title">
-                    <a href="hoc-bong-1-ky-mua-xuan-2023-tai-bac-kinh-tro-cap-2500-te.html" title="Học bổng 1 kỳ mùa xuân 2023 tại Bắc Kinh trợ cấp 2500 tệ">Học bổng 1 kỳ mùa xuân 2023 tại Bắc Kinh trợ cấp 2500 tệ</a>
-                  </div>
-                  <div class="description"> Du học kết hợp du lịch Bắc Kinh, có trợ cấp sinh hoạt phí 2500 tệ/ tháng. Quá... </div>
-                </div>
-              </div>
+              <?php }} ?>
             </div>
           </div>
         </div>
       </div>
-      <div class="homepage-customer">
+      <!-- <div class="homepage-customer">
         <div class="uk-container uk-container-center">
           <h2 class="heading-2">
             <span>Cảm nghĩ của bạn?</span>
@@ -337,89 +207,109 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
+    <?php if(isset($article) && is_array($article) && count($article)){ ?>
     <div class="news-container">
       <div class="uk-container uk-container-center">
         <h2 class="heading-1">
-          <span>CHƯƠNG TRÌNH HỌC BỔNG</span>
+          <span>BÀI VIẾT MỚI NHẤT</span>
         </h2>
         <div class="uk-grid uk-grid-medium">
           <div class="uk-width-large-1-2">
+            <?php foreach ($article as $key => $val){ ?>
             <div class="feature-post">
-              <a href="cap-nhat-thong-tin-du-hoc-trung-quoc-moi-nhat.html" class="image img-cover">
-                <img src="/upload/image/tin-tuc/du-hoc-trung-quoc.png"  class="lazyloading " alt="/upload/image/tin-tuc/du-hoc-trung-quoc.png">
+              <a href="<?php echo $val['canonical'].HTSUFFIX ?>" class="image img-cover">
+                <img src="<?php echo $val['image'] ?>"  class="lazyloading " alt="<?php echo $val['image'] ?>">
               </a>
               <h3 class="title">
-                <a href="cap-nhat-thong-tin-du-hoc-trung-quoc-moi-nhat.html" title="[Cập nhật] - Thông tin học bổng du học Trung Quốc mới nhất 2023">[Cập nhật] - Thông tin học bổng du học Trung Quốc mới nhất 2023</a>
+                <a href="<?php echo $val['canonical'].HTSUFFIX ?>" title="<?php echo $val['title'] ?>"><?php echo $val['title'] ?></a>
               </h3>
-              <div class="description"> Du học Trung Quốc ngành gì? Cần bao nhiêu tiền? Điều kiện là gì? Bài viết chia sẻ những thông tin du học mới nhất và chương trình học bổng du học năm 2023 </div>
+              <div class="description"> <?php echo $val['description'] ?> </div>
               <div class="create_at">
-                <i class="fa fa-calendar mr5"></i>25/06/2021
+                <i class="fa fa-calendar mr5"></i><?php echo gettime($val['created_at'],' H:m - d/m/Y') ?>
               </div>
             </div>
+            
+            <?php if($key == 0) break; } ?>
           </div>
           <div class="uk-width-large-1-2">
+          <?php 
+            foreach ($article as $key => $val){ 
+            if($key == 0) continue;
+            ?>
             <div class="list-post">
-              <article class="article-1 uk-clearfix">
-                <a href="hoc-bong-ban-phan-dai-hoc-thuong-hai-va-dai-hoc-su-pham-thu-do.html" class="image img-cover">
-                  <img src="/upload/image/tin-tuc/hoc-bong-ban-phan-du-hoc-trung-quoc1.png"  class="lazyloading " alt="/upload/image/tin-tuc/hoc-bong-ban-phan-du-hoc-trung-quoc1.png">
+              <div class="article-1 uk-clearfix">
+                <a href="<?php echo $val['canonical'].HTSUFFIX ?>" class="image img-cover">
+                  <img src="<?php echo $val['image'] ?>"  class="lazyloading " alt="<?php echo $val['image'] ?>">
                 </a>
                 <div class="info">
                   <h3 class="title">
-                    <a href="hoc-bong-ban-phan-dai-hoc-thuong-hai-va-dai-hoc-su-pham-thu-do.html" title="Học bổng bán phần Đại học Thượng Hải và Đại học Sư phạm Thủ đô Bắc Kinh">Học bổng bán phần Đại học Thượng Hải và Đại học Sư phạm Thủ đô Bắc Kinh</a>
+                    <a href="<?php echo $val['canonical'].HTSUFFIX ?>" title="<?php echo $val['title'] ?>"><?php echo $val['title'] ?></a>
                   </h3>
-                  <div class="description">Cơ hội vàng khi đăng ký học bổng bán phần vào các trường đại học hàng...</div>
-                  <div class="created_at">02:18 - 16/07/2021</div>
+                  <div class="description"><?php echo $val['description'] ?></div>
+                  <div class="create_at"><i class="fa fa-calendar mr5"></i><?php echo gettime($val['created_at'],'H:m - d/m/Y') ?></div>
                 </div>
-              </article>
-              <article class="article-1 uk-clearfix">
-                <a href="hoc-bong-1-nam-tieng-nhap-hoc-9-2023-tro-cap-2500-te-thang.html" class="image img-cover">
-                  <img src="/upload/image/tin-tuc/314999423_6429737823708554_8954199284985802722_n.jpg"  class="lazyloading " alt="/upload/image/tin-tuc/314999423_6429737823708554_8954199284985802722_n.jpg">
-                </a>
-                <div class="info">
-                  <h3 class="title">
-                    <a href="hoc-bong-1-nam-tieng-nhap-hoc-9-2023-tro-cap-2500-te-thang.html" title="Học bổng 1 năm tiếng nhập học 9/2023  trợ cấp 2500 tệ/ tháng">Học bổng 1 năm tiếng nhập học 9/2023 trợ cấp 2500 tệ/ tháng</a>
-                  </h3>
-                  <div class="description">Nhận ngay 1 khóa học tiếng Trung đầu ra HSK3 miễn phí khi đăng ký học bổng 1...</div>
-                  <div class="created_at">08:01 - 10/11/2022</div>
-                </div>
-              </article>
-              <article class="article-1 uk-clearfix">
-                <a href="tong-hop-cac-suat-hoc-bong-1-ky-offline-tai-trung-quoc.html" class="image img-cover">
-                  <img src="/upload/image/tin-tuc/313387335_6403511139664556_4811239228231763108_n.png"  class="lazyloading " alt="/upload/image/tin-tuc/313387335_6403511139664556_4811239228231763108_n.png">
-                </a>
-                <div class="info">
-                  <h3 class="title">
-                    <a href="tong-hop-cac-suat-hoc-bong-1-ky-offline-tai-trung-quoc.html" title="Tổng hợp các suất học bổng 1 kỳ Offline tại Trung Quốc nhập học 2/2023">Tổng hợp các suất học bổng 1 kỳ Offline tại Trung Quốc nhập học 2/2023</a>
-                  </h3>
-                  <div class="description">Chỉ từ 500USD cho 5 tháng học tập tại Trung Quốc. Được miễn học phí, ký túc...</div>
-                  <div class="created_at">22:11 - 02/11/2022</div>
-                </div>
-              </article>
-              <article class="article-1 uk-clearfix">
-                <a href="hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han.html" class="image img-cover">
-                  <img src="/upload/image/tin-tuc/hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han-1.jpg"  class="lazyloading " alt="/upload/image/tin-tuc/hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han-1.jpg">
-                </a>
-                <div class="info">
-                  <h3 class="title">
-                    <a href="hoc-bong-cis-thac-si-nhap-hoc-thang-10-tai-vu-han.html" title="Học bổng CIS Thạc sĩ nhập học tháng 10 tại Vũ Hán">Học bổng CIS Thạc sĩ nhập học tháng 10 tại Vũ Hán</a>
-                  </h3>
-                  <div class="description">Cập nhật những suất học bổng CIS Thạc sĩ cuối cùng tại Vũ Hán với chế...</div>
-                  <div class="created_at">21:07 - 13/10/2022</div>
-                </div>
-              </article>
+              </div>
             </div>
+            <?php if($key == 4) break; } ?>
           </div>
         </div>
         <div class="uk-text-center">
           <div class="readmore">
-            <a href="tin-tuc.html">Xem thêm</a>
+            <a href="bai-viet.html">Xem thêm</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="n-activity">
+    <?php } ?>
+    <?php if(isset($faculty) && is_array($faculty) && count($faculty)){ ?>
+      <div class="partner-section">
+        <div class="uk-container uk-container-center">
+          <div class="heading-1">
+            <span>Các Liên chi Đoàn trực thuộc</span>
+          </div>
+          <div class="panel-body">
+            <?php
+              $owlInit = [
+                'nav' => false,
+                'dots' => false,
+                'loop' => true,
+                'margin' => 20,
+                'autoplay' => true,
+                'autoplayTimeout' => 2000,
+                'responsive' => array(
+                  0 => array(
+                    'items' => 2,
+                  ),
+                  480 => array(
+                    'items' => 3,
+                  ),
+                  768 => array(
+                    'items' => 4,
+                  ),
+                  960 => array(
+                    'items' => 5,
+                  ),
+                ),
+              ];
+            ?>
+            <div class="owl-slide">
+                <div class="owl-carousel owl-theme"  data-owl="	<?php echo base64_encode(json_encode($owlInit));?>">
+                <?php foreach ($faculty as $key => $val){ ?>
+                  <div class="item">
+                      <a class="image img-cover" href="<?php echo $val['canonical'].HTSUFFIX ?>" title="<?php echo $val['title'] ?>">
+                        <img src="<?php echo $val['image'] ?>" alt="">
+                      </a>
+                  </div>
+                <?php } ?>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
+    <!-- <div class="n-activity">
       <div class="uk-container uk-container-center">
         <div class="n-activity-content">
           <div class="main-title "> Hình ảnh hoạt động </div>
@@ -566,5 +456,5 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     

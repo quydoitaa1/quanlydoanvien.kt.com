@@ -25,9 +25,23 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
          'table' => $this->table.' as tb1',
          'where' => [
             $field => $value,
-            'tb1.deleted_at' => 0
+            'tb1.deleted_at' => 0,
+            'tb1.publish' => 1
          ]
       ]);
+   }
+   public function getAll(){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb1.title,
+         ',
+         'table' => $this->table.' as tb1',
+         'where' => [
+            'tb1.publish' => 1,
+            'tb1.deleted_at' => 0
+         ]
+      ],TRUE);
    }
 
    public function count(array $condition,  string $keyword){

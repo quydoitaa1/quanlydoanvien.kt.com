@@ -33,6 +33,15 @@ class Services extends CoreServices
 
        return new \App\Services\SystemService($param);
    }
+   public static function SlideService($param = [], $getShared = true)
+   {
+       if ($getShared)
+       {
+           return static::getSharedInstance('SlideService', $param);
+       }
+
+       return new \App\Services\SlideService($param);
+   }
 
 
    public static function LanguageService($param = [], $getShared = true)
@@ -131,6 +140,15 @@ class Services extends CoreServices
        }
 
        return new \App\Repositories\SystemRepository($table);
+   }
+   public static function SlideRepository($table = '', $getShared = true)
+   {
+       if ($getShared)
+       {
+           return static::getSharedInstance('SlideRepository', $table);
+       }
+
+       return new \App\Repositories\SlideRepository($table);
    }
 
    public static function LanguageRepository($table = '', $getShared = true)

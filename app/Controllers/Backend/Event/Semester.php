@@ -25,10 +25,10 @@ class Semester extends BaseController{
 	}
 
 	public function index($page = 1){
-    //   if(!$this->authentication->gate('backend.event.semester.index')){
-    //      $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-    //      return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-    //   }
+      if(!$this->authentication->gate('backend.event.semester.index')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 		$semester = $this->semesterService->paginate($page);
       //   dd($semester);
       $module = $this->module;
@@ -41,10 +41,10 @@ class Semester extends BaseController{
 	}
 
 	public function create(){
-    //   if(!$this->authentication->gate('backend.event.semester.create')){
-    //      $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-    //      return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-    //   }
+      if(!$this->authentication->gate('backend.event.semester.create')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
 
 
 		if($this->request->getMethod() == 'post'){
@@ -73,10 +73,10 @@ class Semester extends BaseController{
 
 	public function update($id = 0){
 		$id = (int)$id;
-      // if(!$this->authentication->gate('backend.event.semester.update')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.semester.update')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $semester = $this->semesterRepository->findByField($id, 'tb1.id');
    
       // dd($semester);
@@ -109,10 +109,10 @@ class Semester extends BaseController{
 
 	public function delete($id = 0){
       $id = (int)$id;
-      // if(!$this->authentication->gate('backend.event.semester.delete')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.event.semester.delete')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       $semester = $this->semesterRepository->findByField($id, 'tb1.id');
 
 		if(!isset($semester) || is_array($semester) == false || count($semester) == 0){

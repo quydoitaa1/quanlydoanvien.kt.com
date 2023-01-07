@@ -26,30 +26,28 @@ class Catalogue extends FrontendController{
       $this->productCatalogueRepository = service('ProductCatalogueRepository', 'product_catalogues');
       $this->cartBie = service('cartbie');
       $this->widget = service('widget', ['language' => $this->language]);
-
+      $this->userRepository = service('userRepository', 'users');
+      $this->facultyRepository = service('facultyRepository', 'faculties');
 	}
 
 	public function index($id = 0, $page = 1){
-	   $articleCatalogue = $this->articleCatalogueRepository->findByField($id, 'tb1.id');
+
       $module = $this->module;
+	   $articleCatalogue = $this->articleCatalogueRepository->findByField($id, 'tb1.id');
       $article = $this->articleService->index($articleCatalogue, $page);
-      $canonical = $article['canonical'];
+      
+      
+      $faculties = $this->facultyRepository->getHome();
       $general = convertGeneral($this->systemRepository->all('keyword, content'));
-      $product['count'] = $this->productRepository->count(['deleted_at' => 0]);
 
-
-      $widget = [
-         'post' =>  $this->widget->getWidgetKeyword('post-highlight', $this->language),
-      ];
-      $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
-      $productCatalogueList = recursive($productCatalogueList);
-      $cart = $this->cartBie->formatCart($this->cart);
-      $js = ['cart','core'];
-      $seo = seo($articleCatalogue, $canonical, 'page');
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $id = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
+         $user = $this->userRepository->getAccount($id,'tb1.id');
+      }
       $template = route('frontend.article.catalogue.index');
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'productCatalogueList','canonical', 'article', 'general','articleCatalogue','cart', 'seo', 'product', 'widget'
+            'user','template', 'article', 'general','articleCatalogue','faculties'
          )
       );
 	}

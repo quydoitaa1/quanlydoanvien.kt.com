@@ -31,15 +31,22 @@ $routes->setAutoRoute(true);
 $routes->get('/','Frontend\Homepage\Home::index');
 $routes->get('index'.HTSUFFIX,'Frontend\Homepage\Home::index');
 
-$routes->get('lien-he'.HTSUFFIX,'Frontend\Contact\Contact::index');
+$routes->get('bai-viet'.HTSUFFIX,'Frontend\Article\Catalogue::index');
+$routes->get('bai-viet/trang-([0-9]+)'.HTSUFFIX,'Frontend\Article\Catalogue::index/$1/$2');
+
+
 $routes->get('chi-tiet-chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Event::index');
 $routes->get('chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Catalogue::index');
+$routes->match(['get','post'],'thong-tin-ca-nhan'.HTSUFFIX,'Frontend\Infomation\Infomation::index');
+$routes->match(['get','post'],'diem-ren-luyen'.HTSUFFIX,'Frontend\Infomation\Score::index');
 
 
 
 $routes->get('/admin', 'Backend/Authentication/Auth::login',['filter' => 'login' ]);
-$routes->get('([a-zA-Z0-9-]+)'.HTSUFFIX, 'Frontend\Homepage\Router::index/$1');
-$routes->get('([a-zA-Z0-9-]+)/trang-([0-9]+)'.HTSUFFIX, 'Frontend\Homepage\Router::index/$1/$2');
+// $routes->get('([a-zA-Z0-9-]+)'.HTSUFFIX, 'Frontend\Homepage\Router::index/$1');
+$routes->match(['get','post'],'([a-zA-Z0-9-]+)'.HTSUFFIX, 'Frontend\Homepage\Router::index/$1');
+$routes->match(['get','post'],'([a-zA-Z0-9-]+)/trang-([0-9]+)'.HTSUFFIX, 'Frontend\Homepage\Router::index/$1/$2');
+
 
 $routes->get(BACKEND_DIRECTORY, 'Backend/Authentication/Auth::login', ['filter' => 'login' ]);
 $routes->get('backend/authentication/auth/forgot', 'Backend/Authentication/Auth::forgot', ['filter' => 'login' ]);
@@ -48,9 +55,9 @@ $routes->match(['get','post'],'backend/dashboard/dashboard/index', 'Backend/Dash
 
 
 $name = [
-    'user','user catalogue','article','article catalogue',
+    'user','user catalogue','article','article catalogue','slide',
     'product', 'product catalogue', 'media', 'media catalogue', 'language',
-    'organization','branch','faculty','event','semester'
+    'organization','branch','faculty','event','semester','check'
 ];
 
 /*MENU*/

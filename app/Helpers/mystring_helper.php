@@ -140,6 +140,24 @@ if (!function_exists('requestAccept')) {
       return $post;
    }
 }
+if (!function_exists('requestAcceptTime')) {
+   function requestAcceptTime($accept = [], $userId = 0)
+   {
+      $request = \Config\Services::request();
+      $post = $request->getPost();
+      if($post && count($accept) > 0){
+         foreach($post as $key => $val){
+            if(!in_array($key, $accept))
+               unset($post[$key]);
+         }
+      }
+      if(isset($userId) && $userId > 0 ){
+         $post['created_at'] = currentTime();
+         $post['updated_at'] = currentTime();
+      }
+      return $post;
+   }
+}
 
 if (!function_exists('requestAcceptUpdate')) {
    function requestAcceptUpdate($accept = [], $userId = 0)

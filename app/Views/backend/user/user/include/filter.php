@@ -1,17 +1,21 @@
 <form action="" method="">
     <div class="uk-flex uk-flex-middle uk-flex-space-between mb20">
         <div class="perpage">
-           <div class="uk-flex uk-flex-middle mb10">
+           <!-- <div class="uk-flex uk-flex-middle mb10">
             <select name="perpage" class="form-control input-sm perpage filter mr10">
-               <?php for($i = 20; $i <= 200; $i+= 20){?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?> bản ghi</option>
-               <?php } ?>
+               <?php //for($i = 20; $i <= 200; $i+= 20){?>
+                  <option value="<?php //echo $i; ?>"><?php //echo $i; ?> bản ghi</option>
+               <?php //} ?>
             </select>
-           </div>
+           </div> -->
         </div>
         <div class="toolbox">
            <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                <?php echo form_dropdown('user_catalogue_id', $userCatalogue, set_value('user_catalogue_id', (request()->getGet('user_catalogue_id')) ? request()->getGet('user_catalogue_id') : 0), 'class="form-control mr10"');?>
+            <?php if($idLogin == '1' || $idLogin == '7'){
+                echo form_dropdown('user_catalogue_id', $userCatalogue, set_value('user_catalogue_id', (request()->getGet('user_catalogue_id')) ? request()->getGet('user_catalogue_id') : 0), 'class="form-control mr10"');
+            } ?>
+                <?php echo form_dropdown('gender', GENDER, set_value('gender', (request()->getGet('gender')) ? request()->getGet('gender') : -1), 'class="form-control mr10"');?>
+                <?php echo form_dropdown('union_position', UNION_POSITION, set_value('union_position', (request()->getGet('union_position')) ? request()->getGet('union_position') : -1), 'class="form-control mr10"');?>
 
                 <div class="uk-search uk-flex uk-flex-middle mr10">
                     <div class="input-group">
@@ -27,8 +31,11 @@
                        </span>
                     </div>
                 </div>
-                <div class="uk-button">
+                <div class="uk-button mr10">
                     <a href="<?php echo base_url(route('backend.user.user.create')) ?>" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Thêm thành viên mới</a>
+                </div>
+                <div class="uk-button">
+                    <a href="<?php echo base_url(route('backend.user.user.createexcel')) ?>" class="btn btn-w-m btn-info"><i class="fa fa-upload"></i> Thêm danh sách mới</a>
                 </div>
            </div>
         </div>

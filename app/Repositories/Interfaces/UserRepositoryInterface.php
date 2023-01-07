@@ -8,7 +8,7 @@ namespace App\Repositories\Interfaces;
  */
 interface UserRepositoryInterface extends BaseRepositoryInterface
 {
-   public function count(array $condition, string $keyword);
-   public function paginate(array $condition, string $keyword, array $config, int $page);
+   public function count(array $condition, string $keyword ,array $query);
+   public function paginate(array $condition, string $keyword, array $query, array $config, int $page);
    public function softDeleteUserByCatalogueID(int $catID);
 }

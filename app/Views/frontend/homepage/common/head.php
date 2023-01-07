@@ -4,6 +4,9 @@
 
 <link rel="icon" href="upload/image/logo/LOGO-DOAN.png" type="image/png" sizes="30x30">
 <title>Trang thông tin Đoàn viên Kiến trúc</title>
+
+<link href="public/frontend/resources/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
 <link href="public/frontend/resources/library/css/carousel.css" rel="stylesheet">
 <link href="public/frontend/resources/uikit/css/components/slideshow.min.css" rel="stylesheet">
 <link href="public/frontend/resources/uikit/css/components/accordion.min.css" rel="stylesheet">
@@ -11,12 +14,16 @@
 <link href="css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link href="public/frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="public/frontend/resources/uikit/css/uikit.modify.css" rel="stylesheet">
-<link href="public/frontend/resources/library/css/toastr/toastr.min.css" rel="stylesheet">
+<link href="public/backend/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 <link href="public/frontend/resources/library/css/general.css" rel="stylesheet">
+<link href="public/backend/plugin/jquery-nice-select-1.1.0/css/nice-select.css" rel="stylesheet">
 
 <link href="public/frontend/resources/style.css?<?php echo time() ?>" rel="stylesheet">
 <link href="public/frontend/resources/canvas.css?<?php echo time() ?>" rel="stylesheet">
+<link href="public/backend/plugin/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet">
 <!-- <link href="public/frontend/resources/web.css?<?php //echo time() ?>" rel="stylesheet"> -->
+
+
 
 <script src="public/frontend/resources/library/js/jquery.js"></script>
 <script src="public/frontend/resources/uikit/js/uikit.min.js"></script>

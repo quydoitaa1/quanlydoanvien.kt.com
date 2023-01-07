@@ -20,7 +20,7 @@
 			<div class="col-lg-9 clearfix">
 			   <?php echo view(route('backend.organization.faculty.include.general')) ?>
 			   <?php //echo view(route('backend.organization.faculty.include.gallery')) ?>
-			   <?php //echo view(route('backend.organization.faculty.include.seo')) ?>
+			   <?php echo view(route('backend.organization.faculty.include.seo')) ?>
 				<button type="submit" name="create" value="create" class="btn btn-primary block m-b pull-right">Lưu</button>
 			</div>
 			<div class="col-lg-3">

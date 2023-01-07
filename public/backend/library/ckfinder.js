@@ -1,4 +1,4 @@
-
+var BASE_URL = BASE_URL
 
 $(document).ready(function(){
     $(document).on('click','.choose-image', function(){
@@ -384,6 +384,8 @@ function BrowseServerProduct(object,id , type){
 
 
 function BrowseServerPreview  (object, type){
+    
+
 	if(typeof(type) == 'undefined'){
 		type = 'Images';
 	}

@@ -3,17 +3,12 @@
         <div class="uk-container-center uk-container">
           <ul class="uk-breadcrumb uk-clearfix ">
             <li class="breadcrumb-home">
-              <a href="">
+              <a href="index.html">
                 <i class="fa fa-home"></i> Trang chủ </a>
             </li>
             <li class="">
-              <a href="goc-tu-van.html">
-                <span>Góc tư vấn</span>
-              </a>
-            </li>
-            <li class="">
-              <a href="chuong-trinh-du-hoc.html">
-                <span>Học Bổng</span>
+              <a href="chuong-trinh-su-kien.html">
+                <span>Chương trình - sự kiện</span>
               </a>
             </li>
           </ul>
@@ -24,7 +19,7 @@
           <div class="uk-grid uk-grid-large">
             <div class="uk-width-large-1-4">
                 <form class="filter-wrap mb20" method="get">
-                  <div class="wrap-filter-item uk-clearfix mb20">
+                  <div class="wrap-filter-item uk-clearfix mb10">
                     <span>Học Kỳ</span>
                     <select name="attributeid[]" class="form-control m-b ">
                       <option value="">-- Chọn GPA --</option>
@@ -32,31 +27,18 @@
                       <option value="17">9.5</option>
                     </select>
                   </div>
-                  <div class="wrap-filter-item uk-clearfix mb20">
+                  <div class="wrap-filter-item uk-clearfix mb10">
                   <span>Năm học</span>
                   <?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b "');?>
                   </div>
-                  <div class="wrap-filter-item uk-clearfix mb20">
+                  <div class="wrap-filter-item uk-clearfix mb10">
+                  <span>Đơn vị tổ chức</span>
                     <select name="attributeid[]" class="form-control m-b ">
                       <option value="">-- Chọn Học bổng --</option>
                       <option value="15">Học bổng toàn phần</option>
                     </select>
                   </div>
-                  <div class="wrap-filter-item uk-clearfix mb20">
-                    <select name="attributeid[]" class="form-control m-b ">
-                      <option value="">-- Chọn HSK --</option>
-                      <option value="20">HSK 1</option>
-                      <option value="18">HSK 2</option>
-                      <option value="19">HSK 3</option>
-                    </select>
-                  </div>
-                  <div class="wrap-filter-item uk-clearfix mb20">
-                    <select name="attributeid[]" class="form-control m-b ">
-                      <option value="">-- Chọn Khu vực --</option>
-                      <option value="13">Bắc Kinh</option>
-                    </select>
-                  </div>
-                  <div class="wrap-filter-item uk-clearfix mb20">
+                  <div class="wrap-filter-item uk-clearfix mb10">
                     <button class="btn btn-submit-filter" type="submit">Tìm kiếm</button>
                   </div>
                 </form>

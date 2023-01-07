@@ -1,50 +1,23 @@
-(function($) {
-	"use strict";
-	var HT = {}; // Khai báo là 1 đối tượng
-
-	/* MAIN VARIABLE */
-
-	var $window = $(window),
-	    $document = $(document),
-		$carousel = $(".owl-slide");
-	    
-
-	    // FUNCTION DECLARGE
-	    $.fn.elExists = function() {
-	        return this.length > 0;
-	    };
-		HT.carousel = () => {
-			$carousel.each(function(){
-				let _this = $(this);
-				let option = _this.find('.owl-carousel').attr('data-owl');
-				let owlInit = atob(option);
-				owlInit = JSON.parse(owlInit);
-				_this.find('.owl-carousel').owlCarousel(owlInit);
-			});
-			
-		} 
-		HT.niceSelect = function() {
-			$('select').niceSelect();
-		}
-		
-
-	    
-	    // Document ready functions
-	    $document.on('ready', function() {
-	    	HT.carousel();
-			HT.niceSelect();
-	    });
-
-	})(jQuery);
 
 $(document).ready(function(){
 
+	$('.datetimepicker').datepicker({
+		todayBtn: "linked",
+		keyboardNavigation: false,
+		forceParse: false,
+		calendarWeeks: true,
+		autoclose: true,
+		dateFormat: "yy-mm-dd"
+	});
+
 	$(window).bind('scroll', function () {
-		if ($(window).scrollTop() > 50) {
+		if ($(window).scrollTop() > 60) {
 			$('.pc-header').addClass('fixed-header');
+			$('.pc-header .upper').addClass('none-display');
 
 		} else {
 			$('.pc-header').removeClass('fixed-header');
+			$('.pc-header .upper').removeClass('none-display');
 		}
 	});
 	$(window).scroll(function() {
@@ -57,20 +30,12 @@ $(document).ready(function(){
   
 	$(document).ready(function() {	
 		$(".scrollToTop").click(function () {
-		   $("html, body").animate({scrollTop: 0}, 800);
+		   $("html, body").animate({scrollTop: 0}, 350);
 		});
 	});
 
-	if($('.datetimepicker').length > 0){
-		$('.datetimepicker').datepicker({
-			todayBtn: "linked",
-			keyboardNavigation: false,
-			forceParse: false,
-			calendarWeeks: true,
-			autoclose: true,
-			dateFormat: "dd/mm/yy"
-		});
-	}
+	
+
 
 	jQuery(document).ready(function() {
 	  	jQuery("time.timeago").timeago();
@@ -1327,7 +1292,7 @@ $(document).ready(function(){
     // Nice select
 
     HT.niceSelect = function() {
-        $('select').niceSelect();
+        // $('select').niceSelect();
     }
 
 	    // Document ready functions
