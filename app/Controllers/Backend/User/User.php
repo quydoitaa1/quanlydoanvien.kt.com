@@ -1,7 +1,8 @@
 <?php
 namespace App\Controllers\Backend\User;
 use App\Controllers\BaseController;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class User extends BaseController{
    protected $userService;
@@ -31,11 +32,12 @@ class User extends BaseController{
       $idLogin = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
       $user = $this->userService->paginate($page);
       $userCatalogue = convertArrayByValue('Nhóm Thành Viên', $this->userCatalogueRepository->getAll('id, title'), 'id', 'title');
+      $faculty = convertArrayByValue('Liên chi Đoàn', $this->facultyRepository->getAll('id, title'), 'id', 'title');
       $module = $this->module;
       $template = route('backend.user.user.index');
       return view(route('backend.dashboard.layout.home'),
          compact(
-            'template', 'user', 'module', 'userCatalogue','idLogin'
+            'template', 'user', 'module', 'userCatalogue','idLogin','faculty'
          )
       );
 	}
@@ -78,30 +80,78 @@ class User extends BaseController{
          $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }
+      $userCompare = $this->userRepository-> getUserCompare($this->request->getPost('faculty_id'),$this->request->getPost('class_id'));
 		if($this->request->getMethod() == 'post'){
+         $path 			= 'public/csvfile/';
+         $json 			= [];
+         $file_name 		= $this->request->getFile('file');
+         $file_name 		= $this->uploadFile($path, $file_name);
+         $arr_file 		= explode('.', $file_name);
+         $extension 		= end($arr_file);
+         if('csv' == $extension) {
+            $reader 	= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+         } else {
+            $reader 	= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+         }
+         $spreadsheet 	= $reader->load($file_name);
+         $sheet_data 	= $spreadsheet->getActiveSheet()->toArray();
          
-         // include('public/backend/plugin/php-excel/PHPExcel.php');
-         // $file = $_FILES['file']['tmp_name'];
-         // $objReader = PHPExcel_IOFactory::createReaderForFile($file);
-         // // $objReader ->setloadSheetsOnly('2011');
-         // dd($objReader);
+         $list 			= [];
+         $password = $this->userService->renderPassword(PASSWORD);
 
-         // $objExcel = $objReader ->load($file);
-         // $sheetData = $objExcel ->getActiveSheet()->toArray('null', true, true, true);
-         // $highestRow = $objExcel->setActiveSheetIndex()->getHighestRow();
-         
-         // $validate = $this->validation();
-         // if ($this->validate($validate['validate'], $validate['errorValidate'])){
-         //    if($this->userService->create()){
-         //       $this->session->setFlashdata('message-success', 'Thêm mới bản ghi thành công!');
-         //       return redirect()->to(BASE_URL.route('backend.user.user.index'));
-         //    }else{
-         //       $this->session->setFlashdata('message-danger', 'Thêm mới bản ghi không thành công!');
-         //       return redirect()->to(BASE_URL.route('backend.user.user.index'));
-         //    }
-         // }else{
-         //    $validate = $this->validator->listErrors();
-         // }
+         foreach($sheet_data as $key => $val) {
+            if($key != 0) {
+               $list [] = [
+                  'fullname' => $val[1],
+                  'id_student' => $val[2],
+                  'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', $val[3]))),
+                  'gender' => (strtolower($val[4]) == 'nam') ? '2' : '1',
+                  'phone' => $val[5],
+                  'email' => $val[6],
+                  'user_catalogue_id' => "10",
+                  'faculty_id' => $this->request->getPost('faculty_id'),
+                  'class_id' => $this->request->getPost('class_id'),
+                  'publish' => '1',
+                  'salt' => $password['salt'],
+                  'password' => $password['password'],
+               ];
+               if(!filter_var($val[6], FILTER_VALIDATE_EMAIL) || $val[6] == 'null'){
+                  $this->session->setFlashdata('message-danger', 'Email của Đoàn viên số thứ tự : '.$val[0].' bị thiếu hoặc sai định dạng!');
+                  return redirect()->to($_SERVER['REQUEST_URI']);
+               }
+               if(!preg_match('/0[0-9]{9}$/', $val[5]) || $val[5] == 'null'){
+                  $this->session->setFlashdata('message-danger', 'Số điện thoại của Đoàn viên số thứ tự : '.$val[0].' bị thiếu hoặc sai định dạng!');
+                  return redirect()->to($_SERVER['REQUEST_URI']);
+               }
+               if(!preg_match('/^[0-9]{10}$/', $val[2]) || $val[2] == 'null'){
+                  $this->session->setFlashdata('message-danger', 'Mã sinh viên của Đoàn viên số thứ tự : '.$val[0].' bị thiếu hoặc sai định dạng!');
+                  return redirect()->to($_SERVER['REQUEST_URI']);
+               }
+               if(($val[1] == 'null')){
+                  $this->session->setFlashdata('message-danger', 'Họ và Tên của Đoàn viên số thứ tự : '.$val[0].' bị thiếu!');
+                  return redirect()->to($_SERVER['REQUEST_URI']);
+               }
+               foreach ($userCompare as $keyCompare => $valCompare) {
+                  if(($val[2] == $valCompare['id_student'])){
+                     $this->session->setFlashdata('message-danger', 'Đã tồn tại Đoàn viên có mã sinh viên: '.$val[2].' !');
+                     return redirect()->to($_SERVER['REQUEST_URI']);
+                  }
+               }
+            }
+            
+         }
+         $validate = $this->validationExcel();
+         if ($this->validate($validate['validate'], $validate['errorValidate'])){
+            if($this->userService->createExcel($list)){
+               $this->session->setFlashdata('message-success', 'Thêm mới bản ghi thành công!');
+               return redirect()->to(BASE_URL.route('backend.user.user.index'));
+            }else{
+               $this->session->setFlashdata('message-danger', 'Thêm mới bản ghi không thành công!');
+               return redirect()->to(BASE_URL.route('backend.user.user.index'));
+            }
+         }else{
+            $validate = $this->validator->listErrors();
+         }
 		}
       $faculty = convertArrayByValue('Liên chi Đoàn', $this->facultyRepository->getAll('id, title'), 'id', 'title');
       $method = 'create';
@@ -111,6 +161,7 @@ class User extends BaseController{
          compact('method', 'validate', 'template', 'title', 'userCatalogue','faculty','ethnic','religion','province')
       );
 	}
+
 
 	public function update($id = 0){
       
@@ -207,6 +258,34 @@ class User extends BaseController{
 			'errorValidate' => $errorValidate,
 		];
 	}
+	private function validationExcel(){
+	
+		$validate = [
+			'faculty_id' => 'is_natural_no_zero',
+			'class_id' => 'is_natural_no_zero',
+		];
+		$errorValidate = [
+			'faculty_id' => [
+				'is_natural_no_zero' => 'Bạn phải lựa chọn giá trị cho trường Khoa trực thuộc'
+         ],
+			'class_id' => [
+				'is_natural_no_zero' => 'Bạn phải lựa chọn giá trị cho trường Chi đoàn trực thuộc'
+			]
+		];
+		return [
+			'validate' => $validate,
+			'errorValidate' => $errorValidate,
+		];
+	}
 
-
+   public function uploadFile($path, $image) {
+      if (!is_dir($path)) 
+        mkdir($path, 0777, TRUE);
+     if ($image->isValid() && ! $image->hasMoved()) {
+        $newName = $image->getRandomName();
+        $image->move('./'.$path, $newName);
+        return $path.$image->getName();
+     }
+     return "";
+  }
 }

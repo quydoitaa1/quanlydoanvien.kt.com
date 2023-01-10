@@ -1,4 +1,20 @@
-
+<div class="ibox mb20">
+   <div class="ibox-title">
+      <h5>Danh mục cha</h5>
+   </div>
+   <div class="ibox-content">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="form-row mb10">
+               <small class="text-danger">Chọn Root Nếu không có danh mục cha</small>
+            </div>
+            <div class="form-row">
+               <?php echo form_dropdown('parentid', $dropdown, set_value('parentid', (isset($semester['parentid'])) ? $semester['parentid'] : ''), 'class="form-control m-b select2"'); ?>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 <div class="ibox mb20">
    <div class="ibox-title">
       <h5>Hiển thị</h5>

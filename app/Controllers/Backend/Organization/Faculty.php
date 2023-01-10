@@ -41,7 +41,7 @@ class Faculty extends BaseController{
 	}
 
 	public function create(){
-      if(!$this->authentication->gate('backend.product.catalogue.create')){
+      if(!$this->authentication->gate('backend.organization.faculty.create')){
          $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }
@@ -73,7 +73,7 @@ class Faculty extends BaseController{
 
 	public function update($id = 0){
 		$id = (int)$id;
-      if(!$this->authentication->gate('backend.product.catalogue.update')){
+      if(!$this->authentication->gate('backend.organization.faculty.update')){
          $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }
@@ -109,7 +109,7 @@ class Faculty extends BaseController{
 
 	public function delete($id = 0){
       $id = (int)$id;
-      if(!$this->authentication->gate('backend.product.catalogue.delete')){
+      if(!$this->authentication->gate('backend.organization.faculty.delete')){
          $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }

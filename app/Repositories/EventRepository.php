@@ -40,7 +40,7 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
       ]);
    }
 
-   public function countIndex($eventCatalogue){
+   public function countIndex($semester){
       return $this->model->_get_where([
          'select' => '
             tb1.id
@@ -50,59 +50,48 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
             'tb1.publish' => 1,
             'tb1.deleted_at' => 0,
          ],
-         'query' => '
-            tb3.event_catalogue_id IN (
-               SELECT pc.id
-               FROM event_catalogues as pc
-               WHERE pc.lft >= '.$eventCatalogue['lft'].' AND pc.rgt <= '.$eventCatalogue['rgt'].'
-            )
-         ',
-			'join' => [
-				[
-					'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
-				],
-			],
+         // 'query' => '
+         //    semester_id IN (
+         //       SELECT pc.id
+         //       FROM semesters as pc
+         //       WHERE pc.lft >= '.$semester['lft'].' AND pc.rgt <= '.$semester['rgt'].'
+         //    )
+         // ',
+			// 'join' => [
+			// 	[
+			// 		'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
+			// 	],
+			// ],
 			'group_by' => 'tb1.id',
 			'count' => TRUE,
       ]);
    }
 
-   public function paginateIndex(array $eventCatalogue, array $config, int $page){
+   public function paginateIndex(array $semester, array $config, int $page){
       return  $this->model->_get_where([
          'select' => '
             tb1.id,
-            tb1.event_catalogue_id,
-            tb1.catalogue,
+            tb1.semester_id,
             tb1.image,
-            tb1.viewed,
-            tb1.order,
             tb1.created_at,
             tb1.album,
             tb1.publish,
-            tb2.title,
-            tb2.canonical,
-            tb2.description,
+            tb1.title,
+            tb1.canonical,
+            tb1.description,
          ',
          'table' => $this->table.' as tb1',
          'where' => [
             'tb1.publish' => 1,
             'tb1.deleted_at' => 0,
          ],
-         'query' => '
-            tb3.event_catalogue_id IN (
-               SELECT pc.id
-               FROM event_catalogues as pc
-               WHERE pc.lft >= '.$eventCatalogue['lft'].' AND pc.rgt <= '.$eventCatalogue['rgt'].'
-            )
-         ',
-			'join' => [
-            [
-               'event_translate as tb2', 'tb1.id = tb2.event_id', 'inner'
-            ],
-				[
-					'event_catalogue_event as tb3', 'tb1.id = tb3.event_id', 'inner'
-				],
-			],
+         // 'query' => '
+         //    tb3.semester_id IN (
+         //       SELECT pc.id
+         //       FROM semesters as pc
+         //       WHERE pc.lft >= '.$semester['lft'].' AND pc.rgt <= '.$semester['rgt'].'
+         //    )
+         // ',
          'limit' => $config['per_page'],
          'start' => $page * $config['per_page'],
          'group_by' => 'tb1.id',
@@ -348,6 +337,7 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
          'order_by'=> 'tb1.id desc'
       ], TRUE);
    }
+   
    public function countEventUser(array $condition,  string $keyword, array $query){
       return $this->model->_get_where([
          'select' => 'tb1.id',
@@ -365,6 +355,61 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
 			'group_by' => 'tb1.id',
 			'count' => TRUE,
       ]);
+   }
+   public function countUserSemester(array $condition,  string $keyword, array $query){
+      return $this->model->_get_where([
+         'select' => 'tb1.id',
+			'table' => 'event_user as tb1',
+			'keyword' => $keyword,
+			'where' => $condition,
+			'query' => $query,
+			'join' => [
+            ['events as tb2', 'tb1.event_id = tb2.id', 'inner'],
+            ['users as tb3', 'tb1.user_id = tb3.id', 'inner'],
+            ['faculties as tb4','tb3.faculty_id = tb4.id','inner'],
+            ['classes as tb5','tb3.class_id = tb5.id','inner'],
+            ['semesters as tb6','tb2.semester_id = tb6.id','inner'],
+
+			],
+			'group_by' => 'tb3.id_student',
+			'count' => TRUE,
+      ]);
+   }
+   public function paginateUserSemester(array $condition, string $keyword,  array $query , array $config, int $page){
+      return  $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb1.event_id,
+            tb1.user_id,
+            tb1.publish,
+            tb2.score,
+            tb3.fullname,
+            tb3.id_student,
+            tb3.gender,
+            tb3.birthday,
+            tb4.title as name_faculty,
+            tb5.title as name_class,
+            tb6.title as name_semester,
+            SUM(score) as sum_score,
+            COUNT(tb3.id_student) as count_event,
+         ',
+         'table' => 'event_user as tb1',
+         'keyword' => $keyword,
+			'where' => $condition,
+			'query' => $query,
+			'join' => [
+            ['events as tb2', 'tb1.event_id = tb2.id', 'inner'],
+            ['users as tb3', 'tb1.user_id = tb3.id', 'inner'],
+            ['faculties as tb4','tb3.faculty_id = tb4.id','inner'],
+            ['classes as tb5','tb3.class_id = tb5.id','inner'],
+            ['semesters as tb6','tb2.semester_id = tb6.id','inner'],
+			],
+         'limit' => $config['per_page'],
+         'start' => $page * $config['per_page'],
+         'group_by' => 'tb3.id_student',
+         // 'having' => 'COUNT(id_student) > 1 ',
+         'order_by'=> 'tb1.id desc'
+      ], TRUE);
    }
 
 

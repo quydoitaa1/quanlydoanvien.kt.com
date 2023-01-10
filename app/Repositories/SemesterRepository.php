@@ -18,6 +18,10 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
          'select' => '
             tb1.id,
             tb1.title,
+            tb1.parentid,
+            tb1.lft,
+            tb1.rgt,
+            tb1.level,
             tb1.day_start,
             tb1.day_end,
             tb1.publish,
@@ -35,6 +39,13 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
          'select' => '
             tb1.id,
             tb1.title,
+            tb1.parentid,
+            tb1.lft,
+            tb1.rgt,
+            tb1.level,
+            tb1.day_start,
+            tb1.day_end,
+            tb1.publish,
          ',
          'table' => $this->table.' as tb1',
          'where' => [
@@ -63,6 +74,9 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
          'select' => '
             tb1.id,
             tb1.title,
+            tb1.lft,
+            tb1.rgt,
+            tb1.level,
             tb1.day_start,
             tb1.day_end,
             tb1.publish,
@@ -80,62 +94,76 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
          ],
          'limit' => $config['per_page'],
          'start' => $page * $config['per_page'],
-        //  'order_by'=> 'lft asc'
+         'order_by'=> 'lft asc'
       ], TRUE);
    }
 
-//    public function search($keyword, $start, $language = 2){
-//       return  $this->model->_get_where([
-//          'select' => '
-//             tb1.id,
-//             tb2.title,
-//             tb1.image,
-//             tb2.canonical,
+   // public function search($keyword, $start, $language = 2){
+   //    return  $this->model->_get_where([
+   //       'select' => '
+   //          tb1.id,
+   //          tb2.title,
+   //          tb1.image,
+   //          tb2.canonical,
 
-//          ',
-//          'table' => $this->table.' as tb1',
-//          'keyword' => '(tb2.title LIKE \'%'.$keyword.'%\')',
-//          'where' => [
-//             'tb1.deleted_at' => 0,
-//             'tb2.language_id' => $language
-//          ],
-// 			'join' => [
-//             [
-//                'article_catalogue_translate as tb2', 'tb1.id = tb2.article_catalogue_id', 'inner'
-//             ],
-// 			],
-//          'limit' => 15,
-//          'start' => $start,
-//          'group_by' => 'tb1.id',
-//          'order_by'=> 'tb1.id desc'
-//       ], TRUE);
+   //       ',
+   //       'table' => $this->table.' as tb1',
+   //       'keyword' => '(tb2.title LIKE \'%'.$keyword.'%\')',
+   //       'where' => [
+   //          'tb1.deleted_at' => 0,
+   //          'tb2.language_id' => $language
+   //       ],
+	// 		'join' => [
+   //          [
+   //             'article_catalogue_translate as tb2', 'tb1.id = tb2.article_catalogue_id', 'inner'
+   //          ],
+	// 		],
+   //       'limit' => 15,
+   //       'start' => $start,
+   //       'group_by' => 'tb1.id',
+   //       'order_by'=> 'tb1.id desc'
+   //    ], TRUE);
 
-//    }
+   // }
 
-//    public function findByIdArray(array $catalogue_id){
-//       return   $this->model->_get_where([
-//          'select' => '
-//             tb1.id,
-//             tb1.lft,
-//             tb1.rgt,
-//             tb1.image,
-//             tb2.canonical,
-//             tb2.title
-//          ',
-//          'table' => $this->table.' as tb1',
-//          'where' => [
-//             'tb1.deleted_at' => 0,
-//          ],
-//          'join' => [
-//             [
-//                'article_catalogue_translate as tb2', 'tb1.id = tb2.article_catalogue_id', 'inner'
-//             ],
-//          ],
-//          'where_in' => $catalogue_id,
-//          'where_in_field' => 'tb1.id',
-//          'order_by'=> 'id desc',
-//       ], TRUE);
-//    }
-
+   // public function findByIdArray(array $catalogue_id){
+   //    return   $this->model->_get_where([
+   //       'select' => '
+   //          tb1.id,
+   //          tb1.lft,
+   //          tb1.rgt,
+   //          tb1.image,
+   //          tb2.canonical,
+   //          tb2.title
+   //       ',
+   //       'table' => $this->table.' as tb1',
+   //       'where' => [
+   //          'tb1.deleted_at' => 0,
+   //       ],
+   //       'join' => [
+   //          [
+   //             'article_catalogue_translate as tb2', 'tb1.id = tb2.article_catalogue_id', 'inner'
+   //          ],
+   //       ],
+   //       'where_in' => $catalogue_id,
+   //       'where_in_field' => 'tb1.id',
+   //       'order_by'=> 'id desc',
+   //    ], TRUE);
+   // }
+   public function getAllCatalogueLv1(string $table)
+   {
+      return $this->model->_get_where([
+         'select' => '
+            id,
+            title,
+         ',
+         'table' => $table,
+         'where' => [
+            'publish' => 1,
+            'deleted_at' => 0,
+            'level' => 1
+         ]
+      ],TRUE);
+   }
 
 }

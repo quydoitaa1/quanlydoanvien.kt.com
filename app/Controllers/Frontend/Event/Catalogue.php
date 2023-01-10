@@ -13,32 +13,33 @@ class Catalogue extends FrontendController{
 
 	public function __construct(){
       $this->language = $this->currentLanguage();
-      $this->module = 'product_catalogues';
-      $this->productCatalogueRepository = service('ProductCatalogueRepository', $this->module);
-      $this->productService = service('ProductService',
-         ['language' => $this->language, 'module' => 'products']
+      $this->module = 'semesters';
+      $this->eventService = service('EventService',
+         ['language' => $this->language, 'module' => 'events']
       );
       $this->systemRepository = service('SystemRepository', 'systems');
-      $this->productRepository = service('ProductRepository', 'products');
       $this->cartBie = service('cartbie');
-      $this->userRepository = service('userRepository', 'users');
-      $this->facultyRepository = service('facultyRepository', 'faculties');
+      $this->userRepository = service('UserRepository', 'users');
+      $this->facultyRepository = service('FacultyRepository', 'faculties');
+      $this->semesterRepository = service('SemesterRepository', 'semesters');
+      $this->eventRepository = service('EventRepository', 'events');
 	}
 
-	public function index($id = 0, $page = 1){
-	   // $productCatalogue = $this->productCatalogueRepository->findByField($id, 'tb1.id');
-      // $module = $this->module;
-      // $product = $this->productService->index($productCatalogue, $page);
-      // // dd($product);
+	public function index( $page = 1, $id = 0){
+      $module = $this->module;
+      // dd($id);
+      if($id == 0){
+         $Catalogue = $this->semesterRepository->getAll();
+         $event = $this->eventService->indexAll($Catalogue, $page);
+      }else{
+         $Catalogue = $this->semesterRepository->findByField($id, 'tb1.id');
+         $event = $this->eventService->index($Catalogue, $page);
+      }
+      // dd($event);
+      $semester =  $this->semesterRepository->getAll();
+      $faculties = $this->facultyRepository->getHome();
+      $general = convertGeneral($this->systemRepository->all('keyword, content'));
 
-      // $canonical = $product['canonical'];
-      // $general = convertGeneral($this->systemRepository->all('keyword, content'));
-      // $product['count'] = $this->productRepository->count(['deleted_at' => 0]);
-      // $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
-      // $productCatalogueList = recursive($productCatalogueList);
-      // $seo = seo($productCatalogue, $canonical, 'page');
-
-      
       $faculties = $this->facultyRepository->getHome();
       $template = route('frontend.event.catalogue.index');
       if(isset($_COOKIE['QLDVKT_backend'])){
@@ -50,7 +51,7 @@ class Catalogue extends FrontendController{
 
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'product', 'general','user','faculties'
+            'template', 'product', 'general','user','faculties','event'
          )
       );
 	}

@@ -13,7 +13,7 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="row">
 			<div class="box-body">
-				<?php echo  (!empty($validate) && isset($validate)) ? '<div class="alert alert-danger">'.$validate.'</div>'  : '' ?>
+				<?php  echo  (!empty($validate) && isset($validate)) ? '<div class="alert alert-danger">'.$validate.'</div>'  : '' ?>
 			</div><!-- /.box-body -->
 		</div>
 		<div class="row">
@@ -40,7 +40,7 @@
 										<span class="input-group-addon btn btn-default btn-file">
 											<span class="fileinput-new">Chọn File</span>
 											<span class="fileinput-exists">Thay đổi</span>
-											<input type="file" name="file"/>
+											<input type="file" name="file" accept=".xlsx"/>
 										</span>
 										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Xóa</a>
 									</div> 
@@ -52,6 +52,9 @@
 									<label class="control-label text-left">
 										<span>Khoa trực thuộc <b class="text-danger">(*)</b></span>
 									</label>
+									<script>
+										var faculty_id = '<?php echo (isset($_POST['faculty_id'])) ? $_POST['faculty_id'] : ((isset($user['faculty_id'])) ? $user['faculty_id'] : ''); ?>';
+									</script>
 									<?php echo form_dropdown('faculty_id', $faculty, set_value('faculty_id', (isset($user['faculty_id'])) ? $user['faculty_id'] : ''), 'class="form-control m-b " id = "faculty"');?>
 								</div>
 							</div>

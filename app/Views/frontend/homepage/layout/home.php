@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
   <head>
+    <base href="<?php echo BASE_URL ?>">
     <?php echo view(route('frontend.homepage.common.head')) ?>
   </head>
   <body class="homepage">

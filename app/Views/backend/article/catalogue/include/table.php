@@ -28,8 +28,8 @@
            <td <?php echo ($val['level'] == 1) ? 'class="text-success text-bold"' : '' ?>>
                 <a href="<?php echo base_url('backend/article/article/index/?catalogueid='.$val['id'].'') ?>">
                     <?php echo str_repeat('|----', (($val['level'] > 0)?($val['level'] - 1):0)).$val['title']; ?>
-                    </a>
-                </td>
+                </a>
+            </td>
 
            <td class="text-center text-primary">
                 <?php echo form_input('order['.$val['id'].']', $val['order'], 'data-module="'.$module.'" data-id="'.$val['id'].'"  class="form-control sort-order" placeholder="Vị trí" style="width:50px;text-align:right;"');?>

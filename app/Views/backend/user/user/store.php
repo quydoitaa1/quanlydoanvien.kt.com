@@ -49,7 +49,7 @@
 											<label class="control-label text-left">
 												<span>Mã Sinh Viên<b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_input('id_student', set_value('id_student', (isset($user['id_student'])) ? $user['id_student'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+											<?php echo form_input('id_student', set_value('id_student', (isset($user['id_student'])) ? $user['id_student'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -57,7 +57,7 @@
 											<label class="control-label text-left">
 												<span>Họ tên <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_input('fullname', set_value('fullname', (isset($user['fullname'])) ? $user['fullname'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+											<?php echo form_input('fullname', set_value('fullname', (isset($user['fullname'])) ? $user['fullname'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -68,7 +68,7 @@
 											<label class="control-label text-left">
 												<span>Khoa trực thuộc <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('faculty_id', $faculty, set_value('faculty_id', (isset($user['faculty_id'])) ? $user['faculty_id'] : ''), 'class="form-control m-b " id = "faculty"');?>
+											<?php echo form_dropdown('faculty_id', $faculty, set_value('faculty_id', (isset($user['faculty_id'])) ? $user['faculty_id'] : ''), 'class="form-control m-b " id = "faculty" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -79,7 +79,7 @@
 											<label class="control-label text-left">
 												<span>Chi Đoàn trực thuộc <b class="text-danger">(*)</b></span>
 											</label>
-											<select name="class_id" id="class" class="form-control m-b location">
+											<select name="class_id" id="class" class="form-control m-b location" required>
 												<option value="0">Chọn Chi Đoàn</option>
 											</select>
 										</div>
@@ -91,7 +91,7 @@
 											<label class="control-label text-left">
 												<span>Email <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_input('email', set_value('email', (isset($user['email'])) ? $user['email'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+											<?php echo form_input('email', set_value('email', (isset($user['email'])) ? $user['email'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 											<?php echo form_hidden('email_original', set_value('email_original', (isset($user['email'])) ? $user['email'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
 										</div>
 									</div>
@@ -109,7 +109,7 @@
 												<span>Giới tính</span>
 											</label>
 											 <?php
-		                               echo form_dropdown('gender', GENDER, set_value('gender', (isset($user['gender'])) ? $user['gender'] : -1),'class="form-control mr20 input-sm perpage filter" style="width:100%"');
+		                               echo form_dropdown('gender', GENDER, set_value('gender', (isset($user['gender'])) ? $user['gender'] : -1),'class="form-control mr20 input-sm perpage filter" style="width:100%" required');
 		                           ?>
 										</div>
 									</div>
@@ -118,7 +118,7 @@
 											<label class="control-label text-left">
 												<span>Ngày sinh <b class="text-danger"></b></span>
 											</label>
-											<?php echo form_input('birthday', set_value('birthday', (isset($user['birthday'])) ? $user['birthday'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off"');?>
+											<?php echo form_input('birthday', set_value('birthday', (isset($user['birthday'])) ? $user['birthday'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 								</div>
@@ -128,7 +128,7 @@
 											<label class="control-label text-left">
 												<span>Số điện thoại<b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_input('phone', set_value('phone', (isset($user['phone'])) ? $user['phone'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+											<?php echo form_input('phone', set_value('phone', (isset($user['phone'])) ? $user['phone'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -136,7 +136,7 @@
 											<label class="control-label text-left">
 												<span>Dân tộc <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('ethnic', $ethnic, set_value('ethnic', (isset($user['ethnic'])) ? $user['ethnic'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('ethnic', $ethnic, set_value('ethnic', (isset($user['ethnic'])) ? $user['ethnic'] : ''), 'class="form-control m-b " required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -144,7 +144,7 @@
 											<label class="control-label text-left">
 												<span>Tôn giáo <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('religion', $religion, set_value('religion', (isset($user['religion'])) ? $user['religion'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('religion', $religion, set_value('religion', (isset($user['religion'])) ? $user['religion'] : ''), 'class="form-control m-b " required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -152,7 +152,7 @@
 											<label class="control-label text-left">
 												<span>Nghề nghiệp <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('profession', PROFESSION, set_value('profession', (isset($user['profession'])) ? $user['profession'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('profession', PROFESSION, set_value('profession', (isset($user['profession'])) ? $user['profession'] : ''), 'class="form-control m-b " required');?>
 										</div>
 									</div>
 								</div>
@@ -162,7 +162,7 @@
 											<label class="control-label text-left">
 												<span>Số CMND/CCCD <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_input('id_card', set_value('id_card', (isset($user['id_card'])) ? $user['id_card'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+											<?php echo form_input('id_card', set_value('id_card', (isset($user['id_card'])) ? $user['id_card'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -170,7 +170,7 @@
 											<label class="control-label text-left">
 												<span>Ngày cấp <b class="text-danger"></b></span>
 											</label>
-											<?php echo form_input('date_id_card', set_value('date_id_card', (isset($user['date_id_card'])) ? $user['date_id_card'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off"');?>
+											<?php echo form_input('date_id_card', set_value('date_id_card', (isset($user['date_id_card'])) ? $user['date_id_card'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off" required');?>
 										</div>
 									</div>
 									<div class="col-lg-3 mb5">
@@ -178,7 +178,7 @@
 											<label class="control-label text-left">
 												<span>Nơi cấp <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('issued_id_card', $province, set_value('issued_id_card', (isset($user['issued_id_card'])) ? $user['issued_id_card'] : ''), 'class="form-control m-b "');?>
+											<?php echo form_dropdown('issued_id_card', $province, set_value('issued_id_card', (isset($user['issued_id_card'])) ? $user['issued_id_card'] : ''), 'class="form-control m-b " required');?>
 										</div>
 									</div>
 									<?php if(isset($method) && $method == 'create'){ ?>
@@ -228,7 +228,7 @@
 											'text' => 'Thành Phố',
 										]);
 									?>
-									<?php echo form_dropdown('countryside_cityid', $countryside_city, set_value('countryside_cityid', (isset($user['countryside_cityid'])) ? $user['countryside_cityid'] : 0), 'class="form-control m-b city"  id="countryside_city"');?>
+									<?php echo form_dropdown('countryside_cityid', $countryside_city, set_value('countryside_cityid', (isset($user['countryside_cityid'])) ? $user['countryside_cityid'] : 0), 'class="form-control m-b city"  id="countryside_city" required');?>
 								</div>
 							</div>
 							<div class="col-lg-3">
@@ -236,7 +236,7 @@
 									<label class="control-label text-left">
 										<span>Quê quán (Quận/Huyện)</span>
 									</label>
-									<select name="countryside_districtid" id="countryside_district" class="form-control m-b location">
+									<select name="countryside_districtid" id="countryside_district" class="form-control m-b location" required>
 										<option value="0">Chọn Quận/Huyện</option>
 									</select>
 								</div>
@@ -246,7 +246,7 @@
 									<label class="control-label text-left">
 										<span>Quê quán (Phường xã)</span>
 									</label>
-									<select name="countryside_wardid" id="countryside_ward" class="form-control m-b location">
+									<select name="countryside_wardid" id="countryside_ward" class="form-control m-b location" required>
 										<option value="0">Chọn Phường/Xã</option>
 									</select>
 								</div>
@@ -256,7 +256,7 @@
 									<label class="control-label text-left">
 										<span>Quê quán (Địa chỉ cụ thể)</span>
 									</label>
-									<?php echo form_input('countryside_address', set_value('countryside_address', (isset($user['countryside_address'])) ? $user['countryside_address'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+									<?php echo form_input('countryside_address', set_value('countryside_address', (isset($user['countryside_address'])) ? $user['countryside_address'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 								</div>
 							</div>
 						</div>
@@ -280,7 +280,7 @@
 											'text' => 'Thành Phố',
 										]);
 									?>
-									<?php echo form_dropdown('residence_cityid', $residence_city, set_value('residence_cityid', (isset($user['residence_cityid'])) ? $user['residence_cityid'] : 0), 'class="form-control m-b city"  id="residence_city"');?>
+									<?php echo form_dropdown('residence_cityid', $residence_city, set_value('residence_cityid', (isset($user['residence_cityid'])) ? $user['residence_cityid'] : 0), 'class="form-control m-b city"  id="residence_city" required');?>
 								</div>
 							</div>
 							<div class="col-lg-3">
@@ -288,7 +288,7 @@
 									<label class="control-label text-left">
 										<span>Thường trú (Quận/Huyện)</span>
 									</label>
-									<select name="residence_districtid" id="residence_district" class="form-control m-b location">
+									<select name="residence_districtid" id="residence_district" class="form-control m-b location" required>
 										<option value="0">Chọn Quận/Huyện</option>
 									</select>
 								</div>
@@ -298,7 +298,7 @@
 									<label class="control-label text-left">
 										<span>Thường trú (Phường xã)</span>
 									</label>
-									<select name="residence_wardid" id="residence_ward" class="form-control m-b location">
+									<select name="residence_wardid" id="residence_ward" class="form-control m-b location" required>
 										<option value="0">Chọn Phường/Xã</option>
 									</select>
 								</div>
@@ -308,7 +308,7 @@
 									<label class="control-label text-left">
 										<span>Thường trú (Địa chỉ cụ thể)</span>
 									</label>
-									<?php echo form_input('residence_address', set_value('residence_address', (isset($user['residence_address'])) ? $user['residence_address'] : ''), 'class="form-control " placeholder="" autocomplete="off"');?>
+									<?php echo form_input('residence_address', set_value('residence_address', (isset($user['residence_address'])) ? $user['residence_address'] : ''), 'class="form-control " placeholder="" autocomplete="off" required');?>
 								</div>
 							</div>
 						</div>
@@ -332,7 +332,7 @@
 								<label class="control-label text-left">
 									<span>Trình độ văn hóa <b class="text-danger">(*)</b></span>
 								</label>
-								<?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b "');?>
+								<?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b " required');?>
 							</div>
 						</div>
 						<div class="col-lg-2 mb5">
@@ -382,7 +382,7 @@
 								<label class="control-label text-left">
 									<span>Ngày vào Đoàn <b class="text-danger">(*)</b></span>
 								</label>
-								<?php echo form_input('day_in_union', set_value('day_in_union', (isset($user['day_in_union'])) ? $user['day_in_union'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off"');?>
+								<?php echo form_input('day_in_union', set_value('day_in_union', (isset($user['day_in_union'])) ? $user['day_in_union'] : ''), 'class="form-control datetimepicker" placeholder="" autocomplete="off" required');?>
 							</div>
 						</div>
 						<div class="col-lg-2 mb5">

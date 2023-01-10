@@ -32,6 +32,10 @@
             ASSET_BACKEND.'css/plugins/blueimp/css/blueimp-gallery.min.css',
             ASSET_BACKEND.'css/plugins/jasny/jasny-bootstrap.min.css',
             ASSET_BACKEND.'css/plugins/footable/footable.core.css',
+            ASSET_BACKEND.'css/plugins/dataTables/datatables.min.css',
+            // biểu đồ
+            ASSET_BACKEND.'css/plugins/morris/morris-0.4.3.min.css',
+
         ];
     ?>
     <?php foreach($css as $key => $val){
@@ -102,6 +106,11 @@
             ASSET_BACKEND.'js/plugins/blueimp/jquery.blueimp-gallery.min.js',
             ASSET_BACKEND.'js/plugins/jasny/jasny-bootstrap.min.js',
             ASSET_BACKEND.'js/plugins/footable/footable.all.min.js',
+            ASSET_BACKEND.'js/plugins/dataTables/datatables.min.js',
+            // biểu đồ
+            ASSET_BACKEND.'js/plugins/morris/raphael-2.1.0.min.js',
+            ASSET_BACKEND.'js/plugins/morris/morris.js',
+            ASSET_BACKEND.'js/demo/morris-demo.js',
 
         ];
 

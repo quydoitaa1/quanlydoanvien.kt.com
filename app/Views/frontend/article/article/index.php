@@ -18,16 +18,18 @@
         <div class="uk-container uk-container-center">
           <div class="uk-grid uk-grid-medium">
             <div class="uk-width-large-1-4">
-              <div class="aside" >
+            <div class="aside" >
                 <div class="aside-category">
                   <div class="aside-heading">
-                    <span>Danh mục</span>
+                    <span>Danh mục bài viết</span>
                   </div>
                   <ul class="uk-clearfix uk-list">
                   <?php if(isset($articleCatalogue) && is_array($articleCatalogue) && count($articleCatalogue)){ ?>
-                  <?php foreach ($articleCatalogue as $key => $val) {?>
-                    <li>
-                      <a href="<?php echo $val['canonical'].HTSUFFIX  ?>" title="<?php echo $val['title'] ?>"><?php echo $val['title'] ?></a>
+                    <?php foreach ($articleCatalogue as $key => $val) {?>
+                    <li <?php echo ($val['level'] == 1) ? 'class="text-success text-bold"' : '' ?>>
+                        <a href="<?php echo $val['canonical'].HTSUFFIX ?>" class="<?php echo str_repeat('ml20', (($val['level'] > 0)?($val['level'] - 1):0)) ?>" >
+                            <?php echo $val['title']; ?>
+                        </a>
                     </li>
                     <?php }} ?>
                   </ul>

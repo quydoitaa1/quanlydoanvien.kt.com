@@ -62,7 +62,6 @@
            <td class="text-center event-status" ><?php echo $status; ?></td>
            <td class="text-center">
                <a type="button" href="" class="btn btn-primary check-event event-accept" data-field="publish" data-where ="2" data-id="<?php echo $val['id'];?>"><i class="fa fa-check"></i></a>
-               <!-- <a type="button" href="" class="btn btn-danger check-event event-ignore" data-field="publish" data-where ="3" data-id="<?php //echo $val['id'];?>"><i class="fa fa-times-circle-o"></i></a> -->
                <a data-toggle="modal" type="button" href="#modal-form-<?php echo $val['id'];?>" class="btn btn-danger"><i class="fa fa-times-circle-o"></i></a>
                <div id="modal-form-<?php echo $val['id'];?>" class="modal fade" aria-hidden="true">
                     <div class="modal-dialog">

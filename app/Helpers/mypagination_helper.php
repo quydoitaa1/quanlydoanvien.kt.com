@@ -41,13 +41,13 @@ if (! function_exists('pagination_frontend')){
 		$config['num_links'] = 2;
 		$config['prefix'] = 'trang-';
 		$config['use_page_numbers'] = TRUE;
-		$config['full_tag_open'] = '<ul class="page-numbers">';
+		$config['full_tag_open'] = '<ul class="pagination uk-pagination no-margin">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_tag_open'] = '<li>';
 		$config['first_tag_close'] = '</li>';
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><a class="page-numbers current">';
+		$config['cur_tag_open'] = '<li class="uk-active"><a class="page-numbers current">';
 		$config['cur_tag_close'] = '</a></li>';
 		$config['next_tag_open'] = '<li>';
 		$config['next_tag_close'] = '</li>';

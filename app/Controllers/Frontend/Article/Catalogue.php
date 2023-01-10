@@ -33,10 +33,9 @@ class Catalogue extends FrontendController{
 	public function index($id = 0, $page = 1){
 
       $module = $this->module;
-	   $articleCatalogue = $this->articleCatalogueRepository->findByField($id, 'tb1.id');
-      $article = $this->articleService->index($articleCatalogue, $page);
-      
-      
+	   $Catalogue = $this->articleCatalogueRepository->findByField($id, 'tb1.id');
+      $article = $this->articleService->index($Catalogue, $page);
+      $articleCatalogue =  $this->articleCatalogueRepository->getAll();
       $faculties = $this->facultyRepository->getHome();
       $general = convertGeneral($this->systemRepository->all('keyword, content'));
 

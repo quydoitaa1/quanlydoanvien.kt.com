@@ -217,9 +217,10 @@ class ArticleService
    }
 
    public function index($articleCatalogue, $page){
+      // dd($articleCatalogue);
       helper(['mypagination']);
       $page = (int)$page;
-      $perpage = 2;
+      $perpage = 12;
       $config['total_rows'] = $this->articleRepository->countIndex($articleCatalogue);
       $config['base_url'] = write_url($articleCatalogue['canonical'], FALSE, TRUE);
       if($config['total_rows'] > 0){
@@ -238,7 +239,10 @@ class ArticleService
       if(!isset($canonical) || empty($canonical)){
           $canonical = $config['base_url'].HTSUFFIX;
       }
+      // dd($pagination);
+      
       return [
+         'catalogue_title' =>$articleCatalogue['title'],
          'pagination' => ($pagination) ?? '',
          'list' => ($article) ?? [],
          'canonical' => $canonical,

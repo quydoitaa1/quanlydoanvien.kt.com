@@ -60,9 +60,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-                        <a href="<?php echo base_url('backend/authentication/auth/forgot'); ?>">
+                        <!-- <a href="<?php //echo base_url('backend/authentication/auth/forgot'); ?>">
                             <small>Quên mật khẩu?</small>
-                        </a>
+                        </a> -->
                     </form>
                 </div>
             </div>

@@ -23,7 +23,7 @@
         <?php if(isset($user['list']) && is_array($user['list']) && count($user['list'])){ ?>
         <?php foreach($user['list'] as $key => $val){ ?>
         <?php
-           $gender = ($val['gender'] == 1) ? 'Nam' : 'Nữ';
+           $gender = ($val['gender'] == 2) ? 'Nam' : 'Nữ';
            $fullname = ($val['fullname'] != '') ? $val['fullname'] : '-';
            $status = ($val['publish'] == 1) ? '<span class="text-success">Active</span>'  : '<span class="text-danger">Deactive</span>';
            foreach(UNION_POSITION as $key1 => $val1){
@@ -64,3 +64,16 @@
 <div id="pagination">
    <?php echo (isset($user['pagination'])) ? $user['pagination'] : ''; ?>
 </div>
+<script>
+      //   $(document).ready(function(){
+      //       $('.dataTables-example').DataTable({
+      //           pageLength: 25,
+      //           responsive: true,
+      //           dom: '<"html5buttons"B>lTfgitp',
+      //           buttons: [
+      //               {extend: 'excel', title: 'ExampleFile'},
+      //           ]
+      //       });
+      //   });
+
+    </script>

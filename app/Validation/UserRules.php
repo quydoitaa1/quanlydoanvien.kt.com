@@ -21,7 +21,11 @@ class UserRules {
 		$this->user = $this->AutoloadModel->_get_where([
 			'table' => 'users',
 			'select' => 'id, fullname, email, password, salt',
-			'where' => ['email' => $email,'deleted_at' => 0]
+			'where' => [
+				'email' => $email,
+				// 'id_student' => $email,
+				'deleted_at' => 0
+				]
 		]);
 
 

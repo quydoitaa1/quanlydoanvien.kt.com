@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
 	<permissions>
-		<title>Thống kê</title>
+		<title>Trang quản lý</title>
 		<item>
 			<param>backend/dashboard/dashboard/index</param>
-			<description>Xem</description>
+			<description>Xem thống kê</description>
 		</item>
 		<item>
-			<param>backend/dashboard/dashboard/user</param>
-			<description>Xem[test]</description>
+			<param>backend</param>
+			<description>Vào trang quản lý</description>
 		</item>
 	</permissions>
 

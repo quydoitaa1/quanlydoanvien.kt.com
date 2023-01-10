@@ -98,6 +98,7 @@ const UNION_POSITION = [
    '7' => 'Ủy viên BCH Liên chi Đoàn',
    '8' => 'Bí thư Chi Đoàn',
    '9' => 'Phó bí thư Chi Đoàn',
+   '10' => 'Đoàn viên',
 ];
 const EVENT_USER = [
    '0' => '------ Chọn trạng thái duyệt ------',

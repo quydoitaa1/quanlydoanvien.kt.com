@@ -215,6 +215,34 @@ class EventService
          'canonical' => $canonical,
       ];
    }
+   public function indexAll($eventCatalogue, $page){
+      helper(['mypagination']);
+      $page = (int)$page;
+      $perpage = 2;
+      $config['total_rows'] = $this->eventRepository->countIndex($eventCatalogue);
+      $config['base_url'] = write_url('chuong-trinh-su-kien', FALSE, TRUE);
+      if($config['total_rows'] > 0){
+         $config = pagination_frontend(['url' => $config['base_url'],'perpage' => $perpage], $config, $page);
+         $this->pagination->initialize($config);
+         $pagination = $this->pagination->create_links();
+         $totalPage = ceil($config['total_rows']/$config['per_page']);
+         $page = ($page <= 0)?1:$page;
+         $page = ($page > $totalPage)?$totalPage:$page;
+         if($page >= 2){
+             $canonical = $config['base_url'].'/trang-'.$page.HTSUFFIX;
+         }
+         $page = $page - 1;
+         $product = $this->eventRepository->paginateIndex($eventCatalogue, $config, $page);
+      }
+      if(!isset($canonical) || empty($canonical)){
+          $canonical = $config['base_url'].HTSUFFIX;
+      }
+      return [
+         'pagination' => ($pagination) ?? '',
+         'list' => ($product) ?? [],
+         'canonical' => $canonical,
+      ];
+   }
    public function createEventUser(){
       $this->db->transBegin();
       try{
@@ -284,6 +312,35 @@ class EventService
          'list' => ($eventCatalogue) ?? [],
       ];
    }
+   public function paginateUserSemester($id, $page){
+      helper(['mypagination']);
+		$page = (int)$page;
+		$id = (int)$id;
+		$perpage = ($this->request->getGet('perpage')) ? $this->request->getGet('perpage') : 20;
+      $keyword = $this->keyword();
+      $condition = $this->condition();
+      $condition['tb1.publish'] = '2';
+      $condition['tb2.semester_id'] = $this->request->getGet('semester_2_id');
+      // dd($condition);
+      $catalogue = [];
+      $query = [];
+      $query = $this->queryPermission(0);
+      $config['total_rows'] = $this->eventRepository->countUserSemester($condition, $keyword, $query);
+		if($config['total_rows'] > 0){
+			$config = pagination_config_bt(['url' => route('backend.event.event.index'),'perpage' => $perpage], $config);
+			$this->pagination->initialize($config);
+			$pagination = $this->pagination->create_links();
+			$totalPage = ceil($config['total_rows']/$config['per_page']);
+			$page = ($page <= 0)?1:$page;
+			$page = ($page > $totalPage)?$totalPage:$page;
+			$page = $page - 1;
+			$eventCatalogue = $this->eventRepository->paginateUserSemester($condition, $keyword, $query, $config, $page);
+		}
+      return [
+         'pagination' => ($pagination) ?? '',
+         'list' => ($eventCatalogue) ?? [],
+      ];
+   }
    private function queryPermission($id){
       $extraQuery = [];
       if(isset($_COOKIE['QLDVKT_backend'])){
@@ -298,11 +355,12 @@ class EventService
             $extraQuery['tb3.class_id '] = $class_id;
          }
       }
-      // if($id > 0){
+      if($id > 0){
          $extraQuery['tb1.event_id '] = $id;
-      // }
+      }
       // dd($extraQuery);
       return $extraQuery;
    }
+
 
 }

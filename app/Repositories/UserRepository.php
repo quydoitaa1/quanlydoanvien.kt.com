@@ -108,5 +108,17 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
          'order_by'=> 'provinceid asc'
       ],TRUE);
    }
+   public function getUserCompare($faculty = '',$class =''){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id_student
+         ',
+         'table' => $this->table.' as tb1',
+         'where' => [
+            'faculty_id' => $faculty,
+            'class_id' => $class,
+         ],
+      ],TRUE);
+   }
 
 }

@@ -56,8 +56,8 @@
                 'dots' => false,
                 'loop' => true,
                 'margin' => 20,
-                // 'autoplay' => true,
-                // 'autoplayTimeout' => 3000,
+                'autoplay' => true,
+                'autoplayTimeout' => 3000,
                 'responsive' => array(
                   0 => array(
                     'items' => 1,

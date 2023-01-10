@@ -32,6 +32,7 @@ function CheckAuthentication()
 	
 	// $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
 	
+	
 	//  if ( !isset($_COOKIE[AUTH.'Backend']) || empty($cookieAuth)) return false;
 	
 	
@@ -85,7 +86,10 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = BASE_URL.'upload/';
+
+$cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
+$email = json_decode($_COOKIE['QLDVKT_backend'], true)['email'];
+$baseUrl = BASE_URL.'upload/'.$email.'/';
 
 
 
@@ -108,7 +112,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseDir = str_replace('\\', '/', (dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/upload/'));
+$baseDir = str_replace('\\', '/', (dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/upload/'.$email.'/'));
 
 
 

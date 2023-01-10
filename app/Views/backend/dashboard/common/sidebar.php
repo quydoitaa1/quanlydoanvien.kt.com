@@ -66,7 +66,7 @@
             <a href="index.html"><i class="fa fa-check-square-o" aria-hidden="true"></i> <span class="nav-label">Điểm rèn luyện</span> <span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                <li class="<?php echo ( $uriModule_name == 'checkevent') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkevent.index')) ?>">Duyệt minh chứng</a></li>
-               <li class="<?php echo ( $uriModule_name == 'checkuserevent') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkevent.index')) ?>">Điểm rèn luyện</a></li>
+               <li class="<?php echo ( $uriModule_name == 'pointtraining') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkevent.pointtraining')) ?>">Điểm rèn luyện</a></li>
             </ul>
          </li>
          <li class="<?php echo ( $uriModule == 'article') ? 'active'  : '' ?>">
@@ -79,9 +79,9 @@
          <li class="<?php echo ( $uriModule == 'slide') ? 'active'  : '' ?>">
             <a href="<?php echo base_url(route('backend.slide.slide.index')) ?>"><i class="fa fa-picture-o" aria-hidden="true"></i> <span class="nav-label">QL Slide</span></a>
          </li>
-         <li class="<?php echo ( $uriModule == 'language') ? 'active'  : '' ?>">
-            <a href="<?php echo base_url(route('backend.language.language.index')) ?>"><i class="fa fa-language" aria-hidden="true"></i> <span class="nav-label">QL Ngôn ngữ</span></a>
-         </li>
+         <!-- <li class="<?php //echo ( $uriModule == 'language') ? 'active'  : '' ?>">
+            <a href="<?php //echo base_url(route('backend.language.language.index')) ?>"><i class="fa fa-language" aria-hidden="true"></i> <span class="nav-label">QL Ngôn ngữ</span></a>
+         </li> -->
          
          <li class="<?php echo ( $uriModule == 'system') ? 'active'  : '' ?>">
             <a href="<?php echo base_url(route('backend.system.general.index')) ?>"><i class="fa fa-cog" aria-hidden="true"></i> <span class="nav-label">Cài đặt chung</span></a>

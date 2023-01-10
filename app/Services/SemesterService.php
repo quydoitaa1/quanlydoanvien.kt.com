@@ -25,6 +25,9 @@ class SemesterService
       $this->pagination = service('Pagination');
       $this->semesterRepository = service('SemesterRepository', $this->module);
       $this->routerRepository = service('routerRepository', 'routers');
+      $this->nestedsetbie = service('Nestedsetbie',
+         ['table' => $this->module]
+      );
    }
 
 
@@ -59,8 +62,10 @@ class SemesterService
    public function create(){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['title','day_start','day_end','publish'], Auth::id());
+         $payload = requestAccept(['parentid','title','day_start','day_end','publish'], Auth::id());
+         // dd($payload);
          $id = $this->semesterRepository->create($payload);
+         $this->nestedsetbie();
 
          $this->db->transCommit();
          $this->db->transComplete();
@@ -77,8 +82,9 @@ class SemesterService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAcceptUpdate(['title','image','founding','description','publish'], Auth::id());
+         $payload = requestAcceptUpdate(['parentid','title','image','founding','description','publish'], Auth::id());
          $flag = $this->semesterRepository->update($payload, $id);
+         $this->nestedsetbie();
 
          $this->db->transCommit();
          $this->db->transComplete();
@@ -110,7 +116,11 @@ class SemesterService
       }
 
    }
-
+   public function nestedsetbie(){
+      $this->nestedsetbie->GetNoLanguage('level ASC, order ASC');
+      $this->nestedsetbie->Recursive(0, $this->nestedsetbie->Set());
+      $this->nestedsetbie->Action();
+   }
    private function condition(){
       $condition = [];
       if($this->request->getGet('publish')){
@@ -140,6 +150,38 @@ class SemesterService
          }
       }
       return $search;
+   }
+   public function index($semester, $page){
+      // dd($semester);
+      helper(['mypagination']);
+      $page = (int)$page;
+      $perpage = 10;
+      $config['total_rows'] = $this->eventRepository->countIndex($semester);
+      $config['base_url'] = write_url($semester['canonical'], FALSE, TRUE);
+      if($config['total_rows'] > 0){
+         $config = pagination_frontend(['url' => $config['base_url'],'perpage' => $perpage], $config, $page);
+         $this->pagination->initialize($config);
+         $pagination = $this->pagination->create_links();
+         $totalPage = ceil($config['total_rows']/$config['per_page']);
+         $page = ($page <= 0)?1:$page;
+         $page = ($page > $totalPage)?$totalPage:$page;
+         if($page >= 2){
+             $canonical = $config['base_url'].'/trang-'.$page.HTSUFFIX;
+         }
+         $page = $page - 1;
+         $event = $this->eventRepository->paginateIndex($semester, $config, $page);
+      }
+      if(!isset($canonical) || empty($canonical)){
+          $canonical = $config['base_url'].HTSUFFIX;
+      }
+      // dd($pagination);
+      
+      return [
+         'catalogue_title' =>$semester['title'],
+         'pagination' => ($pagination) ?? '',
+         'list' => ($event) ?? [],
+         'canonical' => $canonical,
+      ];
    }
 
 }

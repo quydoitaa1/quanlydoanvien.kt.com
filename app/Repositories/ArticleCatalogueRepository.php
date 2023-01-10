@@ -38,7 +38,7 @@ class ArticleCatalogueRepository extends BaseRepository implements ArticleCatalo
          'where' => [
             $field => $value,
             'tb1.deleted_at' => 0
-         ]
+         ],
       ]);
    }
    public function getAll(){
@@ -66,7 +66,8 @@ class ArticleCatalogueRepository extends BaseRepository implements ArticleCatalo
          'where' => [
             'tb1.deleted_at' => 0,
             'tb1.publish' => 1,
-         ]
+         ],
+         'order_by'=> 'tb1.lft asc'
       ],TRUE);
    }
    public function getId(){

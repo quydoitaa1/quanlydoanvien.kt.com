@@ -9,6 +9,7 @@ class Auth extends BaseController{
 
 	public function __construct(){
 		$this->data = [];
+		$this->authentication = service('Auth');
 	}
 
 	public function login(){

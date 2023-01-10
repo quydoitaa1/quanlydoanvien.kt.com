@@ -4,6 +4,10 @@ use App\Controllers\BaseController;
 
 class Event extends BaseController{
 	public function __construct(){
+		$this->semesterRepository = service('semesterRepository', 'semesters');
+		$this->semesterService = service('SemesterService',
+         ['language' => 2, 'module' => 'semesters']
+      );
 
 	}
 
@@ -32,5 +36,40 @@ class Event extends BaseController{
 		
 		echo $where;
 		die();
+	}
+	public function get_semester(){
+		$post = $this->request->getPost('param');
+		$data = $this->semesterRepository->findByField($post['id'], 'tb1.id');
+
+
+		$object = $this->AutoloadModel->_get_where([
+			'select' => $post['select'],
+			'table' => $post['table'].' as tb1',
+			'where' => [
+				'parentid' => $post['id'],
+			],
+
+			 'query' => '
+			 tb1.id IN (
+				SELECT pc.id
+				FROM '.$post['table'].' as pc
+				WHERE pc.lft >= '.$data['lft'].' AND pc.rgt <= '.$data['rgt'].'
+			 )
+		  ',
+			'order_by' => 'title asc'
+		], TRUE);
+		// pre($object);
+		
+
+
+		$html = '<option value="0">'.$post['text'].'</option>';
+		if(isset($object) && is_array($object) && count($object)){
+			foreach($object as $key => $val){
+				$html = $html . '<option value="'.$val['id'].'">'.$val['title'].'</option>';
+			}
+		}
+		echo json_encode([
+			'html' => $html
+		]); die();
 	}
 }

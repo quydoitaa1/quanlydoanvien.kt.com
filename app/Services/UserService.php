@@ -100,11 +100,26 @@ class UserService
       try{
          $payload = requestAccept($field, Auth::id());
          $payload['publish'] = 1;
-         $password = $this->renderPassword();
+         $password = $this->renderPassword($this->request->getPost('password'));
          $payload['salt'] = $password['salt'];
          $payload['password'] = $password['password'];
          // dd($payload);
          $id = $this->userRepository->create($payload);
+         $this->db->transCommit();
+         $this->db->transComplete();
+         return true;
+
+      }catch(\Exception $e ){
+         $this->db->transRollback();
+         $this->db->transComplete();
+         echo $e->getMessage();die();
+         return false;
+      }
+   }
+   public function createExcel($data = []){
+      $this->db->transBegin();
+      try{
+         $id = $this->userRepository->createBatch($data,'users');
          $this->db->transCommit();
          $this->db->transComplete();
          return true;
@@ -191,10 +206,11 @@ class UserService
 
    }
 
-   private function renderPassword(){
+   public function renderPassword($password_base = ''){
       helper('text');
       $salt = random_string('alnum', 168);
-   	$password = password_encode($this->request->getPost('password'), $salt);
+      ($password_base)? $password_base : PASSWORD;
+   	$password = password_encode($password_base, $salt);
       return [
          'salt' => $salt,
          'password' => $password,
@@ -215,6 +231,12 @@ class UserService
       }
       if($this->request->getGet('user_catalogue_id')){
          $condition['tb1.user_catalogue_id'] = $this->request->getGet('user_catalogue_id');
+      }
+      if($this->request->getGet('faculty_id')){
+         $condition['tb1.faculty_id'] = $this->request->getGet('faculty_id');
+      }
+      if($this->request->getGet('class_id')){
+         $condition['tb1.class_id'] = $this->request->getGet('class_id');
       }
 
       return $condition;

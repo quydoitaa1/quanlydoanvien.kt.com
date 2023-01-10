@@ -17,9 +17,9 @@ class Semester extends BaseController{
       $this->semesterService = service('SemesterService',
          ['language' => $this->language, 'module' => $this->module]
       );
-      // $this->nestedsetbie = service('Nestedsetbie',
-      //    ['table' => $this->module,'language' => $this->language, 'foreignkey' => 'product_catalogue_id']
-      // );
+      $this->nestedsetbie = service('Nestedsetbie',
+         ['table' => $this->module]
+      );
       $this->authentication = service('Auth');
       $this->semesterRepository = service('SemesterRepository', $this->module);
 	}
@@ -64,7 +64,7 @@ class Semester extends BaseController{
 
       $method = 'create';
       $title = 'Thêm Mới Học Kỳ';
-    //   $dropdown = $this->nestedsetbie->dropdown();
+      $dropdown = $this->nestedsetbie->DropdownNoLanguage();
       $template = route('backend.event.semester.store');
 		return view(route('backend.dashboard.layout.home'),
          compact('dropdown', 'method', 'validate', 'template', 'title')
@@ -101,6 +101,7 @@ class Semester extends BaseController{
 		}
       $method = 'update';
       $title = 'Cập nhật Học Kỳ';
+      $dropdown = $this->nestedsetbie->DropdownNoLanguage();
       $template = route('backend.event.semester.store');
 		return view(route('backend.dashboard.layout.home'),
          compact('dropdown', 'method', 'validate', 'template', 'title', 'semester')

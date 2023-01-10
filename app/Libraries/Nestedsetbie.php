@@ -36,6 +36,26 @@ class Nestedsetbie{
 		$result = $this->builder->get()->getResultArray();
 		$this->data = $result;
 	}
+	public function GetNoLanguage($order = 'lft ASC, order ASC', $language = ''){
+		// $moduleExtract = explode('_', $this->params['table']);
+		// if($moduleExtract[0] == 'menu' && $language != ''){
+		// 	$this->params['language'] = $language;
+		// }
+    //   $foreignkey = $this->params['foreignkey'];
+    //   if($moduleExtract[0] != 'menu'){
+    //      $table = substr($this->params['table'], 0, -1);
+    //   }else{
+    //      $table = $this->params['table'];
+    //   }
+
+		$this->builder = $this->db->table($this->params['table'].' as tb1');
+		$this->builder->select('tb1.id, tb1.title, tb1.parentid, tb1.lft, tb1.rgt, tb1.level, tb1.order');
+		// $this->builder->join($table.'_translate as tb2','tb1.id = tb2.'.$this->params['foreignkey'].'', 'inner');
+		$this->builder->orderBy($order);
+		$this->builder->where(['tb1.deleted_at' => 0]);
+		$result = $this->builder->get()->getResultArray();
+		$this->data = $result;
+	}
 
 	public function Set(){
 		if(isset($this->data) && is_array($this->data)){
@@ -83,6 +103,17 @@ class Nestedsetbie{
 
 	public function Dropdown($param = NULL){
 		$this->get();
+		if(isset($this->data) && is_array($this->data)){
+			$temp = NULL;
+			$temp[0] = (isset($param['text']) && !empty($param['text']))?$param['text']:'[Root]';
+			foreach($this->data as $key => $val){
+				$temp[$val['id']] = str_repeat('|-----', (($val['level'] > 0)?($val['level'] - 1):0)).$val['title'];
+			}
+			return $temp;
+		}
+	}
+	public function DropdownNoLanguage($param = NULL){
+		$this->GetNoLanguage();
 		if(isset($this->data) && is_array($this->data)){
 			$temp = NULL;
 			$temp[0] = (isset($param['text']) && !empty($param['text']))?$param['text']:'[Root]';

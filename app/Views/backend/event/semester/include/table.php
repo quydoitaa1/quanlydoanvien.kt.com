@@ -26,13 +26,18 @@
                 <input type="checkbox" name="checkbox[]" value="<?php echo $val['id']; ?>" class="checkbox-item">
                 <div for="" class="label-checkboxitem"></div>
            </td>
-           <td>
+           <!-- <td>
                 <div class="uk-flex uk-flex-middle">
                    <div class="main-info">
-                       <div class="title"><a class="maintitle" href="<?php echo site_url('backend/event/event/index/?semester_id='.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
+                       <div class="title"><a class="maintitle" href="<?php //echo site_url('backend/event/event/index/?semester_id='.$val['id']); ?>" title=""><?php echo $val['title']; ?> </a></div>
                        
                    </div>
                </div>
+            </td> -->
+            <td <?php echo ($val['level'] == 1) ? 'class="text-success text-bold"' : '' ?>>
+                <a href="<?php echo base_url('backend/event/event/index/?semester_id'.$val['id'].'') ?>">
+                    <?php echo str_repeat('|----', (($val['level'] > 0)?($val['level'] - 1):0)).$val['title']; ?>
+                </a>
             </td>
 
            <td class="text-center text-primary">
