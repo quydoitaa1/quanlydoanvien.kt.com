@@ -28,6 +28,7 @@ class EventService
       );
       $this->eventRepository = service('EventRepository', $this->module);
       $this->semesterRepository = service('SemesterRepository', 'semesters');
+      $this->userRepository = service('UserRepository', 'users');
       $this->routerRepository = service('routerRepository', 'routers');
    }
 

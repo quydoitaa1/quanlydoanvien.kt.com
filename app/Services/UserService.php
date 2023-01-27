@@ -261,12 +261,17 @@ class UserService
       }
       return $search;
    }
+
+
+
+
+
    private function query(array $catalogue){
       $extraQuery = [];
       if(isset($catalogue) && is_array($catalogue) && count($catalogue)){
          $extraQuery['tb1.user_catalogue_id'] = $catalogue['id'];
       }
-      
+      $condition['tb1.deleted_at'] = 0;
       // dd($extraQuery);
       return $extraQuery;
    }
@@ -288,6 +293,8 @@ class UserService
       // dd($extraQuery);
       return $extraQuery;
    }
+   
+   
 
    
 

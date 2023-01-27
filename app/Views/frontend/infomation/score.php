@@ -19,33 +19,41 @@
             </ul>
             <ul id="my-id" class="uk-switcher ">
               <li>
-              <table class="uk-table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Kỳ học</th>
-                        <th>Số hoạt động tham gia</th>
-                        <th>Điểm rèn luyện</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kì 2 Năm học 2022-2023</td>
-                        <td>6</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="uk-table">
+                <?php if(isset($userEvent) && is_array($userEvent) && count($userEvent)){ ?>
+                  <thead>
+                      <tr>
+                          <th>STT</th>
+                          <th>Kỳ học</th>
+                          <th>Số hoạt động tham gia</th>
+                          <th>Tổng số điểm theo hoạt động</th>
+                          <th>Số điểm tối đa</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($userEvent as $key => $val) {?>
+                      <tr>
+                          <td><?php echo $key+1 ?></td>
+                          <td><?php echo $val['name_semester'] ?></td>
+                          <td><?php echo $val['count_event'] ?></td>
+                          <td><?php echo $val['sum_score'] ?></td>
+                          <td><?php echo ($val['sum_score'] > 15)? '15': $val['sum_score'] ?></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                  <?php }else{ ?>
+                      <div class="error-title uk-text-center">Không có minh chứng nào!</div>
+                    <?php } ?>
+                </table>
               </li>
               
               <li>
                 <div class="page-list">
-                  <?php if(isset($event_waiting) && is_array($event_waiting) && count($event_waiting)){ ?>
+                  <?php if(isset($eventWaiting) && is_array($eventWaiting) && count($eventWaiting)){ ?>
                   <div class="uk-grid uk-grid-medium">
-                  <?php foreach ($event_waiting as $key => $val) {?>
-                    <div class="uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-2">
-                      <div class="article article-event uk-clearfix">
+                  <?php foreach ($eventWaiting as $key => $val) {?>
+                    <div class="uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-2 mb10">
+                      <div class="article-event uk-clearfix">
                         <span class="image img-scaledown">
                           <img  src="<?php echo $val['image'] ?>" class="lazyloading " alt="[Cập nhật]">
                         </span>
@@ -97,11 +105,11 @@
               </li>
               <li>
                 <div class="page-list">
-                  <?php if(isset($event_accept) && is_array($event_accept) && count($event_accept)){ ?>
+                  <?php if(isset($eventAccept) && is_array($eventAccept) && count($eventAccept)){ ?>
                   <div class="uk-grid uk-grid-medium">
-                  <?php foreach ($event_accept as $key => $val) {?>
-                    <div class="uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-2">
-                      <div class="article article-event uk-clearfix">
+                  <?php foreach ($eventAccept as $key => $val) {?>
+                    <div class="uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-2 mb10">
+                      <div class="article-event uk-clearfix">
                         <span class="image img-scaledown">
                           <img  src="<?php echo $val['image'] ?>" class="lazyloading " alt="[Cập nhật]">
                         </span>
@@ -124,11 +132,11 @@
               </li>
               <li>
                 <div class="page-list">
-                  <?php if(isset($event_ignore) && is_array($event_ignore) && count($event_ignore)){ ?>
+                  <?php if(isset($eventIgnore) && is_array($eventIgnore) && count($eventIgnore)){ ?>
                   <div class="uk-grid uk-grid-medium">
-                  <?php foreach ($event_ignore as $key => $val) {?>
+                  <?php foreach ($eventIgnore as $key => $val) {?>
                     <div class="uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-2">
-                      <div class="article article-event uk-clearfix">
+                      <div class="article-event uk-clearfix">
                         <span class="image img-scaledown">
                           <img  src="<?php echo $val['image'] ?>" class="lazyloading " alt="[Cập nhật]">
                         </span>

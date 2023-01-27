@@ -16,6 +16,9 @@ class Score extends FrontendController{
       $this->systemRepository = service('SystemRepository', 'systems');
       $this->userRepository = service('UserRepository', $this->module);
       $this->eventRepository = service('EventRepository', 'events');
+      $this->eventService = service('EventService',
+         ['language' => $this->language, 'module' => $this->module]
+      );
       $this->userCatalogueRepository = service('UserCatalogueRepository', 'user_catalogues');
       $this->facultyRepository = service('facultyRepository', 'faculties');
       $this->eventService = service('EventService',
@@ -31,10 +34,11 @@ class Score extends FrontendController{
         $module = $this->module;
         $faculties = $this->facultyRepository->getHome();
         $general = convertGeneral($this->systemRepository->all('keyword, content'));
-        $event_waiting = $this->eventRepository->getEventUser('1','tb1.publish',$id);
-        $event_accept = $this->eventRepository->getEventUser('2','tb1.publish',$id);
-        $event_ignore = $this->eventRepository->getEventUser('3','tb1.publish',$id);
-         
+        $eventWaiting = $this->eventRepository->getEventUser('1','tb1.publish',$id);
+        $eventAccept = $this->eventRepository->getEventUser('2','tb1.publish',$id);
+        $eventIgnore = $this->eventRepository->getEventUser('3','tb1.publish',$id);
+        $userEvent = $this->eventRepository->paginateUserSemesterFrontend($id);
+      //   dd($userEvent);
          if($this->request->getMethod() == 'post'){
             if(!isset($_COOKIE['QLDVKT_backend'])){
                $this->session->setFlashdata('message-danger', 'Bạn Phải đăng nhập trước khi gửi minh chứng!');
@@ -67,7 +71,7 @@ class Score extends FrontendController{
       $template = route('frontend.infomation.score');
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'userCatalogue','faculties','user','event_waiting','event_accept','event_ignore'
+            'template', 'userCatalogue','faculties','user','eventWaiting','eventAccept','eventIgnore','userEvent'
          )
       );
 	}

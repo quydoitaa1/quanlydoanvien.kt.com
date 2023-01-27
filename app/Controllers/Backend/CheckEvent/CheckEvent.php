@@ -19,6 +19,9 @@ class CheckEvent extends BaseController{
       $this->eventService = service('EventService',
          ['language' => $this->language, 'module' => $this->module]
       );
+      $this->userService = service('UserService',
+         ['language' => $this->language, 'module' => 'users']
+      );
 
       $this->authentication = service('Auth');
       $this->eventRepository = service('eventRepository', $this->module);
@@ -71,10 +74,10 @@ class CheckEvent extends BaseController{
 
    public function pointTraining($page = 1)
    {
-      // if(!$this->authentication->gate('backend.checkevent.checkevent.index')){
-      //    $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-      //    return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      // }
+      if(!$this->authentication->gate('backend.checkevent.checkevent.pointtraining')){
+         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+      }
       // dd(123);
       if($id = $this->request->getGet('semester_2_id')){
 

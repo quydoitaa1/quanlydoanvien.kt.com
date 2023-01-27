@@ -95,7 +95,7 @@ class User extends BaseController{
          }
          $spreadsheet 	= $reader->load($file_name);
          $sheet_data 	= $spreadsheet->getActiveSheet()->toArray();
-         
+         // dd($sheet_data);
          $list 			= [];
          $password = $this->userService->renderPassword(PASSWORD);
 
@@ -104,17 +104,22 @@ class User extends BaseController{
                $list [] = [
                   'fullname' => $val[1],
                   'id_student' => $val[2],
-                  'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', $val[3]))),
+                  'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', date("d/m/Y", strtotime($val[3]))))),
+                  // 'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', $val[3]))),
                   'gender' => (strtolower($val[4]) == 'nam') ? '2' : '1',
                   'phone' => $val[5],
                   'email' => $val[6],
                   'user_catalogue_id' => "10",
+                  'union_position' => "10",
                   'faculty_id' => $this->request->getPost('faculty_id'),
                   'class_id' => $this->request->getPost('class_id'),
                   'publish' => '1',
                   'salt' => $password['salt'],
                   'password' => $password['password'],
                ];
+               // if($val[0] == 'null'){
+               //    break;
+               // }
                if(!filter_var($val[6], FILTER_VALIDATE_EMAIL) || $val[6] == 'null'){
                   $this->session->setFlashdata('message-danger', 'Email của Đoàn viên số thứ tự : '.$val[0].' bị thiếu hoặc sai định dạng!');
                   return redirect()->to($_SERVER['REQUEST_URI']);
@@ -140,6 +145,7 @@ class User extends BaseController{
             }
             
          }
+         dd($list);
          $validate = $this->validationExcel();
          if ($this->validate($validate['validate'], $validate['errorValidate'])){
             if($this->userService->createExcel($list)){

@@ -61,7 +61,6 @@ class Auth extends BaseController{
 				$session = session();
 		 		$session->setFlashdata('message-danger', 'Sai tài khoản hoặc mật khẩu, vui lòng đăng nhập lại!');
 	        	$this->data['validate'] = $this->validator->listErrors();
-				header("location:".BASE_URL.$_SERVER['REQUEST_URI']);
 				return redirect()->to(BASE_URL);
 	        }
 		}

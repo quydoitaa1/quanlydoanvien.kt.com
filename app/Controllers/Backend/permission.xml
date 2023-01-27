@@ -140,6 +140,10 @@
 			<param>backend/checkevent/checkevent/checkuser</param>
 			<description>Duyệt</description>
 		</item>
+		<item>
+			<param>backend/checkevent/checkevent/pointtraining</param>
+			<description>Xem danh sách DRL</description>
+		</item>
 	</permissions>
 	<permissions>
 		<title>QL Nhóm bài viết</title>

@@ -411,6 +411,43 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
          'order_by'=> 'tb1.id desc'
       ], TRUE);
    }
+   public function paginateUserSemesterFrontend($id){
+      return  $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb1.event_id,
+            tb1.user_id,
+            tb1.publish,
+            tb2.score,
+            tb3.fullname,
+            tb3.id_student,
+            tb3.gender,
+            tb3.birthday,
+            tb4.title as name_faculty,
+            tb5.title as name_class,
+            tb6.title as name_semester,
+            tb6.id as id_semester,
+             SUM(score) as sum_score,
+            COUNT(tb3.id_student) as count_event,
+         ',
+         'table' => 'event_user as tb1',
+			'where' => [
+            'tb1.user_id' => $id,
+            'tb1.publish' => '2',
+         ],
+			// 'query' => $query,
+			'join' => [
+            ['events as tb2', 'tb1.event_id = tb2.id', 'inner'],
+            ['users as tb3', 'tb1.user_id = tb3.id', 'inner'],
+            ['faculties as tb4','tb3.faculty_id = tb4.id','inner'],
+            ['classes as tb5','tb3.class_id = tb5.id','inner'],
+            ['semesters as tb6','tb2.semester_id = tb6.id','inner'],
+			],
+         'group_by' => 'tb6.id',
+         // 'having' => 'COUNT(id_student) > 1 ',
+         // 'order_by'=> 'tb1.id desc'
+      ], TRUE);
+   }
 
 
 }
