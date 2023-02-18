@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="<?php echo BASE_URL; ?>">
     <title><?php echo NAME_TITLE ?></title>
-
+    <link rel="icon" href="upload/image/logo/LOGO-DOAN.png" type="image/png" sizes="30x30">
     <link href="<?php echo ASSET_BACKEND; ?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo ASSET_BACKEND; ?>font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -17,65 +17,53 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="container-fluid login-admin">
 
-    <div class="loginColumns animated fadeInDown">
+    <div class="container-login">
         <div class="row">
 
-            <div class="col-md-6">
-                <h2 class="font-bold"><?php echo CMS_NAME ?></h2>
-
-                <!-- <p>
-                    +5,000 doanh nghiệp và chủ shop đã chọn để bán hàng từ Online đến Offline.
-                </p>
-
-                <p>
-                    Sản phẩm của Anh Minh Media luôn có tốc độ xử lý rất nhanh(~2 giây) giúp đem lại trải nghiệm tốt cho người dùng.
-                </p>
-
-                <p>
-                    Với công nghệ mới, khách hàng sẽ luôn được sử dụng sản phẩm tốt nhất với mức giá ưu đãi nhất.
-
-
-                </p>
-
-                <p>
-                    Website được xây dựng đơn giản rõ ràng, tinh tế, cùng chế độ bảo hành bảo trì thường xuyên.
-                </p> -->
-                <p>
-                    Chào mừng bạn đã đến với trang quản lý Đoàn viên Đại học Kiến trúc Hà Nội.
-                </p>
-
+            <div class="col-md-3">
+                <div class="panel-login">
+                    <div class="panel-head">
+                        <div class ="img-cover">
+                            <img src="upload/image/logo/logodoan.png" alt="">
+                        </div>
+                        <h2 class="font-bold"><?php echo CMS_NAME ?></h2>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="title">Thông tin đăng nhập</h3>
+                        <?php echo  (!empty($validate) && isset($validate)) ? '<div class="alert alert-danger">'.$validate.'</div>'  : '' ?>
+                        <form class="m-t" method="post" action="backend/authentication/auth/login">
+                            <div class="form-group mb20">
+                                <input type="text" name="email" value="<?php echo set_value('email') ?>" class="form-control" placeholder="Email hoặc Mã sinh viên">
+                            </div>
+                            <div class="form-group mb20">
+                                <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                            </div>
+                            <button type="submit" class="btn btn-success block full-width m-b">Đăng nhập</button>
+                        </form>
+                    </div>
+                    <div class="row sub-footer">
+                        <div class="col-md-8">
+                            <div class="sub-title">
+                                <?php echo CMS_NAME ?> <?php echo date('Y'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <div class="sub-title">
+                                <small>© 2022-2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <div class="ibox-content">
-                    <?php echo  (!empty($validate) && isset($validate)) ? '<div class="alert alert-danger">'.$validate.'</div>'  : '' ?>
-
-                    <form class="m-t" method="post" action="backend/authentication/auth/login">
-                        <div class="form-group">
-                            <input type="text" name="email" value="<?php echo set_value('email') ?>" class="form-control" placeholder="Username">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-
-                        <!-- <a href="<?php //echo base_url('backend/authentication/auth/forgot'); ?>">
-                            <small>Quên mật khẩu?</small>
-                        </a> -->
-                    </form>
+            <div class="col-md-9">
+                <div class="panel-image img-cover">
+                    <img src="upload/image/logo/login2.jpg" alt="">
                 </div>
             </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="col-md-6">
-                <?php echo CMS_NAME ?><?php echo date('Y'); ?>
-            </div>
-            <div class="col-md-6 text-right">
-               <small>© 2021-2022</small>
-            </div>
-        </div>
+        
     </div>
 
 </body>

@@ -21,16 +21,18 @@
                 <form class="filter-wrap mb20" method="get">
                   <div class="wrap-filter-item uk-clearfix mb10">
                     <span>Năm học</span>
-                    <?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b "');?>
-                  </div>
-                  <div class="wrap-filter-item uk-clearfix mb10">
+                    <script>
+                        var semester_1_id = '<?php echo (isset($_POST['semester_1_id'])) ? $_POST['semester_1_id'] : ((request()->getGet('semester_1_id')) ? request()->getGet('semester_1_id') : ''); ?>';
+                    </script>
+                    <?php echo form_dropdown('semester_1_id', $dropdown, set_value('semester_1_id', (request()->getGet('semester_1_id')) ? request()->getGet('semester_1_id') : ''), 'class="form-control " id = "semester_1_id"');?>                                  </div>
+                  <div class="wrap-filter-item uk-clearfix mb20">
                     <span>Học Kỳ</span>
-                    <?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b "');?>
-                  </div>
-                  <div class="wrap-filter-item uk-clearfix mb10">
-                  <span>Đơn vị tổ chức</span>
-                    <?php echo form_dropdown('level_education', LEVEL_EDUCATION, set_value('level_education', (isset($user['level_education'])) ? $user['level_education'] : ''), 'class="form-control m-b "');?>
-
+                    <script>
+                        var semester_2_id = '<?php echo (isset($_POST['semester_2_id'])) ? $_POST['semester_2_id'] : ((request()->getGet('semester_2_id')) ? request()->getGet('semester_2_id') : ''); ?>'
+                    </script>
+                    <select name="semester_2_id" id="semester_2_id" class="form-control location ">
+                        <option value="0">Chọn Học Kì</option>
+                    </select>                  
                   </div>
                   <div class="wrap-filter-item uk-clearfix mb10">
                     <button class="btn btn-submit-filter" type="submit">Tìm kiếm</button>

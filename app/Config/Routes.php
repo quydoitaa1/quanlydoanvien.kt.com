@@ -40,6 +40,8 @@ $routes->get('chi-tiet-chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Event::ind
 $routes->match(['get','post'],'thong-tin-ca-nhan'.HTSUFFIX,'Frontend\Infomation\Infomation::index');
 $routes->match(['get','post'],'diem-ren-luyen'.HTSUFFIX,'Frontend\Infomation\Score::index');
 
+$routes->match(['get','post'],'tim-kiem'.HTSUFFIX,'Frontend\Search\Search::index');
+
 
 
 $routes->get('/admin', 'Backend/Authentication/Auth::login',['filter' => 'login' ]);
@@ -56,7 +58,7 @@ $routes->match(['get','post'],'backend/dashboard/dashboard/index', 'Backend/Dash
 $name = [
     'user','user catalogue','article','article catalogue','slide',
     'product', 'product catalogue', 'media', 'media catalogue', 'language',
-    'organization','branch','faculty','event','semester','check','pointtraining'
+    'organization','branch','faculty','event','semester','check','checkpoint',
 ];
 
 /*MENU*/

@@ -1,22 +1,24 @@
-<table class="footable table table-striped table-bordered table-hover dataTables-example toggle-arrow-tiny">
+<!-- <table class=" excel-table footable table table-bordered table-hover dataTables-example toggle-arrow-tiny"> -->
+<table class=" excel-table  table table-bordered table-hover dataTables-example toggle-arrow-tiny">
    <thead>
    <tr>
-        <th>
+        <th class="noExl">
            <input type="checkbox" id="checkbox-all">
            <label for="check-all" class="labelCheckAll"></label>
         </th>
-        <th data-toggle="true">ID</th>
-        <th>Mã Sinh Viên</th>
-        <th>Họ Tên</th>
-        <th data-hide="all">Ngày Sinh</th>
-        <th data-hide="all">Giới Tính</th>
-        <th>Đơn vị</th>
-        <th>Chức vụ</th>
-        <th>Nhóm thành viên</th>
-        <th data-hide="all">Email</th>
-        <th data-hide="all" class="text-center">Số điện thoại</th>
-        <th class="text-center">Tình trạng</th>
-        <th class="text-center">Thao tác</th>
+        <th class="text-center">STT</th>
+        <!-- <th data-toggle="true">ID</th> -->
+        <th class="text-center">Mã Sinh Viên</th>
+        <th class="text-center">Họ Tên</th>
+        <th class="text-center">Ngày Sinh</th>
+        <th class="text-center">Giới Tính</th>
+        <th class="text-center">Đơn vị</th>
+        <th class="text-center">Chức vụ</th>
+        <!-- <th>Nhóm thành viên</th> -->
+        <th class="text-center">Email</th>
+        <th class="text-center" class="text-center">Số điện thoại</th>
+        <th class="text-center" style="width: 100px;">Tình trạng</th>
+        <th class="text-center noExl">Thao tác</th>
    </tr>
    </thead>
    <tbody>
@@ -33,22 +35,23 @@
            }
         ?>
         <tr id="post-<?php echo $val['id']; ?>" data-id="<?php echo $val['id']; ?>">
-           <td>
+           <td class="">
                 <input type="checkbox" name="checkbox[]" value="<?php echo $val['id']; ?>" class="checkbox-item">
                 <div for="" class="label-checkboxitem"></div>
            </td>
-           <td><?php echo $val['id'] ?></td>
+           <td class="text-center"><?php echo $key+1 ?></td>
+           <!-- <td><?php //echo $val['id'] ?></td> -->
            <td><?php echo $val['id_student'] ?></td>
-           <td><?php echo $fullname ?></td>
-           <td><?php echo  gettime($val['birthday'],'d/m/Y')?></td>
-           <td><?php echo $gender ?></td>
+           <td class="text-navy"><?php echo $fullname ?></td>
+           <td class="text-center"><?php echo  gettime($val['birthday'],'d/m/Y')?></td>
+           <td class="text-center"><?php echo $gender ?></td>
            <td><?php echo $val['name_class'] ?> <br> <?php echo $val['name_faculty'] ?></td>
-           <td><?php echo $position?></td>
-           <td><?php echo $val['name_cat']?></td>
-           <td class="text-navy"><?php echo $val['email'] ?></td>
+           <td class="text-center"><?php echo $position?></td>
+           <!-- <td><?php //echo $val['name_cat']?></td> -->
+           <td ><?php echo $val['email'] ?></td>
            <td class="text-center"><?php echo $val['phone'] ?></td>
            <td class="text-center td-status" data-field="publish" data-module="<?php echo $module; ?>"><?php echo $status; ?></td>
-           <td class="text-center">
+           <td class="text-center ">
                 <a type="button" href="" id = "reset_key" class="btn btn-warning" data-id = "<?php echo $val['id'] ?>"><i class="fa fa-key"></i></a>
                 <a type="button" href="<?php echo base_url('backend/user/user/update/'.$val['id']) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a type="button" href="<?php echo base_url('backend/user/user/delete/'.$val['id']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
@@ -64,16 +67,5 @@
 <div id="pagination">
    <?php echo (isset($user['pagination'])) ? $user['pagination'] : ''; ?>
 </div>
-<script>
-      //   $(document).ready(function(){
-      //       $('.dataTables-example').DataTable({
-      //           pageLength: 25,
-      //           responsive: true,
-      //           dom: '<"html5buttons"B>lTfgitp',
-      //           buttons: [
-      //               {extend: 'excel', title: 'ExampleFile'},
-      //           ]
-      //       });
-      //   });
 
-    </script>
+

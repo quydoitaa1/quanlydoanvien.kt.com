@@ -521,6 +521,257 @@ $(document).ready(function(){
 		change_background();
 		check_setting();
 	});
+
+	// export-excel
+	// $(document).on('click','#btn-export',function(){
+	// 	let _this = $(this);
+	// 	// $('.dataTables-example').DataTable({
+	// 	// 	responsive: true,
+	// 	// 	dom: '<"html5buttons"B>lTfgitp',
+	// 	// 	buttons: [
+	// 	// 		{extend: 'excel', title: 'ExampleFile'},
+	// 	// 	]
+	// 	// });
+	// 	var table = $('.excel-table');
+	// 	console.log(table);
+	// 	if(table && table.length){
+	// 		var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+	// 		$(table).table2excel({
+	// 			exclude: ".noExl",
+	// 			name: "Excel Document Name",
+	// 			filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+	// 			fileext: ".xls",
+	// 			exclude_img: true,
+	// 			exclude_links: true,
+	// 			exclude_inputs: true,
+	// 			preserveColors: preserveColors
+	// 		});
+	// 	}
+	// 	return false;
+
+	// });
+	$(document).on('click','#btn-export-user',function(){
+		let _this = $(this);
+		let id = [];
+		// console.log(count($('.checkbox-item:checked')));
+		if($('.checkbox-item:checked').length){
+			$('.checkbox-item:checked').each(function(){
+				let _this = $(this);
+				id.push(_this.val());
+			});
+			setTimeout(function(){
+				$.post('ajax/user/export_select', 
+				{
+					id:id,
+				},
+					function(data){
+						// let json = JSON.parse(data);
+						console.log(data);
+						if(data.length > 0){
+							// Tạo thẻ <a> ẩn
+							var link = $("<a style='display: none;' />");
+
+							// Thiết lập thuộc tính href và download cho thẻ <a>
+							link.attr({
+								href: data.trim(),
+								download: ""
+							});
+
+							// Thêm thẻ <a> vào DOM
+							$("body").append(link);
+
+							// Kích hoạt sự kiện click bằng phương thức click()
+							link[0].click();
+
+							// Loại bỏ thẻ <a> ẩn
+							link.remove();
+							toastr.success('Đã xuất danh sách thành công','Thông báo từ hệ thống!');
+						}else{
+							toastr.error('Chưa thể xuất được danh sách', 'Có lỗi xảy ra!');
+						}
+					});
+			}, 100);
+		}
+		else{
+			toastr.error('Bạn phải chọn thành phần được xuất', 'Có lỗi xảy ra!');
+		}
+		
+		return false;
+
+	});
+	$(document).on('click','#btn-export-user-all', function(){
+
+		let _this = $(this);
+		$.urlParam = function(name){
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results==null){
+			   return null;
+			}
+			else{
+			   return results[1] || 0;
+			}
+		}
+		
+		// Sử dụng hàm như sau:
+		var union_position = $.urlParam('union_position');
+		var gender = $.urlParam('gender');
+		var faculty_id = $.urlParam('faculty_id');
+		var class_id = $.urlParam('class_id');
+		var keyword = $.urlParam('keyword');
+		// let page = _this.attr('data-page');
+		// console.log(page);
+		 setTimeout(function(){
+			$.get('ajax/user/export_all', 
+			{
+				// page: page,
+				union_position: union_position,
+				gender: gender,
+				faculty_id: faculty_id,
+				class_id: class_id,
+				keyword: keyword,
+
+			},
+				function(data){
+					// let json = JSON.parse(data);
+					console.log(data);
+					if(data.length > 0){
+						// Tạo thẻ <a> ẩn
+						var link = $("<a style='display: none;' />");
+
+						// Thiết lập thuộc tính href và download cho thẻ <a>
+						link.attr({
+							href: data.trim(),
+							download: ""
+						});
+
+						// Thêm thẻ <a> vào DOM
+						$("body").append(link);
+
+						// Kích hoạt sự kiện click bằng phương thức click()
+						link[0].click();
+
+						// Loại bỏ thẻ <a> ẩn
+						link.remove();
+						toastr.success('Đã xuất danh sách thành công','Thông báo từ hệ thống!');
+					}else{
+						toastr.error('Chưa thể xuất được danh sách', 'Có lỗi xảy ra!');
+					}
+				});
+		 }, 100);
+		 return false;
+	 });
+	$(document).on('click','#btn-export-point',function(){
+		let _this = $(this);
+		let id = [];
+		
+		if($('.checkbox-item:checked').length){
+			$('.checkbox-item:checked').each(function(){
+				let _this = $(this);
+				id.push(_this.val());
+			});
+			console.log(id);
+			setTimeout(function(){
+				$.post('ajax/event/export_select', 
+				{
+					id:id,
+				},
+					function(data){
+						// let json = JSON.parse(data);
+						console.log(data);
+						if(data.length > 0){
+							// Tạo thẻ <a> ẩn
+							var link = $("<a style='display: none;' />");
+
+							// Thiết lập thuộc tính href và download cho thẻ <a>
+							link.attr({
+								href: data.trim(),
+								download: ""
+							});
+
+							// Thêm thẻ <a> vào DOM
+							$("body").append(link);
+
+							// Kích hoạt sự kiện click bằng phương thức click()
+							link[0].click();
+
+							// Loại bỏ thẻ <a> ẩn
+							link.remove();
+							toastr.success('Đã xuất danh sách thành công','Thông báo từ hệ thống!');
+						}else{
+							toastr.error('Chưa thể xuất được danh sách', 'Có lỗi xảy ra!');
+						}
+					});
+			}, 100);
+		}
+		else{
+			toastr.error('Bạn phải chọn thành phần được xuất', 'Có lỗi xảy ra!');
+		}
+		
+		return false;
+
+	});
+	$(document).on('click','#btn-export-point-all', function(){
+
+		let _this = $(this);
+		$.urlParam = function(name){
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results==null){
+			   return null;
+			}
+			else{
+			   return results[1] || 0;
+			}
+		}
+		
+		// Sử dụng hàm như sau:
+		var semester_1_id = $.urlParam('semester_1_id');
+		var semester_2_id = $.urlParam('semester_2_id');
+		var faculty_id = $.urlParam('faculty_id');
+		var class_id = $.urlParam('class_id');
+		var keyword = $.urlParam('keyword');
+		// let page = _this.attr('data-page');
+		// console.log(page);
+		 setTimeout(function(){
+			$.get('ajax/event/export_all', 
+			{
+				// page: page,
+				semester_1_id: semester_1_id,
+				semester_2_id: semester_2_id,
+				faculty_id: faculty_id,
+				class_id: class_id,
+				keyword: keyword,
+
+			},
+				function(data){
+					// let json = JSON.parse(data);
+					console.log(data);
+					if(data.length > 0){
+						// Tạo thẻ <a> ẩn
+						var link = $("<a style='display: none;' />");
+
+						// Thiết lập thuộc tính href và download cho thẻ <a>
+						link.attr({
+							href: data.trim(),
+							download: ""
+						});
+
+						// Thêm thẻ <a> vào DOM
+						$("body").append(link);
+
+						// Kích hoạt sự kiện click bằng phương thức click()
+						link[0].click();
+
+						// Loại bỏ thẻ <a> ẩn
+						link.remove();
+						toastr.success('Đã xuất danh sách thành công','Thông báo từ hệ thống!');
+					}else{
+						toastr.error('Chưa thể xuất được danh sách', 'Có lỗi xảy ra!');
+					}
+				});
+		 }, 100);
+		 return false;
+	 });
+
 });
 
 $(document).on('click','.open-window', function(){

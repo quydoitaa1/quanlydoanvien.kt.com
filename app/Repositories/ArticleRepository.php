@@ -277,6 +277,29 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
          'order_by' => 'RAND()'
       ], TRUE);
    }
+   public function searchFrontend($keyword, $table){
+      return $this->model->_get_where([
+         'select' => '
+            tb1.id,
+            tb1.image,
+            tb1.created_at,
+            '.(($table == 'event') ? 'tb1.title' : 'tb2.title').',
+            '.(($table == 'event') ? 'tb1.canonical' : 'tb2.canonical').',
+            '.(($table == 'event') ? 'tb1.description' : 'tb2.description').',
+         ',
+         'table' => $table.'s as tb1',
+         'join' => [
+            [
+               'article_translate as tb2', 'tb1.id = tb2.article_id', 'left'
+            ],
+			],
+         'where' => [
+            'tb1.publish' => 1,
+            'tb1.deleted_at' => 0,
+         ],
+         'keyword' => ($table == 'event')? '(tb1.title LIKE \'%'.$keyword.'%\' OR tb1.description LIKE \'%'.$keyword.'%\' OR tb1.content LIKE \'%'.$keyword.'%\' )' :'(tb2.title LIKE \'%'.$keyword.'%\' OR tb2.description LIKE \'%'.$keyword.'%\' OR tb2.content LIKE \'%'.$keyword.'%\' )',
+      ], TRUE);
+   }
 
 
 }

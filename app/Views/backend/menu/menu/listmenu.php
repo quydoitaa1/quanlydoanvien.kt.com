@@ -37,7 +37,7 @@
                         <div class="uk-flex uk-flex-middle uk-flex-space-between mb20">
                             <div class="perpage">
                                 <div class="uk-flex uk-flex-middle mb10">
-                                    <select name="perpage" class="form-control input-sm perpage filter mr10">
+                                    <select name="perpage" class="form-control input-sm perpage filter mr20">
                                         <option value="5">5 bản ghi</option>
                                         <option value="10">10 bản ghi</option>
                                         <option value="15">15 bản ghi</option>

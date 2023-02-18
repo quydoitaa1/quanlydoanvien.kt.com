@@ -405,7 +405,7 @@ textarea[name="video"] {
 }
 
 .mr30{
-	margin-right:30px;
+	margin-right:20px;
 }
 .mr5{
 	margin-right:5px;
@@ -580,6 +580,7 @@ b, strong, label,
 	height:32px;
 	-webkit-box-shadow: inset 0 1px 0 0 rgba(63,63,68,.05);
     /* box-shadow: inset 0 1px 0 0 rgba(63,63,68,.05); */
+    border-radius: 5px;
 }
 
 .panel-title{
@@ -1320,14 +1321,14 @@ table th {
 }
 .block-comment .box-comment .form .btn-submit{
 	width: 80px;
-	height: 30px;
+	height: 20px;
 	float: right;
 }
 
 .block-comment .list-comment{}
 .block-comment .list-comment>li{}
 .block-comment .list-comment>li:not(:last-child){
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 .block-comment .list-comment>li>*{
 	font-size: 14px;
@@ -1599,7 +1600,10 @@ ul li{
 	margin-bottom: 0 !important;
 }
 .btn {
-	border-radius: 0 !important;
+	border-radius: 5px !important;
+}
+.input-group-btn .btn{
+    border-radius: 0px !important;
 }
 
 .toolbox .form-control{
@@ -1643,7 +1647,7 @@ ul li{
 }
 
 .icon-flag{
-	max-width:30px;
+	max-width:20px;
 	display: inline-block;
 	height:20px;
 }
@@ -1742,11 +1746,11 @@ ul li{
 	background: #fff;
 	font-weight: bold;
 	text-align: center;
-	padding: 30px 0 10px 0;
+	padding: 20px 0 10px 0;
 }
 .tv-input{
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 	border:none;
 	outline: none;
 }
@@ -2514,7 +2518,7 @@ ul li{
 }
 
 .icon-flag{
-	max-width:30px;
+	max-width:20px;
 	display: inline-block;
 	height:20px;
 }
@@ -2844,4 +2848,166 @@ ul li{
 }
 .cursor-not{
   cursor: not-allowed !important;
+}
+/* Doanh bổ sung =================================================================================================== */
+.td-status .text-success{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #05d34e;
+    border-radius: 20px;
+    color: #fff;
+}
+.td-status .text-danger{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ed5565;
+    border-radius: 20px;
+    color: #fff;
+}
+/* .ibox-content {
+    border-radius: 15px;
+} */
+.ibox-title {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-width: 0;
+}
+.ibox-content {
+    border-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.ibox {
+    border-radius: 15px;
+}
+.float-e-margins .btn{
+    margin-bottom: 0 !important;
+}
+.ibox-title h5 {
+    margin-left: 10px;
+    font-size: 18px;
+}
+/* .page-heading{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #4c6ef8;
+} */
+.navbar-static-top{
+    background-color: #fff;
+}
+/* .navbar-static-top li>*{
+    color: #fff;
+}
+.navbar-static-top li>*>*{
+    color: #fff;
+} */
+
+/* .page-heading .breadcrumb{
+    background-color: #4c6ef8;
+}
+.page-heading h2{
+    color: #fff;
+}
+.page-heading .breadcrumb li>*{
+    color: #fff; 
+} */
+#wrapper{
+    background-color: #fff;
+    position: relative;
+}
+.nav > li > a {
+    font-size: 16px;
+    color: #676b84;
+}
+.nav > li.active {
+    background: #fff;
+}
+.nav > li.active > a {
+    color: #16bbe5;
+}
+ul.nav-second-level {
+    background: #fff;
+}
+.navbar-default {
+    /* border-right: 3px solid #0052cc; */
+    box-shadow: 0 0 6px 0 rgb(1 1 1 / 30%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.navbar-static-top{
+    border-bottom: 1px solid #f3f3f4;
+}
+.navbar-default .nav > li > a:focus, .navbar-default .nav > li > a:hover {
+    background-color: #fff;
+    color: #16bbe5;
+}
+body{
+    background-color: #fff;
+}
+.nav-header {
+    background-color: #fff;
+    background-image: none;
+}
+.input-group-btn .btn{
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+.nav-header{
+    padding: 10px 30px;
+}
+.nav-header-right{
+    padding: 10px 30px;
+}
+.navbar-top-links li a {
+    padding: 0;
+}
+body.mini-navbar .nav-header {
+    padding: 0;
+    background-color: #fff;
+}
+.perpage{
+    min-width: 100px;
+}
+.container-fluid.login-admin{
+    padding: 0 5px 0 5px;
+}
+.login-admin .panel-login{
+    padding: 100px 30px 0 30px;
+    position: relative;
+}
+.login-admin .panel-login .panel-head{
+    margin-bottom: 30px;
+}
+.login-admin .panel-login .img-cover{
+    height: 120px;
+    margin-bottom: 30px;
+}
+.login-admin .panel-login .font-bold{
+    font-size: 20px;
+    text-align: center;
+    color: #2f79e2;
+    text-transform: uppercase;
+}
+
+.login-admin .panel-login .panel-body .title{
+    font-size: 16px;
+    padding-bottom: 10px;
+    font-weight: 500;
+    text-align: center;
+    color: #2f79e2;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+}
+.login-admin .panel-login .sub-title{
+    font-size: 13px;
+    font-weight: 400;
+}
+.login-admin .panel-login .sub-footer{
+    margin-top: 250px;
+}
+.login-admin .panel-image{
+    height: 100vh!important;
 }

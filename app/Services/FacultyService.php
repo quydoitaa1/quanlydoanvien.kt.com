@@ -59,7 +59,7 @@ class FacultyService
    public function create(){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['title','image','founding','description','content','canonical','publish'], Auth::id());
+         $payload = requestAccept(['title','image','founding','description','content','canonical','publish','short_title'], Auth::id());
          $id = $this->facultyRepository->create($payload);
          if($id > 0){
             $payloadRouters = router('Faculty','Faculty', $id, $this->module, $this->language, $payload['canonical']);
@@ -80,7 +80,7 @@ class FacultyService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAcceptUpdate(['title','image','founding','description','content','canonical','publish'], Auth::id());
+         $payload = requestAcceptUpdate(['title','image','founding','description','content','canonical','publish','short_title'], Auth::id());
          $flag = $this->facultyRepository->update($payload, $id);
          if($flag > 0){
             $this->routerRepository->deleteRouter($id, $this->module);

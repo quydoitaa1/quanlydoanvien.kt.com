@@ -13,6 +13,7 @@
            <th class="text-center" style="width: 100px;">Ngày kết thúc</th>
            <th style="width:100px;" class="text-center">Người tạo</th>
            <th style="width:100px;" class="text-center">Ngày tạo</th>
+           <th class="text-center" style="width:88px;">Gửi minh chứng</th>
            <th class="text-center" style="width:88px;">Trạng thái</th>
            <th class="text-center" style="width:103px;">Thao tác</th>
        </tr>
@@ -23,6 +24,7 @@
        <?php foreach($event['list'] as $key => $val){ ?>
        <?php
            $status = ($val['publish'] == 1) ? '<span class="text-success">Active</span>'  : '<span class="text-danger">Deactive</span>';
+           $scales = ($val['scales'] == 1) ? '<span class="text-success">Active</span>'  : '<span class="text-danger">Deactive</span>';
            $image = ($val['image']) ? getthumb($val['image'])  :  'public/not-found.png';
        ?>
 
@@ -60,6 +62,7 @@
            </td>
            <td class="text-primary"><?php echo $val['creator']; ?></td>
            <td class="text-center text-primary"><?php echo gettime($val['created_at'],'d/m/Y') ?></td>
+           <td class="text-center td-status" data-field="scales" data-module="<?php echo $module; ?>" data-where="id"><?php echo $scales; ?></td>
            <td class="text-center td-status" data-field="publish" data-module="<?php echo $module; ?>" data-where="id"><?php echo $status; ?></td>
            <td class="text-center">
                <a type="button" href="<?php echo base_url('backend/event/event/update/'.$val['id']) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>

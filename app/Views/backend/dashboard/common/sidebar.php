@@ -12,31 +12,11 @@
    <div class="sidebar-collapse">
       <ul class="nav metismenu" id="side-menu">
          <li class="nav-header">
-            <div class="dropdown profile-element">
-               <div class="container" style="width: 100%;">
-                  <div class="row d-flex align-items-center">
-                     <div class="col-lg-4">
-                        <span><img alt="image" class="img-circle" src="<?php echo $user['image']; ?>" style="min-width:48px;height:48px;" /></span>
-                     </div>
-                     <div class="col-lg-8">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo site_url('profile') ?>">
-                           <span class="clear">
-                              <span class="block m-t-xs mb0"> <strong class="font-bold" style="color:#fff"><?php echo $user['fullname'] ?></strong>
-                           </span>
-                           <span class="text-muted text-xs block mb0"><?php echo $user['job'] ?> <b class="caret" style="color: #8095a8"></b></span> </span>
-                        </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                           <li><a href="<?php echo base_url('backend/user/profile/profile/'.$user['id']) ?>">Đổi mật khẩu</a></li>
-                           <li class="divider"></li>
-                           <li><a href="<?php echo base_url('backend/user/user/update/'.$user['id']) ?>">Cập nhật thông tin</a></li>
-                           <li class="divider"></li>
-                           <li><a href="<?php echo base_url('backend/authentication/auth/logout') ?>">Đăng xuất</a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
+            <div class="logo-back">
+              <a href="index.html" title="logo đoàn" class="img-scaledown">
+                <img src="upload/image/logo/logodoan.png" alt="logo đoàn" class="lazyloading">
+              </a>
             </div>
-            <div class="logo-element">QLĐV</div>
          </li>
          <li class="<?php echo ( $uriModule == 'dashboard') ? 'active'  : '' ?>">
             <a href="<?php echo base_url(route('backend.dashboard.dashboard.index')) ?>"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> <span class="nav-label">Thống kê</span></a>
@@ -66,7 +46,7 @@
             <a href="index.html"><i class="fa fa-check-square-o" aria-hidden="true"></i> <span class="nav-label">Điểm rèn luyện</span> <span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                <li class="<?php echo ( $uriModule_name == 'checkevent') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkevent.index')) ?>">Duyệt minh chứng</a></li>
-               <li class="<?php echo ( $uriModule_name == 'pointtraining') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkevent.pointtraining')) ?>">Điểm rèn luyện</a></li>
+               <li class="<?php echo ( $uriModule_name == 'checkpoint') ? 'active'  : '' ?>"><a href="<?php echo base_url(route('backend.checkevent.checkpoint.index')) ?>">Điểm rèn luyện</a></li>
             </ul>
          </li>
          <li class="<?php echo ( $uriModule == 'article') ? 'active'  : '' ?>">

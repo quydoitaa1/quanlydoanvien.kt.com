@@ -49,7 +49,7 @@ class Event extends FrontendController{
             $this->session->setFlashdata('message-danger', 'Bạn Phải đăng nhập trước khi gửi minh chứng!');
             header("Refresh:0");
          }
-         if($eventUser > 0){
+         else if( $eventUser > 0){
             $this->session->setFlashdata('message-danger', 'Bạn đã gửi minh chứng cuộc thi này!');
             header("Refresh:0");
          }else{
@@ -68,12 +68,12 @@ class Event extends FrontendController{
             // }
          }
 		}
-
-      
+      // dd($event);
+      $general = convertGeneral($this->systemRepository->all('keyword, content'));
       $template = route('frontend.event.event.index');
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'user','template', 'semester', 'event', 'general','eventRelate','faculties'
+            'user','template', 'semester', 'event', 'general','eventRelate','faculties','eventUser','genneral'
          )
       );
 	}

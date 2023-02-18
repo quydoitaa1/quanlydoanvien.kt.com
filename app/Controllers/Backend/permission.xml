@@ -141,7 +141,7 @@
 			<description>Duyệt</description>
 		</item>
 		<item>
-			<param>backend/checkevent/checkevent/pointtraining</param>
+			<param>backend/checkevent/checkpoint/index</param>
 			<description>Xem danh sách DRL</description>
 		</item>
 	</permissions>

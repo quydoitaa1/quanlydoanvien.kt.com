@@ -72,30 +72,30 @@ class CheckEvent extends BaseController{
       );
 	}
 
-   public function pointTraining($page = 1)
-   {
-      if(!$this->authentication->gate('backend.checkevent.checkevent.pointtraining')){
-         $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
-         return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
-      }
-      // dd(123);
-      if($id = $this->request->getGet('semester_2_id')){
+   // public function pointTraining($page = 1)
+   // {
+   //    if(!$this->authentication->gate('backend.checkevent.checkevent.pointtraining')){
+   //       $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
+   //       return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
+   //    }
+   //    // dd(123);
+   //    if($id = $this->request->getGet('semester_2_id')){
 
-         $userEvent = $this->eventService->paginateUserSemester($id,$page);
-         // dd($userEvent);
-      }
-      // $id = semester_2_id
-      $dropdown = convertArrayByValue('Năm học', $this->semesterRepository->getAllCatalogueLv1('semesters'), 'id', 'title');
+   //       $userEvent = $this->eventService->paginateUserSemester($id,$page);
+   //       // dd($userEvent);
+   //    }
+   //    // $id = semester_2_id
+   //    $dropdown = convertArrayByValue('Năm học', $this->semesterRepository->getAllCatalogueLv1('semesters'), 'id', 'title');
       
-      $module = $this->module;
-      $title = 'Danh sách điểm rèn luyện';
-      $template = route('backend.event.checkevent.index_point_training');
-		return view(route('backend.dashboard.layout.home'),
-         compact(
-            'template', 'event', 'module', 'dropdown','title','userEvent'
-         )
-      );
-   }
+   //    $module = $this->module;
+   //    $title = 'Danh sách điểm rèn luyện';
+   //    $template = route('backend.event.checkevent.index_point_training');
+	// 	return view(route('backend.dashboard.layout.home'),
+   //       compact(
+   //          'template', 'event', 'module', 'dropdown','title','userEvent'
+   //       )
+   //    );
+   // }
 
 
 }

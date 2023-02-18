@@ -2237,3 +2237,19 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
 }
+.title-result{
+  color: #f33118;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.title-search{
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px !important;
+}
+.title-search>*{
+  color: #f33118;
+
+}

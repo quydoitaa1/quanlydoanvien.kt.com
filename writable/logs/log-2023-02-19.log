@@ -1,0 +1,14 @@
+CRITICAL - 2023-02-19 03:32:40 --> syntax error, unexpected '',' (T_CONSTANT_ENCAPSED_STRING), expecting ']'
+#0 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(274): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\OpenServer\\d...')
+#1 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\Autoloader\Autoloader.php(228): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Repositorie...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Repositorie...')
+#3 D:\OpenServer\domains\quanlydoanvien.kt.com\app\Config\Services.php(246): spl_autoload_call('App\\Repositorie...')
+#4 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\Config\BaseService.php(100): Config\Services::EventRepository('events', false)
+#5 D:\OpenServer\domains\quanlydoanvien.kt.com\app\Config\Services.php(243): CodeIgniter\Config\BaseService::getSharedInstance('eventrepository', 'events')
+#6 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\Common.php(1030): Config\Services::EventRepository('events')
+#7 D:\OpenServer\domains\quanlydoanvien.kt.com\app\Controllers\Frontend\Infomation\Score.php(18): service('EventRepository', 'events')
+#8 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\CodeIgniter.php(907): App\Controllers\Frontend\Infomation\Score->__construct()
+#9 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\CodeIgniter.php(421): CodeIgniter\CodeIgniter->createController()
+#10 D:\OpenServer\domains\quanlydoanvien.kt.com\vendor\codeigniter4\framework\system\CodeIgniter.php(332): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\OpenServer\domains\quanlydoanvien.kt.com\index.php(48): CodeIgniter\CodeIgniter->run()
+#12 {main}

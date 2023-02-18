@@ -3,7 +3,7 @@
       <div class="upper">
         <div class="uk-container uk-container-center">
           <div class="uk-flex uk-flex-space-between uk-flex-middle">
-            <form action="https://vimiss.vn/tim-kiem.html" method="get" class="uk-form form">
+            <form action="/tim-kiem.html" method="get" class="uk-form form">
               <input type="text" value="" name="keyword" placeholder="Nhập từ khóa để tìm kiếm ..." style="width: 17vw; border-radius: 5px;" class="input-text">
               <input type="submit" value="Search" name="search" class="btn-submit btn-search-header">
             </form>
@@ -27,7 +27,7 @@
           <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <h1 class="hd-logo">
               <a href="index.html" title="logo đoàn" class ="img-scaledown">
-                <img src="upload/image/logo/logodoan.png" alt="logo đoàn" class="lazyloading">
+                <img src="<?php echo $general['homepage_logo'] ?>" alt="logo đoàn" class="lazyloading">
               </a>
             </h1>
             <div class="uk-flex uk-flex-middle">

@@ -18,13 +18,13 @@ class ConfigBie{
 			'label' => 'Thông tin chung',
 			'description' => 'Cài đặt đầy đủ thông tin chung của website. Tên thương hiệu website. Logo của website và icon website trên tab trình duyệt',
 			'value' => array(
-				'company' => array('type' => 'text', 'label' => 'Tên công ty'),
-				'brand' => array('type' => 'text', 'label' => 'Tên thương hiệu'),
-				'slogan' => array('type' => 'text', 'label' => 'Slogan'),
+				'company' => array('type' => 'text', 'label' => 'Tên website'),
+				// 'brand' => array('type' => 'text', 'label' => 'Tên thương hiệu'),
+				// 'slogan' => array('type' => 'text', 'label' => 'Slogan'),
 				'logo' => array('type' => 'images', 'label' => 'Logo'),
-				'favicon' => array('type' => 'images', 'label' => 'Favicon','title' => 'Favicon là gì?','link' => 'https://webchuanseoht.com/favicon-la-gi-tac-dung-cua-favicon-nhu-the-nao.html'),
+				// 'favicon' => array('type' => 'images', 'label' => 'Favicon','title' => 'Favicon là gì?','link' => 'https://webchuanseoht.com/favicon-la-gi-tac-dung-cua-favicon-nhu-the-nao.html'),
 				'copyright' => array('type' => 'text', 'label' => 'Copyright'),
-				'video' => array('type' => 'textarea', 'label' => 'Video'),
+				// 'video' => array('type' => 'textarea', 'label' => 'Video'),
 			),
 		);
 		$data['contact'] =  array(
@@ -33,50 +33,50 @@ class ConfigBie{
 			'value' => array(
 				'address' => array('type' => 'text', 'label' => 'Địa chỉ '),
 				'hotline' => array('type' => 'text', 'label' => 'Hotline'),
-				'mst' => array('type' => 'text', 'label' => 'Mã số thuế'),
+				// 'mst' => array('type' => 'text', 'label' => 'Mã số thuế'),
 				'phone' => array('type' => 'text', 'label' => 'Số điện thoại'),
 				'email' => array('type' => 'text', 'label' => 'Email'),
 				'website' => array('type' => 'text', 'label' => 'Website'),
-				'map' => array('type' => 'textarea', 'label' => 'Bản đồ','title' => 'Hướng dẫn thiết lập bản đồ','link' => 'https://webchuanseoht.com/huong-dan-thiet-lap-ban-do-google-map.html'),
-				'map_link' => array('type' => 'text', 'label' => 'Link Bản đồ'),
+				// 'map' => array('type' => 'textarea', 'label' => 'Bản đồ','title' => 'Hướng dẫn thiết lập bản đồ','link' => 'https://webchuanseoht.com/huong-dan-thiet-lap-ban-do-google-map.html'),
+				// 'map_link' => array('type' => 'text', 'label' => 'Link Bản đồ'),
 			),
 		);
-      $data['cart'] =  array(
-         'label' => 'Thanh toán',
-         'description' => 'Cài đặt đầy đủ Thẻ tiêu đề và thẻ mô tả giúp xác định cửa hàng của bạn xuất hiện trên công cụ tìm kiếm.',
-         'value' => array(
-         	'welcome' => array('type' => 'editor', 'label' => 'Lời chào'),
-         ),
-      );
-		$data['seo'] =  array(
-			'label' => 'Cấu hình thẻ tiêu đề',
-			'description' => 'Cài đặt đầy đủ Thẻ tiêu đề và thẻ mô tả giúp xác định cửa hàng của bạn xuất hiện trên công cụ tìm kiếm.',
-			'value' => array(
-				'meta_title' => array('type' => 'text', 'label' => 'Tiêu đề trang','extend' => ' trên 70 kí tự', 'class' => 'meta-title', 'id' => 'titleCount'),
-				'meta_description' => array('type' => 'textarea', 'label' => 'Mô tả trang','extend' => ' trên 320 kí tự', 'class' => 'meta-description', 'id' => 'descriptionCount'),
-			),
-		);
-		$data['analytic'] =  array(
-			'label' => 'Google Analytics',
-			'description' => 'Dán đoạn mã hoặc mã tài khoản GA được cung cấp bởi Google.',
-			'value' => array(
-				'google_analytic' => array('type' => 'textarea', 'label' => 'Mã Google Analytics','title' => 'Hướng dẫn thiết lập Google Analytic','link' => 'https://webchuanseoht.com/huong-dan-thiet-lap-google-analytics.html'),
-			),
-		);
-		$data['facebook'] =  array(
-			'label' => 'Facebook Pixel',
-			'description' => 'Facebook Pixel giúp bạn tạo chiến dịch quảng cáo trên facebook để tìm kiếm khách hàng mới mua hàng trên website của bạn.',
-			'value' => array(
-				'facebook_pixel' => array('type' => 'textarea', 'label' => 'Facebook Pixel','title' => 'Hướng dẫn thiết lập Facebook Pixel','link' => 'https://webchuanseoht.com/huong-dan-su-dung-pixel-quang-cao-facebook-moi-cap-nhat.html'),
-			),
-		);
-		$data['script'] =  array(
-			'label' => 'Mã Nhúng Mở rộng',
-			'description' => 'Mã nhúng mở rộng giúp bạn dễ dàng tích hợp các tính năng của nhà cung cấp thứ 3 phát triển vào website.',
-			'value' => array(
-				'facebook_pixel' => array('type' => 'textarea', 'label' => 'Script'),
-			),
-		);
+    //   $data['cart'] =  array(
+    //      'label' => 'Thanh toán',
+    //      'description' => 'Cài đặt đầy đủ Thẻ tiêu đề và thẻ mô tả giúp xác định cửa hàng của bạn xuất hiện trên công cụ tìm kiếm.',
+    //      'value' => array(
+    //      	'welcome' => array('type' => 'editor', 'label' => 'Lời chào'),
+    //      ),
+    //   );
+		// $data['seo'] =  array(
+		// 	'label' => 'Cấu hình thẻ tiêu đề',
+		// 	'description' => 'Cài đặt đầy đủ Thẻ tiêu đề và thẻ mô tả giúp xác định cửa hàng của bạn xuất hiện trên công cụ tìm kiếm.',
+		// 	'value' => array(
+		// 		'meta_title' => array('type' => 'text', 'label' => 'Tiêu đề trang','extend' => ' trên 70 kí tự', 'class' => 'meta-title', 'id' => 'titleCount'),
+		// 		'meta_description' => array('type' => 'textarea', 'label' => 'Mô tả trang','extend' => ' trên 320 kí tự', 'class' => 'meta-description', 'id' => 'descriptionCount'),
+		// 	),
+		// );
+		// $data['analytic'] =  array(
+		// 	'label' => 'Google Analytics',
+		// 	'description' => 'Dán đoạn mã hoặc mã tài khoản GA được cung cấp bởi Google.',
+		// 	'value' => array(
+		// 		'google_analytic' => array('type' => 'textarea', 'label' => 'Mã Google Analytics','title' => 'Hướng dẫn thiết lập Google Analytic','link' => 'https://webchuanseoht.com/huong-dan-thiet-lap-google-analytics.html'),
+		// 	),
+		// );
+		// $data['facebook'] =  array(
+		// 	'label' => 'Facebook Pixel',
+		// 	'description' => 'Facebook Pixel giúp bạn tạo chiến dịch quảng cáo trên facebook để tìm kiếm khách hàng mới mua hàng trên website của bạn.',
+		// 	'value' => array(
+		// 		'facebook_pixel' => array('type' => 'textarea', 'label' => 'Facebook Pixel','title' => 'Hướng dẫn thiết lập Facebook Pixel','link' => 'https://webchuanseoht.com/huong-dan-su-dung-pixel-quang-cao-facebook-moi-cap-nhat.html'),
+		// 	),
+		// );
+		// $data['script'] =  array(
+		// 	'label' => 'Mã Nhúng Mở rộng',
+		// 	'description' => 'Mã nhúng mở rộng giúp bạn dễ dàng tích hợp các tính năng của nhà cung cấp thứ 3 phát triển vào website.',
+		// 	'value' => array(
+		// 		'facebook_pixel' => array('type' => 'textarea', 'label' => 'Script'),
+		// 	),
+		// );
 		$data['social'] =  array(
 			'label' => 'Mạng xã hội',
 			'description' => 'Cập nhật đầy đủ thông tin mạng xã hội giúp khách hàng dễ dàng tiếp cận với dịch vụ của bạn',

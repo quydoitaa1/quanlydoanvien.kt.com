@@ -4,16 +4,16 @@
             <div class="uk-width-large-1-3">
                 <div class="ft-info">
                     <div class="ft-information mb20">
-                        <div class="company">WEBSITE QUẢN LÝ ĐOÀN VIÊN ĐẠI HỌC KIẾN TRÚC HÀ NỘI</div>
+                        <div class="company"><?php echo $general['homepage_company'] ?></div>
                         <div class="ft-logo">
-                            <img src="/upload/image/logo/logodoan.png"  class="lazyloading " alt="/upload/image/logo/logodoan.png">
+                            <img src="<?php echo $general['homepage_logo'] ?>"  class="lazyloading " alt="<?php echo $general['homepage_logo'] ?>">
                         </div>
                         <div class="ft-subcribe ft-menu-item">
                             <div class="heading">Kết nối với chúng tôi</div>
                             <div class="footer-social">
                                 <ul class="uk-list uk-clearfix">
                                     <li class="facebook">
-                                        <a href="" title="">
+                                        <a href="<?php echo $general['social_facebook'] ?>" title="">
                                         <i class="fa fa-facebook"></i>
                                         </a>
                                     </li>
@@ -38,8 +38,8 @@
                         <div class="ft-menu">
                             <div class="ft-menu-item">
                                 <div class="heading">Hỗ trợ</div>
-                                <div>Hotline : 0816.678.860 </div>
-                                <div>Email : phamdoanh24@gmail.com </div>
+                                <div>Hotline : <?php echo $general['contact_hotline'] ?> </div>
+                                <div>Email : <?php echo $general['contact_email'] ?> </div>
                             </div>
                         </div>
                     </div>

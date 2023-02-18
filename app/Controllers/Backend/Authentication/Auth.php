@@ -15,7 +15,8 @@ class Auth extends BaseController{
 	public function login(){
 		if($this->request->getMethod() == 'post'){
 			$validate = [
-				'email' => 'required|valid_email',
+				// 'email' => 'required|valid_email',
+				'email' => 'required',
 				'password' => 'required|min_length[6]|checkAuth['.$this->request->getVar('email').']|checkActive['.$this->request->getVar('email').']',
 			];
 			$errorValidate = [
@@ -29,7 +30,8 @@ class Auth extends BaseController{
 		 		$user = $this->AutoloadModel->_get_where([
 		 			'table' => 'users',
 		 			'select' => 'id, fullname, email,user_catalogue_id, class_id, faculty_id, (SELECT permission FROM user_catalogues WHERE user_catalogues.id = users.user_catalogue_id) as permission',
-		 			'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0]
+		 			// 'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0],
+					 'query' => '(`email` = "'.addslashes($this->request->getVar('email')).'" OR `id_student` = "'.addslashes($this->request->getVar('email')).'") AND `deleted_at` = 0',
 		 		]);
 		 		$cookieAuth = [
 		 			'id' => $user['id'],
@@ -69,107 +71,107 @@ class Auth extends BaseController{
         return redirect()->to(BASE_URL.BACKEND_DIRECTORY);
 	}
 
-	public function forgot(){
+	// public function forgot(){
 
-		helper(['mymail']);
-		if($this->request->getMethod() == 'post'){
-			$validate = [
-				'email' => 'required|valid_email|check_email',
-			];
-			$errorValidate = [
-				'email' => [
-					'check_email' => 'Email không tồn tại trong hệ thống!',
-				],
-			];
-			if ($this->validate($validate, $errorValidate)){
-		 		$user = $this->AutoloadModel->_get_where([
-		 			'select' => 'id, fullname, email',
-		 			'table' => 'users',
-		 			'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0],
-		 		]);
+	// 	helper(['mymail']);
+	// 	if($this->request->getMethod() == 'post'){
+	// 		$validate = [
+	// 			'email' => 'required|valid_email|check_email',
+	// 		];
+	// 		$errorValidate = [
+	// 			'email' => [
+	// 				'check_email' => 'Email không tồn tại trong hệ thống!',
+	// 			],
+	// 		];
+	// 		if ($this->validate($validate, $errorValidate)){
+	// 	 		$user = $this->AutoloadModel->_get_where([
+	// 	 			'select' => 'id, fullname, email',
+	// 	 			'table' => 'users',
+	// 	 			'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0],
+	// 	 		]);
 
-		 		$otp = $this->otp();
-		 		$otp_live = $this->otp_time();
-		 		$mailbie = new MailBie();
-		 		$otpTemplate = otp_template([
-		 			'fullname' => $user['fullname'],
-		 			'otp' => $otp,
-		 		]);
+	// 	 		$otp = $this->otp();
+	// 	 		$otp_live = $this->otp_time();
+	// 	 		$mailbie = new MailBie();
+	// 	 		$otpTemplate = otp_template([
+	// 	 			'fullname' => $user['fullname'],
+	// 	 			'otp' => $otp,
+	// 	 		]);
 
-		 		$flag = $mailbie->send([
-		 			'to' => $user['email'],
-		 			'subject' => 'Quên mật khẩu cho tài khoản: '.$user['email'],
-		 			'messages' => $otpTemplate,
-		 		]);
+	// 	 		$flag = $mailbie->send([
+	// 	 			'to' => $user['email'],
+	// 	 			'subject' => 'Quên mật khẩu cho tài khoản: '.$user['email'],
+	// 	 			'messages' => $otpTemplate,
+	// 	 		]);
 
-		 		$update = [
-		 			'otp' => $otp,
-		 			'otp_live' => $otp_live,
-		 		];
-		 		$countUpdate = $this->AutoloadModel->_update([
-		 			'table' => 'users',
-		 			'data' => $update,
-		 			'where' => ['id' => $user['id']],
-		 		]);
+	// 	 		$update = [
+	// 	 			'otp' => $otp,
+	// 	 			'otp_live' => $otp_live,
+	// 	 		];
+	// 	 		$countUpdate = $this->AutoloadModel->_update([
+	// 	 			'table' => 'users',
+	// 	 			'data' => $update,
+	// 	 			'where' => ['id' => $user['id']],
+	// 	 		]);
 
-		 		if($countUpdate > 0 && $flag == true){
-		 			return redirect()->to(BASE_URL.'backend/authentication/auth/verify?token='.base64_encode(json_encode($user)));
-		 		}
-	        }else{
-	        	$this->data['validate'] = $this->validator->listErrors();
-	        }
-		}
+	// 	 		if($countUpdate > 0 && $flag == true){
+	// 	 			return redirect()->to(BASE_URL.'backend/authentication/auth/verify?token='.base64_encode(json_encode($user)));
+	// 	 		}
+	//         }else{
+	//         	$this->data['validate'] = $this->validator->listErrors();
+	//         }
+	// 	}
 
 
-		return view('backend/authentication/forgot', $this->data);
-	}
+	// 	return view('backend/authentication/forgot', $this->data);
+	// }
 
-	public function verify(){
-		helper('text');
-		if($this->request->getMethod() == 'post'){
-			$validate = [
-				'otp' => 'required|check_otp',
-			];
-			$errorValidate = [
-				'otp' => [
-					'check_otp' => 'Mã OTP không chính xác hoặc đã hết thời gian sử dụng!',
-				],
-			];
-			if ($this->validate($validate, $errorValidate)){
-				$user = json_decode(base64_decode($_GET['token']), TRUE);
-		 		$salt = random_string('alnum', 168);
-		 		$password = random_string('numeric', 6);
-		 		$password_encode = password_encode($password, $salt);
+	// public function verify(){
+	// 	helper('text');
+	// 	if($this->request->getMethod() == 'post'){
+	// 		$validate = [
+	// 			'otp' => 'required|check_otp',
+	// 		];
+	// 		$errorValidate = [
+	// 			'otp' => [
+	// 				'check_otp' => 'Mã OTP không chính xác hoặc đã hết thời gian sử dụng!',
+	// 			],
+	// 		];
+	// 		if ($this->validate($validate, $errorValidate)){
+	// 			$user = json_decode(base64_decode($_GET['token']), TRUE);
+	// 	 		$salt = random_string('alnum', 168);
+	// 	 		$password = random_string('numeric', 6);
+	// 	 		$password_encode = password_encode($password, $salt);
 
-		 		$update = [
-		 			'password' => $password_encode,
-		 			'salt' => $salt,
-		 		];
+	// 	 		$update = [
+	// 	 			'password' => $password_encode,
+	// 	 			'salt' => $salt,
+	// 	 		];
 
-		 		$flag = $this->AutoloadModel->_update([
-		 			'table' => 'users',
-		 			'data' => $update,
-		 			'where' => ['id' => $user['id']]
-		 		]);
-		 		if($flag > 0){
-		 			$mailbie = new Mailbie();
-				 	$mailFlag = $mailbie->send([
-			 			'to' => $user['email'],
-			 			'subject' => 'Quên mật khẩu cho tài khoản: '.$user['email'],
-			 			'messages' => '<h3>Mật khẩu mới của bạn là: '.$password.'</h3><div><a target="_blank" href="'.base_url(BACKEND_DIRECTORY).'">Click vào đây để tiến hành đăng nhập</a></div>',
-			 		]);
-			 		if($mailFlag == true){
-			 			return redirect()->to(BASE_URL.BACKEND_DIRECTORY);
-			 		}
-		 		}
+	// 	 		$flag = $this->AutoloadModel->_update([
+	// 	 			'table' => 'users',
+	// 	 			'data' => $update,
+	// 	 			'where' => ['id' => $user['id']]
+	// 	 		]);
+	// 	 		if($flag > 0){
+	// 	 			$mailbie = new Mailbie();
+	// 			 	$mailFlag = $mailbie->send([
+	// 		 			'to' => $user['email'],
+	// 		 			'subject' => 'Quên mật khẩu cho tài khoản: '.$user['email'],
+	// 		 			'messages' => '<h3>Mật khẩu mới của bạn là: '.$password.'</h3><div><a target="_blank" href="'.base_url(BACKEND_DIRECTORY).'">Click vào đây để tiến hành đăng nhập</a></div>',
+	// 		 		]);
+	// 		 		if($mailFlag == true){
+	// 		 			return redirect()->to(BASE_URL.BACKEND_DIRECTORY);
+	// 		 		}
+	// 	 		}
 
-	        }else{
-	        	$this->data['validate'] = $this->validator->listErrors();
-	        }
-		}
+	//         }else{
+	//         	$this->data['validate'] = $this->validator->listErrors();
+	//         }
+	// 	}
 
-		return view('backend/authentication/verify', $this->data);
-	}
+	// 	return view('backend/authentication/verify', $this->data);
+	// }
 
 	private function otp(){
 		helper(['text']);

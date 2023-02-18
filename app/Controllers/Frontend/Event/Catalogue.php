@@ -8,6 +8,7 @@ class Catalogue extends FrontendController{
    protected $systemRepository;
    protected $productRepository;
    protected $cartBie;
+   protected $semesterRepository;
 
 
 
@@ -27,12 +28,24 @@ class Catalogue extends FrontendController{
 
 	public function index( $page = 1, $id = 0){
       $module = $this->module;
-      // dd($id);
-      if($id == 0){
+
+      $semester_1_id = (int)$this->request->getGet('semester_1_id');
+      $semester_2_id = (int)$this->request->getGet('semester_2_id');
+      
+      // dd($semester_2_id);
+
+      if(!isset($semester_1_id) || $semester_1_id == 0){
          $Catalogue = $this->semesterRepository->getAll();
          $event = $this->eventService->indexAll($Catalogue, $page);
-      }else{
-         $Catalogue = $this->semesterRepository->findByField($id, 'tb1.id');
+         
+      }
+      else if($semester_1_id > 0 && $semester_2_id == 0){
+         $Catalogue = $this->semesterRepository->findByField($semester_1_id, 'tb1.id');
+         $event = $this->eventService->index($Catalogue, $page);
+      }
+      else{
+         // dd($semester_2_id);
+         $Catalogue = $this->semesterRepository->findByField($semester_2_id, 'tb1.id');
          $event = $this->eventService->index($Catalogue, $page);
       }
       // dd($event);
@@ -40,18 +53,18 @@ class Catalogue extends FrontendController{
       $faculties = $this->facultyRepository->getHome();
       $general = convertGeneral($this->systemRepository->all('keyword, content'));
 
-      $faculties = $this->facultyRepository->getHome();
       $template = route('frontend.event.catalogue.index');
       if(isset($_COOKIE['QLDVKT_backend'])){
          $id = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
          $user = $this->userRepository->getAccount($id,'tb1.id');
       }
+      $dropdown = convertArrayByValue('Năm học', $this->semesterRepository->getAllCatalogueLv1('semesters'), 'id', 'title');
       // $cart = $this->cartBie->formatCart($this->cart);
       // $js = ['cart','core'];
 
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'product', 'general','user','faculties','event'
+            'template', 'product', 'general','user','faculties','event','dropdown'
          )
       );
 	}

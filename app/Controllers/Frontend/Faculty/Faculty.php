@@ -35,6 +35,7 @@ class Faculty extends FrontendController{
       $faculty = $this->facultyRepository->findByField($id, 'tb1.id');
       $facultyCatalogue = $this->facultyRepository->getHome();
       $faculties = $this->facultyRepository->getHome();
+      $general = convertGeneral($this->systemRepository->all('keyword, content'));
       // dd($facultyCatalogue);
       // $facultyCatalogue =  $this->facultyCatalogueRepository->findByField($faculty['faculty_catalogue_id'], 'tb1.id');
       // $faculty['promotion'] = $this->promotionRepository->findPromotionByFacultyId($faculty['id']);
@@ -42,7 +43,6 @@ class Faculty extends FrontendController{
 
       // // $canonical = $faculty['canonical'];
       // $canonical = write_url($faculty['canonical'], TRUE, TRUE);
-      // $general = convertGeneral($this->systemRepository->all('keyword, content'));
       // $faculty['count'] = $this->facultyRepository->count(['deleted_at' => 0]);
       // $facultyCatalogueList = $this->facultyCatalogueRepository->allFacultyCatalogue($this->language);
       // $facultyCatalogueList = recursive($facultyCatalogueList);

@@ -18,7 +18,12 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="ibox m0">
+					<div class="ibox mb30">
+						<div class="ibox-title">
+							<div class="uk-flex uk-flex-middle uk-flex-space-between">
+								<h5>Phân quyền cho nhóm thành viên</h5>
+							</div>
+						</div>
 						<div class="ibox-content">
 							<div class="row mb15">
 								<div class="col-lg-12">

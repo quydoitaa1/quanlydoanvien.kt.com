@@ -54,7 +54,7 @@
            <td class="text-center text-primary">
                 <?php echo gettime($val['day_end'],'d/m/Y');?>
            </td>
-           <td class="text-center text-primary"><?php //echo $countEvent ?></td>
+           <td class="text-center text-primary"><?php echo $val['count_user'] ?></td>
            <td class="text-center">
                <a type="button" href="<?php echo base_url('backend/checkevent/checkevent/checkuser/'.$val['id']) ?>" class="btn btn-primary"><i class="fa fa-check"></i></a>
                <!-- <a type="button" href="<?php //echo base_url('backend/event/event/delete/'.$val['id']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->

@@ -6,7 +6,7 @@
                <input type="checkbox" id="checkbox-all">
                <label for="check-all" class="labelCheckAll"></label>
            </th>
-           <th style="width: 100px;">ID</th>
+           <th style="width: 30px;">ID</th>
            <th class="text-center" style="width: 180px;">Mã Sinh viên</th>
            <th class="text-center" style="width: 180px;">Họ Tên</th>
            <th class="text-center" style="width: 100px;">Giới tính</th>

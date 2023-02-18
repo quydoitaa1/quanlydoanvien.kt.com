@@ -21,7 +21,9 @@
               <?php  ?>
               <div class="contact-form mb30">
                 <h2 class="heading-2">Gửi minh chứng tham gia</h2>
-                <form action="" class="uk-form form reg-form" method="post">
+                
+                <?php  if(isset($_COOKIE['QLDVKT_backend']) && $event['scales'] == 1){ ?>
+                <form action="" class="uk-form form reg-form mb20" method="post">
                   <div class="form-row">
                       <label class="control-label text-left">
                           <span class="choose-image">Ảnh Minh chứng (Click để chọn hình ảnh)</span>
@@ -39,6 +41,17 @@
                     <input type="submit" class="btn-submit" value="Gửi minh chứng" name="send">
                   </div>
                 </form>
+                <?php }else if (isset($event['scales']) && $event['scales'] == 0){?>
+                  <div class="heading-2" style="color:hsl(0,75%,60%);">Chưa đến thời gian hoặc thời gian gửi minh chứng đã hết !</div>
+                <?php
+                 }else{?>
+                  <div class="heading-2" style="color:hsl(0,75%,60%);">Bạn cần đăng nhập để gửi minh chứng !</div>
+                <?php
+                }
+                ?>
+                <?php if(isset($eventUser) && $eventUser > 0){ ?>
+                  <div class="uk-text-center" style="font-size:12px; color:hsl(0,75%,60%);">Lưu ý: Bạn đã gửi minh chứng cho chương trình này !</div>
+                <?php } ?>
               </div>
               
             </div>

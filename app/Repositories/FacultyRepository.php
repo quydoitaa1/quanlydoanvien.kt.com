@@ -32,7 +32,8 @@ class FacultyRepository extends BaseRepository implements FacultyRepositoryInter
             tb1.description,
             tb1.content,
             tb1.canonical,
-            tb1.founding
+            tb1.founding,
+            tb1.short_title,
          ',
          'table' => $this->table.' as tb1',
          // 'join' => [
@@ -98,6 +99,8 @@ class FacultyRepository extends BaseRepository implements FacultyRepositoryInter
         //  'order_by'=> 'lft asc'
       ], TRUE);
    }
+
+   
 
 //    public function search($keyword, $start, $language = 2){
 //       return  $this->model->_get_where([

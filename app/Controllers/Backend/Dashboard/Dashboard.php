@@ -4,11 +4,16 @@ use App\Controllers\BaseController;
 
 class Dashboard extends BaseController{
 
-	protected $data;
+	protected $userRepository;
 
 	public function __construct(){
-		$this->data = [];
 		$this->authentication = service('Auth');
+		$this->language = $this->currentLanguage();
+		$this->module = 'faculties';
+		$this->userService = service('UserService',
+			['language' => $this->language, 'module' => $this->module]
+		);
+		$this->userRepository = service('UserRepository', $this->module);
 	}
 
 
@@ -17,10 +22,17 @@ class Dashboard extends BaseController{
 		if(!$this->authentication->gate('backend.dashboard.dashboard.index')){
 			$this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
 			return redirect()->to(BASE_URL);
-		 }
-
-		$this->data['template'] = 'backend/dashboard/home/index';
-		return view('backend/dashboard/layout/home', $this->data);
+		}
+		$users = $this->userRepository->getDashboard();
+		$userFaculty = $this->userRepository->getDashboardFaculty();
+		$userEvent = $this->userRepository->getDashboardEvent();
+		// dd($userEvent);
+		$template = route('backend.dashboard.home.index');
+			return view(route('backend.dashboard.layout.home'),
+			compact(
+				'template', 'module', 'users' ,'userFaculty','userEvent'
+			)
+		);
 	}
 
 }

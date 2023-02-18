@@ -123,7 +123,24 @@ $(document).ready(function(){
 		get_location_residence(param);
 	});
 
-    
+    $(document).on('change', '#semester_1_id', function(e, data){
+		let _this = $(this);
+		let id = _this.val();
+		let param = {
+			'id' : id,
+			'text' : '[Chọn Học Kỳ]',
+			'table' : 'semesters',
+			'trigger_semester': (typeof(data) != 'undefined') ? true : false,
+			'select' : 'id, title',
+			'object' : '#semester_2_id',
+		};
+		get_semester(param);
+	});
+	if(typeof(semester_1_id) != 'undefined' && semester_1_id != ''){
+		$('#semester_1_id').val(semester_1_id).trigger('change', [{'trigger':true}]);
+	}
+	
+	
 });
 function get_branch(param){
 	if(class_id == '' || param.trigger_class == false) class_id = 0;
@@ -170,6 +187,21 @@ function get_location_residence(param){
 				$(param.object).html(json.html).val(residence_districtid).trigger('change');
 			}else if(param.object == '#residence_ward'){
 				$(param.object).html(json.html).val(residence_wardid);
+			}
+
+		});
+}
+function get_semester(param){
+	if(semester_2_id == '' || param.trigger_class == false) semester_1_id = 0;
+
+	let formURL = 'ajax/event/get_semester';
+	$.post(formURL, {
+		param: param},
+		function(data){
+			let json = JSON.parse(data);
+			// console.log(param.object);
+			if(param.object == '#semester_2_id'){
+				$(param.object).html(json.html).val(semester_2_id).trigger('change');
 			}
 
 		});

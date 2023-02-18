@@ -105,5 +105,16 @@ const EVENT_USER = [
    '1' => 'Chờ duyệt',
    '2' => 'Đã duyệt',
    '3' => 'Bị loại',
-
+];
+const PERPAGE = [
+   '20' => '20 bản ghi',
+   '40' => '40 bản ghi',
+   '60' => '60 bản ghi',
+   '80' => '80 bản ghi',
+   '100' => '100 bản ghi',
+   '120' => '120 bản ghi',
+   '140' => '140 bản ghi',
+   '160' => '160 bản ghi',
+   '180' => '180 bản ghi',
+   '200' => '200 bản ghi',
 ];

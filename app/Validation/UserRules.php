@@ -21,11 +21,13 @@ class UserRules {
 		$this->user = $this->AutoloadModel->_get_where([
 			'table' => 'users',
 			'select' => 'id, fullname, email, password, salt',
-			'where' => [
-				'email' => $email,
-				// 'id_student' => $email,
-				'deleted_at' => 0
-				]
+			// 'where' => [
+			// 	'email' => $email,
+			// 	// 'id_student' => $email,
+			// 	'deleted_at' => 0
+			// ],
+			// 'query' => 'WHERE `email` = '.$email.' OR `id_student` = '.$email.' AND `deleted_at` = 0',
+			'query' => '(`email` = "'.addslashes($email).'" OR `id_student` = "'.addslashes($email).'") AND `deleted_at` = 0',
 		]);
 
 
@@ -63,7 +65,8 @@ class UserRules {
 		$this->user = $this->AutoloadModel->_get_where([
 			'table' => 'users',
 			'select' => 'id, fullname, email, password, salt',
-			'where' => ['email' => $email,'deleted_at' => 0,'publish' => 1]
+			// 'where' => ['email' => $email,'deleted_at' => 0,'publish' => 1],
+			'query' => '(`email` = "'.addslashes($email).'" OR `id_student` = "'.addslashes($email).'") AND `deleted_at` = 0 AND `publish` = 1',
 		]);
 
 		if(!isset($this->user) || is_array($this->user) == false || count($this->user) == 0){

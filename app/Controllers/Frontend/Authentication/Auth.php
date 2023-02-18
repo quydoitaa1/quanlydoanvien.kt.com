@@ -14,7 +14,7 @@ class Auth extends BaseController{
 	public function login(){
 		if($this->request->getMethod() == 'post'){
 			$validate = [
-				'email' => 'required|valid_email',
+				'email' => 'required',
 				'password' => 'required|min_length[6]|checkAuth['.$this->request->getVar('email').']|checkActive['.$this->request->getVar('email').']',
 			];
 			$errorValidate = [
@@ -28,7 +28,8 @@ class Auth extends BaseController{
 		 		$user = $this->AutoloadModel->_get_where([
 		 			'table' => 'users',
 		 			'select' => 'id, fullname, email, user_catalogue_id, class_id, faculty_id, (SELECT permission FROM user_catalogues WHERE user_catalogues.id = users.user_catalogue_id) as permission',
-		 			'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0]
+		 			// 'where' => ['email' => $this->request->getVar('email'),'deleted_at' => 0],
+					'query' => '(`email` = "'.addslashes($this->request->getVar('email')).'" OR `id_student` = "'.addslashes($this->request->getVar('email')).'") AND `deleted_at` = 0 AND `publish` = 1',
 		 		]);
 		 		$cookieAuth = [
 		 			'id' => $user['id'],

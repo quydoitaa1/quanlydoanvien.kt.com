@@ -18,13 +18,12 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel-head">
-					<h2 class="panel-title">Thông tin chung</h2>
-				</div>
-			</div>
-
-			<div class="col-lg-12">
 				<div class="ibox m0">
+					<div class="ibox-title">
+						<div class="uk-flex uk-flex-middle uk-flex-space-between">
+							<h5>Thông tin chung</h5>
+						</div>
+					</div>
 					<div class="ibox-content">
 						<div class="row">
 							<div class="col-lg-3">
@@ -100,8 +99,8 @@
 											<label class="control-label text-left">
 												<span>Nhóm Thành viên <b class="text-danger">(*)</b></span>
 											</label>
-											<?php echo form_dropdown('user_catalogue_id', $userCatalogue, set_value('user_catalogue_id', (isset($user['user_catalogue_id'])) ? $user['user_catalogue_id'] : ''), 'class="form-control m-b "');?>
-										</div>
+											<?php echo form_dropdown('user_catalogue_id', $userCatalogue, set_value('user_catalogue_id', (isset($user['user_catalogue_id'])) ? $user['user_catalogue_id'] : ''), 'class="form-control m-b "'.(($idLogin == '1' || $idLogin == '7')?'':'disabled').'' );?>
+										</div>	
 									</div>
 									<div class="col-lg-3 mb5">
 										<div class="form-row">
@@ -201,12 +200,12 @@
 		<hr>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel-head">
-					<h2 class="panel-title">Địa chỉ</h2>
-				</div>
-			</div>
-			<div class="col-lg-12">
 				<div class="ibox m0">
+					<div class="ibox-title">
+						<div class="uk-flex uk-flex-middle uk-flex-space-between">
+							<h5>Địa chỉ</h5>
+						</div>
+					</div>
 					<div class="ibox-content">
 						<div class="row">
 							<div class="col-lg-3">
@@ -318,13 +317,14 @@
 		</div>
 		<hr>
 		<div class="row">
+
 		<div class="col-lg-12">
-			<div class="panel-head">
-				<h2 class="panel-title">Thông tin chi tiết</h2>
-			</div>
-		</div>
-		<div class="col-lg-12">
-			<div class="ibox m0">
+			<div class="ibox mb30">
+				<div class="ibox-title">
+					<div class="uk-flex uk-flex-middle uk-flex-space-between">
+						<h5>Thông tin chi tiết</h5>
+					</div>
+				</div>
 				<div class="ibox-content">
 					<div class="row">
 						<div class="col-lg-2 mb5">

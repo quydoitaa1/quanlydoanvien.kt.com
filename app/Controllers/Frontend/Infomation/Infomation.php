@@ -50,7 +50,7 @@ class Infomation extends FrontendController{
          //    $validate = $this->validator->listErrors();
          // }
 		}
-      
+      $general = convertGeneral($this->systemRepository->all('keyword, content'));
       $userCatalogue = convertArrayByValue('Nhóm Thành Viên', $this->userCatalogueRepository->getAll('id, title'), 'id', 'title');
       $ethnic = convertArrayByValue('Dân tộc', $this->userRepository->getSynthesis('vn_ethnic'), 'id', 'name');
       $religion = convertArrayByValue('Tôn giáo', $this->userRepository->getSynthesis('vn_religion'), 'id', 'name');
@@ -60,7 +60,7 @@ class Infomation extends FrontendController{
       $template = route('frontend.infomation.index');
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'title','js', 'userCatalogue','faculty','faculties','ethnic','religion','province','user'
+            'template', 'title','js', 'userCatalogue','faculty','faculties','ethnic','religion','province','user','general'
          )
       );
 	}

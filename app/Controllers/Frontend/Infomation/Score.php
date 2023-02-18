@@ -24,7 +24,6 @@ class Score extends FrontendController{
       $this->eventService = service('EventService',
          ['language' => $this->language, 'module' => 'events']
       );
-
 	}
 
 	public function index($id = 0, $page = 1){
@@ -71,7 +70,7 @@ class Score extends FrontendController{
       $template = route('frontend.infomation.score');
 		return view(route('frontend.homepage.layout.home'),
          compact(
-            'template', 'userCatalogue','faculties','user','eventWaiting','eventAccept','eventIgnore','userEvent'
+            'template', 'userCatalogue','faculties','user','eventWaiting','eventAccept','eventIgnore','userEvent','general'
          )
       );
 	}

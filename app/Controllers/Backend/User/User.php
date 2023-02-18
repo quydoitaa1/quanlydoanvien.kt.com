@@ -34,10 +34,11 @@ class User extends BaseController{
       $userCatalogue = convertArrayByValue('Nhóm Thành Viên', $this->userCatalogueRepository->getAll('id, title'), 'id', 'title');
       $faculty = convertArrayByValue('Liên chi Đoàn', $this->facultyRepository->getAll('id, title'), 'id', 'title');
       $module = $this->module;
+      
       $template = route('backend.user.user.index');
       return view(route('backend.dashboard.layout.home'),
          compact(
-            'template', 'user', 'module', 'userCatalogue','idLogin','faculty'
+            'template', 'user', 'module', 'userCatalogue','idLogin','faculty','page'
          )
       );
 	}
@@ -62,7 +63,7 @@ class User extends BaseController{
          //    $validate = $this->validator->listErrors();
          // }
 		}
-
+      $idLogin = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
       $method = 'create';
       $title = 'Thêm mới Đoàn Viên';
       $userCatalogue = convertArrayByValue('Nhóm Thành Viên', $this->userCatalogueRepository->getAll('id, title'), 'id', 'title');
@@ -72,7 +73,7 @@ class User extends BaseController{
       $faculty = convertArrayByValue('Liên chi Đoàn', $this->facultyRepository->getAll('id, title'), 'id', 'title');
       $template = route('backend.user.user.store');
 		return view(route('backend.dashboard.layout.home'),
-         compact('method', 'validate', 'template', 'title', 'userCatalogue','faculty','ethnic','religion','province')
+         compact('method', 'validate', 'template', 'title', 'userCatalogue','faculty','ethnic','religion','province','idLogin')
       );
 	}
 	public function createExcel(){
@@ -104,8 +105,8 @@ class User extends BaseController{
                $list [] = [
                   'fullname' => $val[1],
                   'id_student' => $val[2],
-                  'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', date("d/m/Y", strtotime($val[3]))))),
-                  // 'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', $val[3]))),
+                  // 'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', date("d/m/Y", strtotime($val[3]))))),
+                  'birthday' => date('Y-m-d', strtotime(str_replace('/', '-', $val[3]))),
                   'gender' => (strtolower($val[4]) == 'nam') ? '2' : '1',
                   'phone' => $val[5],
                   'email' => $val[6],
@@ -145,7 +146,7 @@ class User extends BaseController{
             }
             
          }
-         dd($list);
+         // dd($list);
          $validate = $this->validationExcel();
          if ($this->validate($validate['validate'], $validate['errorValidate'])){
             if($this->userService->createExcel($list)){
@@ -197,6 +198,7 @@ class User extends BaseController{
          //    $validate = $this->validator->listErrors();
          // }
       }
+      $idLogin = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
       $method = 'update';
       $title = 'Cập nhật Đoàn Viên';
       $userCatalogue = convertArrayByValue('Nhóm Thành Viên', $this->userCatalogueRepository->getAll('id, title'), 'id', 'title');
@@ -207,7 +209,7 @@ class User extends BaseController{
 
       $template = route('backend.user.user.store');
       return view(route('backend.dashboard.layout.home'), compact(
-         'dropdown', 'method', 'validate', 'template', 'title', 'userCatalogue', 'user','faculty','ethnic','religion','province'
+         'dropdown', 'method', 'validate', 'template', 'title', 'userCatalogue', 'user','faculty','ethnic','religion','province','idLogin'
          )
       );
 	}
@@ -215,7 +217,7 @@ class User extends BaseController{
 	public function delete($id = 0){
 
       $id = (int)$id;
-      if(!$this->authentication->gate('backend.user.catalogue.delete')){
+      if(!$this->authentication->gate('backend.user.user.delete')){
          $this->session->setFlashdata('message-danger', 'Bạn không có quyền truy cập vào chức năng này!');
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }

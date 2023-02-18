@@ -44,12 +44,12 @@ class EventService
 
       $catalogue = [];
       $query = '';
+
       if($this->request->getGet('semester_id')){
          $semesterID = $this->request->getGet('semester_id');
          $catalogue = $this->semesterRepository->findByField($semesterID, 'tb1.id');
          $catalogue = ($catalogue) ?? [];
          $query = $this->query($catalogue);
-         
       }
       $config['total_rows'] = $this->eventRepository->count($condition, $keyword, $query);
 
@@ -73,7 +73,7 @@ class EventService
    public function create(){
       $this->db->transBegin();
       try{
-         $payload = requestAccept(['canonical','semester_id','title', 'description', 'content', 'score', 'day_start', 'day_end', 'scales', 'catalogue','image','album','publish'], Auth::id());
+         $payload = requestAccept(['canonical','semester_id','title', 'description', 'content', 'score', 'day_start', 'day_end', 'scales', 'catalogue','image','album','publish','scales'], Auth::id());
          // dd($payload);
          $id = $this->eventRepository->create($payload);
          if($id > 0){
@@ -95,7 +95,7 @@ class EventService
    public function update($id){
       $this->db->transBegin();
       try{
-         $payload = requestAcceptUpdate(['semester_id','title', 'description', 'content', 'score', 'day_start', 'day_end', 'scales', 'catalogue','image','album','publish','canonical'], Auth::id());
+         $payload = requestAcceptUpdate(['semester_id','title', 'description', 'content', 'score', 'day_start', 'day_end', 'scales', 'catalogue','image','album','publish','canonical','scales'], Auth::id());
          $flag = $this->eventRepository->update($payload, $id);
          if($flag > 0){
             $this->routerRepository->deleteRouter($id, $this->module);
@@ -135,8 +135,8 @@ class EventService
    private function query(array $catalogue): string{
       $extraQuery = '';
       if(isset($catalogue) && is_array($catalogue) && count($catalogue)){
-         // $extraQuery = 'tb3.semester_id IN (SELECT id FROM semesters WHERE lft >= '.$catalogue['lft'].' AND rgt <= '.$catalogue['rgt'].')';
-         $extraQuery = 'tb1.semester_id = '.$catalogue['id'];
+         $extraQuery = 'tb1.semester_id IN (SELECT id FROM semesters WHERE lft >= '.$catalogue['lft'].' AND rgt <= '.$catalogue['rgt'].')';
+         // $extraQuery = 'tb1.semester_id = '.$catalogue['id'];
       }
       return $extraQuery;
    }
@@ -191,9 +191,10 @@ class EventService
    public function index($eventCatalogue, $page){
       helper(['mypagination']);
       $page = (int)$page;
-      $perpage = 12;
+      $perpage = 1;
       $config['total_rows'] = $this->eventRepository->countIndex($eventCatalogue);
-      $config['base_url'] = write_url($eventCatalogue['canonical'], FALSE, TRUE);
+      // $config['base_url'] = write_url($eventCatalogue['canonical'], FALSE, TRUE);
+      $config['base_url'] = write_url('chuong-trinh-su-kien', FALSE, TRUE);
       if($config['total_rows'] > 0){
          $config = pagination_frontend(['url' => $config['base_url'],'perpage' => $perpage], $config, $page);
          $this->pagination->initialize($config);
@@ -220,7 +221,7 @@ class EventService
       helper(['mypagination']);
       $page = (int)$page;
       $perpage = 2;
-      $config['total_rows'] = $this->eventRepository->countIndex($eventCatalogue);
+      $config['total_rows'] = $this->eventRepository->countIndexAll($eventCatalogue);
       $config['base_url'] = write_url('chuong-trinh-su-kien', FALSE, TRUE);
       if($config['total_rows'] > 0){
          $config = pagination_frontend(['url' => $config['base_url'],'perpage' => $perpage], $config, $page);
@@ -233,7 +234,7 @@ class EventService
              $canonical = $config['base_url'].'/trang-'.$page.HTSUFFIX;
          }
          $page = $page - 1;
-         $product = $this->eventRepository->paginateIndex($eventCatalogue, $config, $page);
+         $product = $this->eventRepository->paginateIndexAll($eventCatalogue, $config, $page);
       }
       if(!isset($canonical) || empty($canonical)){
           $canonical = $config['base_url'].HTSUFFIX;
@@ -322,6 +323,12 @@ class EventService
       $condition = $this->condition();
       $condition['tb1.publish'] = '2';
       $condition['tb2.semester_id'] = $this->request->getGet('semester_2_id');
+      if($this->request->getGet('faculty_id')){
+         $condition['tb3.faculty_id'] = $this->request->getGet('faculty_id');
+      }
+      if($this->request->getGet('class_id')){
+         $condition['tb3.class_id'] = $this->request->getGet('class_id');
+      }
       // dd($condition);
       $catalogue = [];
       $query = [];
@@ -337,6 +344,30 @@ class EventService
 			$page = $page - 1;
 			$eventCatalogue = $this->eventRepository->paginateUserSemester($condition, $keyword, $query, $config, $page);
 		}
+      return [
+         'pagination' => ($pagination) ?? '',
+         'list' => ($eventCatalogue) ?? [],
+      ];
+   }
+   public function excelAll(){
+      helper(['mypagination']);
+      $keyword = $this->keyword();
+      $condition = $this->condition();
+      $condition['tb1.publish'] = '2';
+      $condition['tb2.semester_id'] = $this->request->getGet('semester_2_id');
+      if($this->request->getGet('faculty_id')){
+         $condition['tb3.faculty_id'] = $this->request->getGet('faculty_id');
+      }
+      if($this->request->getGet('class_id')){
+         $condition['tb3.class_id'] = $this->request->getGet('class_id');
+      }
+      // dd($condition);
+      $catalogue = [];
+      $query = [];
+      $query = $this->queryPermission(0);
+
+		$eventCatalogue = $this->eventRepository->exportAll($condition, $keyword, $query);
+		
       return [
          'pagination' => ($pagination) ?? '',
          'list' => ($eventCatalogue) ?? [],

@@ -111,6 +111,7 @@
             ASSET_BACKEND.'js/plugins/morris/raphael-2.1.0.min.js',
             ASSET_BACKEND.'js/plugins/morris/morris.js',
             ASSET_BACKEND.'js/demo/morris-demo.js',
+            ASSET_BACKEND.'plugin/jquery-table2excel-master/dist/jquery.table2excel.js',
 
         ];
 

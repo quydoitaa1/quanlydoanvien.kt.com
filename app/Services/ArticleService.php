@@ -249,5 +249,26 @@ class ArticleService
       ];
    }
 
+   public function searchFrontend(){
+      helper(['mypagination']);
+      $keyword = $this->request->getGet('keyword');
+      $this->module = [
+         'article' => 'Bài viết',
+         'event' => ' Chương trình, sự kiện',
+      ];
+      $data = [];
+      if(isset($this->module)){
+         foreach($this->module as $key => $val){
+            
+            $table = $key;
+            $data[$key] = $this->articleRepository->searchFrontend($keyword, $table);
+         }   
+      }
+      
+      return [
+         'list' => ($data) ?? [],
+      ];
+   }
+
 
 }

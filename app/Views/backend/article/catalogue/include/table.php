@@ -26,7 +26,7 @@
                 <div for="" class="label-checkboxitem"></div>
            </td>
            <td <?php echo ($val['level'] == 1) ? 'class="text-success text-bold"' : '' ?>>
-                <a href="<?php echo base_url('backend/article/article/index/?catalogueid='.$val['id'].'') ?>">
+                <a href="<?php echo base_url('backend/article/article/index/?article_catalogue_id='.$val['id'].'') ?>">
                     <?php echo str_repeat('|----', (($val['level'] > 0)?($val['level'] - 1):0)).$val['title']; ?>
                 </a>
             </td>

@@ -71,7 +71,7 @@ class Event extends BaseController{
       $catalogue = $this->semesterRepository->getAllCatalogue('semesters');
       $dropdown = dropdown_no_language($catalogue);
       $faculty = $this->facultyRepository->getAllCatalogue('faculties');
-      $scales = dropdown_no_language($faculty);
+      // $scales = dropdown_no_language($faculty);
       $template = route('backend.event.event.store');
 		return view(route('backend.dashboard.layout.home'),
          compact('dropdown', 'method', 'validate', 'template', 'title', 'module', 'scales')

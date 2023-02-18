@@ -15,7 +15,7 @@
       </div>
    </div>
 </div>
-<div class="ibox mb20">
+<!-- <div class="ibox mb20">
    <div class="ibox-title">
       <h5>Quy mô chương trình</h5>
    </div>
@@ -26,7 +26,37 @@
                <small class="text-danger">* Không lựa chọn nếu là quy mô toàn trường</small>
             </div>
             <div class="form-row">
-               <?php echo form_dropdown('scales', $scales, set_value('scales', (isset($event['scales'])) ? $event['scales'] : ''), 'class="form-control m-b select2"');?>
+               <?php // echo form_dropdown('scales', $scales, set_value('scales', (isset($event['scales'])) ? $event['scales'] : ''), 'class="form-control m-b select2"');?>
+            </div>
+         </div>
+      </div>
+   </div>
+</div> -->
+<div class="ibox mb20">
+   <div class="ibox-title">
+      <h5>Gửi minh chúng</h5>
+   </div>
+   <div class="ibox-content">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="form-row">
+               <div class="block clearfix">
+                  <div class="i-checks mr30" style="width:100%;">
+                     <span style="color:#000;" class="uk-flex uk-flex-middle">
+                        <?php echo form_radio('scales', set_value('scales', 1), ((isset($_POST['scales']) && $_POST['scales'] == 1 || (isset($event['scales']) && $event['scales'] == 1)) ? true : (!isset($_POST['scales'])) ? true : false),'class=""  id="scales"  style="margin-top:0;margin-right:10px;" '); ?>
+                        <label for="scales" style="margin:0;cursor:pointer;">Cho phép gửi minh chứng</label>
+                     </span>
+                  </div>
+               </div>
+               <div class="block clearfix">
+                  <div class="i-checks" style="width:100%;">
+                     <span style="color:#000;" class="uk-flex uk-flex-middle">
+                        <?php echo form_radio('scales', set_value('scales', 0), ((isset($_POST['scales']) && $_POST['scales'] == 0 || (isset($event['scales']) && $event['scales'] == 0)) ? true : false),'class=""   id="no-scales" style="margin-top:0;margin-right:10px;" '); ?>
+
+                        <label for="no-scales" style="margin:0;cursor:pointer;">Không cho phép gửi minh chứng</label>
+                     </span>
+                  </div>
+               </div>
             </div>
          </div>
       </div>

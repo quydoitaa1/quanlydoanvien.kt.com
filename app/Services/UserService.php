@@ -33,7 +33,6 @@ class UserService
 		$perpage = ($this->request->getGet('perpage')) ? $this->request->getGet('perpage') : 20;
       $keyword = $this->keyword();
       $condition = $this->condition();
-
       $catalogue = [];
       $gender = '';
       $union_position = '';
@@ -51,6 +50,23 @@ class UserService
 			$page = $page - 1;
 			$user = $this->userRepository->paginate($condition, $keyword, $query, $config, $page);
 		}
+      return [
+         'pagination' => ($pagination) ?? '',
+         'list' => ($user) ?? [],
+      ];
+   }
+   public function excelAll(){
+      helper(['mypagination']);
+      $keyword = $this->keyword();
+      $condition = $this->condition();
+      $catalogue = [];
+      $gender = '';
+      $union_position = '';
+      $query = [];
+      $query = $this->queryPermission();
+
+      $user = $this->userRepository->exportAll($condition, $keyword, $query);
+		
       return [
          'pagination' => ($pagination) ?? '',
          'list' => ($user) ?? [],
