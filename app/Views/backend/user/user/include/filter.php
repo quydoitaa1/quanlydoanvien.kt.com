@@ -59,10 +59,10 @@
                             <a href="<?php echo base_url(route('backend.user.user.createexcel')) ?>" class=""><i class="fa fa-upload"></i> Thêm danh sách mới</a>
                         </li>
                         <li>
-                            <a href="" class="" id = "btn-export-user"><i class="fa fa-upload"></i> Xuất danh sách được chọn</a>
+                            <a href="" class="" id = "btn-export-user"><i class="fa fa-download" aria-hidden="true"></i> Xuất danh sách được chọn</a>
                         </li>
                         <li>
-                            <a href=""  data-page="<?php echo $page; ?>"  class="" id = "btn-export-user-all"><i class="fa fa-upload"></i> Xuất toàn bộ danh sách</a>
+                            <a href=""  data-page="<?php echo $page; ?>"  class="" id = "btn-export-user-all"><i class="fa fa-download" aria-hidden="true"></i> Xuất toàn bộ danh sách</a>
                         </li>
                     </ul>
                 </div>

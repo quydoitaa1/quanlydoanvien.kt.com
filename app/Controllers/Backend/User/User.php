@@ -82,6 +82,7 @@ class User extends BaseController{
          return redirect()->to(BASE_URL.route('backend.dashboard.dashboard.index'));
       }
       $userCompare = $this->userRepository-> getUserCompare($this->request->getPost('faculty_id'),$this->request->getPost('class_id'));
+      // dd($userCompare);
 		if($this->request->getMethod() == 'post'){
          $path 			= 'public/csvfile/';
          $json 			= [];
@@ -138,6 +139,7 @@ class User extends BaseController{
                   return redirect()->to($_SERVER['REQUEST_URI']);
                }
                foreach ($userCompare as $keyCompare => $valCompare) {
+                  // dd($valCompare);
                   if(($val[2] == $valCompare['id_student'])){
                      $this->session->setFlashdata('message-danger', 'Đã tồn tại Đoàn viên có mã sinh viên: '.$val[2].' !');
                      return redirect()->to($_SERVER['REQUEST_URI']);

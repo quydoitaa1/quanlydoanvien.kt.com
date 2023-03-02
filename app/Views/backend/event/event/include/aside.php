@@ -73,7 +73,7 @@
          <div class="col-lg-12">
             <div class="form-row">
                <div class="avatar" style="cursor: pointer;"><img src="<?php echo (isset($_POST['image'])) ? $_POST['image'] : ((isset($event['image']) && $event['image'] != '') ? $event['image'] : 'public/not-found.png') ?>" class="img-thumbnail" alt=""></div>
-               <?php echo form_input('image', htmlspecialchars_decode(html_entity_decode(set_value('image', (isset($event['image'])) ? $event['image'] : ''))), 'class="form-control " placeholder="Đường dẫn của ảnh"  id="imageTxt"  autocomplete="off" style="display:none;" ');?>
+               <?php echo form_input('image', htmlspecialchars_decode(html_entity_decode(set_value('image', (isset($event['image'])) ? $event['image'] : 'public/not-found.png'))), 'class="form-control " placeholder="Đường dẫn của ảnh"  id="imageTxt"  autocomplete="off" style="display:none;" ');?>
             </div>
          </div>
       </div>

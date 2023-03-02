@@ -39,6 +39,7 @@ class Article extends FrontendController{
 
       // /* article relate and promotion  */
       $articleRelate = $this->articleRepository->articleRelate($article['article_catalogue_id'], 5);
+
       // $productCatalogueList = $this->productCatalogueRepository->allProductCatalogue($this->language);
       // $productCatalogueList = recursive($productCatalogueList);
 

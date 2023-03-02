@@ -69,7 +69,7 @@
                   <div class="account">
                   <div class="uk-flex uk-flex-middle">
                     <div class="thumb img-cover" style = 'height:50px;width:50px;margin-right:10px'>
-                      <img style = 'border-radius:50%' src="<?php echo $user['image'] ?>" alt="">
+                      <img style = 'border-radius:50%' src="<?php echo (isset($user['image']) && $user['image'] == '')?'upload/image/base_avt.png': $user['image'] ?>" alt="">
                     </div>
                     <div class="info">
                       <span><strong><?php echo $user['fullname'] ?></strong></span>

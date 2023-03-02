@@ -271,7 +271,9 @@ class ArticleRepository extends BaseRepository implements ArticleRepositoryInter
             ],
 			],
          'where' => [
-            'tb1.article_catalogue_id' => $article_catalogue_id
+            'tb1.article_catalogue_id' => $article_catalogue_id,
+            'tb1.publish' => 1,
+            'tb1.deleted_at' => 0,
          ],
          'limit' => $limit,
          'order_by' => 'RAND()'

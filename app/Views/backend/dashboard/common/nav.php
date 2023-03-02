@@ -18,7 +18,7 @@
                 <div class="container" style="width: 100%;">
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-4">
-                            <span class = "img-cover"><img alt="image" class="img-circle" src="<?php echo $user['image']; ?>" style="min-width:48px;height:48px;" /></span>
+                            <span class = "img-cover"><img alt="image" class="img-circle" src="<?php echo (isset($user['image']) && $user['image'] == '')?'upload/image/base_avt.png': $user['image'] ?>" style="min-width:48px;height:48px;" /></span>
                         </div>
                         <div class="col-lg-8">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo site_url('profile') ?>">

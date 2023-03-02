@@ -140,7 +140,8 @@ class BaseRepository implements BaseRepositoryInterface
          'where' => [
             'publish' => 1,
             'deleted_at' => 0,
-         ]
+         ],
+         // 'order_by'=> 'lft asc'
       ],TRUE);
    }
 

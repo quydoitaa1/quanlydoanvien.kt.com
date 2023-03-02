@@ -53,7 +53,7 @@
                             <a href="" class="" id = "btn-export-point"><i class="fa fa-upload"></i> Xuất danh sách được chọn</a>
                         </li>
                         <li>
-                            <a href=""  data-page="<?php //echo $page; ?>"  class="" id = "btn-export-point-all"><i class="fa fa-upload"></i> Xuất toàn bộ danh sách</a>
+                            <a href=""  data-page="<?php //echo $page; ?>"  class="" id = "btn-export-point-all"><i class="fa fa-download" aria-hidden="true"></i> Xuất toàn bộ danh sách</a>
                         </li>
                     </ul>
                 </div>

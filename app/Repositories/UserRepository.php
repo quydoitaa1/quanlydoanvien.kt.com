@@ -183,10 +183,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             tb1.id_student
          ',
          'table' => $this->table.' as tb1',
-         'where' => [
-            'faculty_id' => $faculty,
-            'class_id' => $class,
-         ],
+         // 'where' => [
+         //    'faculty_id' => $faculty,
+         //    'class_id' => $class,
+         // ],
       ],TRUE);
    }
 

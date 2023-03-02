@@ -54,8 +54,8 @@ class Event extends FrontendController{
             header("Refresh:0");
          }else{
             // dd($_POST);
-            // $validate = $this->validation();
-            // if ($this->validate($validate['validate'], $validate['errorValidate'])){
+            $validate = $this->validation();
+            if ($this->validate($validate['validate'], $validate['errorValidate'])){
                if($this->eventService->createEventUser()){
                   $this->session->setFlashdata('message-success', 'Gửi minh chứng thành công!');
                   header("Refresh:0");
@@ -63,12 +63,12 @@ class Event extends FrontendController{
                   $this->session->setFlashdata('message-danger', 'Gửi minh chứng không thành công!');
                   header("Refresh:0");
                }
-            // }else{
-            //    $validate = $this->validator->listErrors();
-            // }
+            }else{
+               $validate = $this->validator->listErrors();
+               $this->session->setFlashdata('message-danger', 'Bạn phải gửi hình ảnh minh chứng!');
+            }
          }
 		}
-      // dd($event);
       $general = convertGeneral($this->systemRepository->all('keyword, content'));
       $template = route('frontend.event.event.index');
 		return view(route('frontend.homepage.layout.home'),
@@ -79,11 +79,11 @@ class Event extends FrontendController{
 	}
    private function validation(){
 		$validate = [
-			'user_id' => 'required',
+			'image' => 'required',
 
 		];
 		$errorValidate = [
-			'user_id' => [
+			'image' => [
 				'required' => 'Bạn phải nhập vào trường tiêu đề'
 			],
 
