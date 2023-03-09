@@ -7,7 +7,7 @@ define('BACKEND_DIRECTORY', 'admin');
 define('AUTH', 'QLDVKT_');
 define('ASSET_BACKEND', 'public/backend/');
 
-define('BASE_URL', 'http://quanlydoanvien.chat.kt.com/');
+define('BASE_URL', 'http://quanlydoanvien.kt.com/');
 define('HTSUFFIX', '.html');
 define('NAME_TITLE', 'Quản lý Đoàn Viên Kiến Trúc');
 
@@ -25,7 +25,7 @@ define('HTMAP', 'contact-map');
 define('HTDBHOST', 'localhost');
 define('HTDBUSER', 'root');
 define('HTDBPASS', 'root');
-define('HTDBNAME', 'demo_qldv');
+define('HTDBNAME', 'qldv');
 
 
 

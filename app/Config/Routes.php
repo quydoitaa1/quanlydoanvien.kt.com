@@ -31,18 +31,17 @@ $routes->setAutoRoute(true);
 $routes->get('/','Frontend\Homepage\Home::index');
 $routes->get('index'.HTSUFFIX,'Frontend\Homepage\Home::index');
 
-$routes->get('grapesjs'.HTSUFFIX,'Frontend\Homepage\Home::grapesjs');
 
 
 
 $routes->get('chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Catalogue::index');
 $routes->get('chuong-trinh-su-kien/trang-([0-9]+)'.HTSUFFIX,'Frontend\Event\Catalogue::index/$1');
 $routes->get('chi-tiet-chuong-trinh-su-kien'.HTSUFFIX,'Frontend\Event\Event::index');
-
 $routes->match(['get','post'],'thong-tin-ca-nhan'.HTSUFFIX,'Frontend\Infomation\Infomation::index');
 $routes->match(['get','post'],'diem-ren-luyen'.HTSUFFIX,'Frontend\Infomation\Score::index');
 
 $routes->match(['get','post'],'tim-kiem'.HTSUFFIX,'Frontend\Search\Search::index');
+
 
 
 $routes->get('/admin', 'Backend/Authentication/Auth::login',['filter' => 'login' ]);
@@ -59,7 +58,7 @@ $routes->match(['get','post'],'backend/dashboard/dashboard/index', 'Backend/Dash
 $name = [
     'user','user catalogue','article','article catalogue','slide',
     'product', 'product catalogue', 'media', 'media catalogue', 'language',
-    'organization','branch','faculty','event','semester','check','checkpoint','chat',
+    'organization','branch','faculty','event','semester','check','checkpoint',
 ];
 
 /*MENU*/

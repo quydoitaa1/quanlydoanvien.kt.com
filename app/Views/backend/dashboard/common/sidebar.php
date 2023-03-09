@@ -59,9 +59,6 @@
          <li class="<?php echo ( $uriModule == 'slide') ? 'active'  : '' ?>">
             <a href="<?php echo base_url(route('backend.slide.slide.index')) ?>"><i class="fa fa-picture-o" aria-hidden="true"></i> <span class="nav-label">QL Slide</span></a>
          </li>
-         <li class="<?php echo ( $uriModule == 'chat') ? 'active'  : '' ?>">
-            <a href="<?php echo base_url(route('backend.chat.chat.index')) ?>"><i class="fa fa-picture-o" aria-hidden="true"></i> <span class="nav-label">QL chat</span></a>
-         </li>
          <!-- <li class="<?php //echo ( $uriModule == 'language') ? 'active'  : '' ?>">
             <a href="<?php //echo base_url(route('backend.language.language.index')) ?>"><i class="fa fa-language" aria-hidden="true"></i> <span class="nav-label">QL Ngôn ngữ</span></a>
          </li> -->
