@@ -190,7 +190,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
       ],TRUE);
    }
 
-   public function getDashboard(){
+   public function getDashboard( $value, string $field){
       return $this->model->_get_where([
          'select' => '
             COUNT(DISTINCT tb1.id) as count_faculty,
@@ -205,6 +205,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ['users as tb3','tb1.id = tb3.faculty_id','left']
          ],
          'where' => [
+            $field => $value,
             'tb1.deleted_at' => 0,
             'tb1.publish' => 1,
          ],
@@ -232,6 +233,31 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
          'group_by' => 'tb1.id'
      ], TRUE);
      
+   }
+   public function getDashboardClass($value, string $field){
+      return $this->model->_get_where([
+         'select' => '
+             tb1.id,
+             tb1.short_title,
+             COUNT(DISTINCT tb3.id) AS count_user,
+             COUNT(DISTINCT tb2.id) AS count_class,
+             SUM(CASE WHEN tb3.gender = 2 THEN 1 ELSE 0 END) AS count_user_man,
+             SUM(CASE WHEN tb3.gender = 1 THEN 1 ELSE 0 END) AS count_user_girl,
+             GROUP_CONCAT(DISTINCT tb2.title) as name_class,
+             tb2.id as class_id
+         ',
+         'table' => 'faculties AS tb1',
+         'join' => [
+             ['classes AS tb2', 'tb1.id = tb2.faculty_id', 'left'],
+             ['users AS tb3', 'tb2.id = tb3.class_id', 'left']
+         ],
+         'where' => [
+               $field => $value,
+             'tb1.deleted_at' => 0,
+             'tb1.publish' => 1
+         ],
+         'group_by' => 'tb1.id ,tb2.id'
+     ], TRUE);
    }
    public function getDashboardEvent(){
       return $this->model->_get_where([

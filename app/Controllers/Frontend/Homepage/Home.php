@@ -57,6 +57,24 @@ class Home extends FrontendController{
       );
 
 	}
+	public function grapesjs(){
+      $article = $this->articleRepository->getHome();
+      $general = convertGeneral($this->systemRepository->all('keyword, content'));
+      // dd($general);
+      if(isset($_COOKIE['QLDVKT_backend'])){
+         $id = json_decode($_COOKIE['QLDVKT_backend'], true)['id'];
+         $user = $this->userRepository->getAccount($id,'tb1.id');
+      }
+      $faculties = $this->facultyRepository->getHome();
+      $event = $this->eventRepository->getHome();
+		$template = route('frontend.homepage.home.grapesjs');
+      return view(route('frontend.homepage.layout.home'),
+         compact(
+            'template', 'general', 'faculties', 'event','user','article','slide'
+         )
+      );
+
+	}
 
 
 

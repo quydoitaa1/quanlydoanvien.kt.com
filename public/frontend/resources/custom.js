@@ -37,6 +37,8 @@
 
     
 $(document).ready(function(){
+	
+	
 
     $(document).on('change', '#faculty', function(e, data){
 		let _this = $(this);

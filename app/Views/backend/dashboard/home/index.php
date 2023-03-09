@@ -56,6 +56,7 @@
                 </div>
             </div>
         </div>
+        <?php if($user_cat_id == 8 || $user_cat_id == 9){}else{ ?>
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -74,6 +75,7 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -92,6 +94,7 @@
                 </div>
             </div>
         </div>
+        <?php if($user_cat_id == 8 || $user_cat_id == 9){}else{ ?>
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -110,57 +113,83 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <?php } ?>
 <script>
     $(function() {
+        <?php if(isset($userClass) && is_array($userClass)){ ?>
+            var class_user = <?php echo json_encode($userClass) ?>;
+        <?php } ?>
         var faculty = <?php echo json_encode($userFaculty) ?>;
         var semester = <?php echo json_encode($userEvent) ?>;
         // var data1 = faculty.map(function(item) {
         //     return { y: item['short_title'], a: parseInt(item['count_user']) };
         // });
+    <?php if($user_cat_id == 8 || $user_cat_id == 9){ ?>
+        Morris.Bar({
+            element: 'morris-bar-chart-1',
+            data: class_user,
+            xkey: 'name_class',
+            ykeys: ['count_user'],
+            labels: ['Số Đoàn viên'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb'],
+        });
+        Morris.Bar({
+            element: 'morris-bar-chart-3',
+            data: class_user,
+            xkey: 'name_class',
+            ykeys: ['count_user_man', 'count_user_girl'],
+            labels: ['Nam', 'Nữ'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb', '#ff6384'],
+        });
+    <?php
+    }else{
+    ?>
+        Morris.Bar({
+            element: 'morris-bar-chart-1',
+            data: faculty,
+            xkey: 'short_title',
+            ykeys: ['count_user'],
+            labels: ['Số Đoàn viên'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb'],
+        });
+        Morris.Bar({
+            element: 'morris-bar-chart-2',
+            data: faculty,
+            xkey: 'short_title',
+            ykeys: ['count_class'],
+            labels: ['Chi Đoàn'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb'],
+        });
+        Morris.Bar({
+            element: 'morris-bar-chart-3',
+            data: faculty,
+            xkey: 'short_title',
+            ykeys: ['count_user_man', 'count_user_girl'],
+            labels: ['Nam', 'Nữ'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb', '#ff6384'],
+        });
+        Morris.Bar({
+            element: 'morris-bar-chart-4',
+            data: semester,
+            xkey: 'title_semester',
+            ykeys: ['count_event', 'count_checkevent','count_checkevent_succsess'],
+            labels: ['Sự kiện', 'Minh chứng đã gửi', 'Minh chứng đã duyệt'],
+            hideHover: 'auto',
+            resize: true,
+            barColors: ['#36a2eb', '#ff6384', '#1ab394'],
+        });
+    <?php } ?>
 
-    Morris.Bar({
-        element: 'morris-bar-chart-1',
-        data: faculty,
-        xkey: 'short_title',
-        ykeys: ['count_user'],
-        labels: ['Số Đoàn viên'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#36a2eb'],
-    });
-
-    Morris.Bar({
-        element: 'morris-bar-chart-2',
-        data: faculty,
-        xkey: 'short_title',
-        ykeys: ['count_class'],
-        labels: ['Chi Đoàn'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#36a2eb'],
-    });
-    Morris.Bar({
-        element: 'morris-bar-chart-3',
-        data: faculty,
-        xkey: 'short_title',
-        ykeys: ['count_user_man', 'count_user_girl'],
-        labels: ['Nam', 'Nữ'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#36a2eb', '#ff6384'],
-    });
-    Morris.Bar({
-        element: 'morris-bar-chart-4',
-        data: semester,
-        xkey: 'title_semester',
-        ykeys: ['count_event', 'count_checkevent','count_checkevent_succsess'],
-        labels: ['Sự kiện', 'Minh chứng đã gửi', 'Minh chứng đã duyệt'],
-        hideHover: 'auto',
-        resize: true,
-        barColors: ['#36a2eb', '#ff6384', '#1ab394'],
-    });
 
 });
 

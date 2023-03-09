@@ -220,7 +220,7 @@ class EventService
    public function indexAll($eventCatalogue, $page){
       helper(['mypagination']);
       $page = (int)$page;
-      $perpage = 2;
+      $perpage = 20;
       $config['total_rows'] = $this->eventRepository->countIndexAll($eventCatalogue);
       $config['base_url'] = write_url('chuong-trinh-su-kien', FALSE, TRUE);
       if($config['total_rows'] > 0){
@@ -230,7 +230,7 @@ class EventService
          $totalPage = ceil($config['total_rows']/$config['per_page']);
          $page = ($page <= 0)?1:$page;
          $page = ($page > $totalPage)?$totalPage:$page;
-         if($page >= 2){
+         if($page >= 20){
              $canonical = $config['base_url'].'/trang-'.$page.HTSUFFIX;
          }
          $page = $page - 1;

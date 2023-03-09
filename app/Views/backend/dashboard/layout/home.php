@@ -35,6 +35,7 @@
             ASSET_BACKEND.'css/plugins/dataTables/datatables.min.css',
             // biểu đồ
             ASSET_BACKEND.'css/plugins/morris/morris-0.4.3.min.css',
+            ASSET_BACKEND.'css/chat.css',
 
         ];
     ?>
